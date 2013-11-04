@@ -108,7 +108,6 @@ main._doTimerShow = false;
 main._debugRender = function (ctx) {
     
     if (eatKey(TOGGLE_TIMER_SHOW)) this._doTimerShow = !this._doTimerShow;
-    
     if (!this._doTimerShow) return;
     
     var y = 350;
@@ -129,6 +128,5 @@ main.init = function () {
     // so let's use a fillStyle which works against that...
     //
     g_ctx.fillStyle = "white";
-
     this._requestNextIteration();
 };
