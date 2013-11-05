@@ -62,6 +62,8 @@ Rock.prototype.randomiseVelocity = function () {
 Rock.prototype.update = function (du) {
 
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
+    spatialManager.unregister(this);
+    if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.cx += this.velX * du;
     this.cy += this.velY * du;
@@ -73,7 +75,7 @@ Rock.prototype.update = function (du) {
     this.wrapPosition();
     
     // TODO: YOUR STUFF HERE! --- (Re-)Register
-
+    spatialManager.register(this);
 };
 
 Rock.prototype.getRadius = function () {
@@ -82,9 +84,9 @@ Rock.prototype.getRadius = function () {
 
 // HACKED-IN AUDIO (no preloading)
 Rock.prototype.splitSound = new Audio(
-  "sounds/rockSplit.ogg");
+  "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/rockSplit.ogg");
 Rock.prototype.evaporateSound = new Audio(
-  "sounds/rockEvaporate.ogg");
+  "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/rockEvaporate.ogg");
 
 Rock.prototype.takeBulletHit = function () {
     this.kill();

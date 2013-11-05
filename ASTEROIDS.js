@@ -92,7 +92,7 @@ var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MIXED   = keyCode('M');;
+var KEY_MIXED   = keyCode('M');
 var KEY_GRAVITY = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
@@ -139,6 +139,7 @@ function processDiagnostics() {
 
     if (eatKey(KEY_K)) entityManager.killNearestShip(
         g_mouseX, g_mouseY);
+
 }
 
 

@@ -118,6 +118,7 @@ killNearestShip : function(xPos, yPos) {
     var theShip = this._findNearestShip(xPos, yPos).theShip;
     if (theShip) {
         theShip.kill();
+        console.log("Killed A ship");
     }
 },
 
@@ -192,4 +193,3 @@ render: function(ctx) {
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();
-

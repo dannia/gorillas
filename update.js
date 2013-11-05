@@ -19,7 +19,6 @@ var g_isUpdateOdd = false;
 
 
 function update(dt) {
-    
     // Get out if skipping (e.g. due to pause-mode)
     //
     if (shouldSkipUpdate()) return;

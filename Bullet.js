@@ -33,9 +33,9 @@ Bullet.prototype = new Entity();
 
 // HACKED-IN AUDIO (no preloading)
 Bullet.prototype.fireSound = new Audio(
-    "sounds/bulletFire.ogg");
+    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/bulletFire.ogg");
 Bullet.prototype.zappedSound = new Audio(
-    "sounds/bulletZapped.ogg");
+    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/bulletZapped.ogg");
     
 // Initial, inheritable, default values
 Bullet.prototype.rotation = 0;
@@ -50,6 +50,8 @@ Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 Bullet.prototype.update = function (du) {
 
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
+    spatialManager.unregister(this);
+    if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
@@ -75,7 +77,7 @@ Bullet.prototype.update = function (du) {
     }
     
     // TODO: YOUR STUFF HERE! --- (Re-)Register
-
+    spatialManager.register(this);
 };
 
 Bullet.prototype.getRadius = function () {

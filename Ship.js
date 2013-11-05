@@ -21,7 +21,7 @@ function Ship(descr) {
     this.rememberResets();
     
     // Default sprite, if not otherwise specified
-    this.sprite = this.sprite || g_sprites.ship;
+    //this.sprite = this.sprite || g_sprites.ship;
     
     // Set normal drawing scale, and warp state off
     this._scale = 1;
@@ -55,7 +55,7 @@ Ship.prototype.numSubSteps = 1;
 
 // HACKED-IN AUDIO (no preloading)
 Ship.prototype.warpSound = new Audio(
-    "sounds/shipWarp.ogg");
+    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/shipWarp.ogg");
 
 Ship.prototype.warp = function () {
 
@@ -79,7 +79,9 @@ Ship.prototype._updateWarp = function (du) {
         this.halt();
         this._scaleDirn = 1;
         
-    } else if (this._scale > 1) {
+    } else if (this._scale > 1.2) { // default = 1.0
+        // So that the ship gets a little bigger than normal
+        // then 'snaps' back to it's normal 1.0 size.
     
         this._scale = 1;
         this._isWarping = false;
@@ -133,6 +135,8 @@ Ship.prototype.update = function (du) {
     }
     
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
+    spatialManager.unregister(this);
+    if(this.findHitEntity()) this.warp();
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -145,7 +149,8 @@ Ship.prototype.update = function (du) {
     this.maybeFireBullet();
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
-
+    if(this.isColliding()) this.warp();
+    else spatialManager.register(this);
 };
 
 Ship.prototype.computeSubStep = function (du) {
@@ -286,11 +291,13 @@ Ship.prototype.updateRotation = function (du) {
 };
 
 Ship.prototype.render = function (ctx) {
-    var origScale = this.sprite.scale;
+ 	ctx.fillRect(0, 0, 100, 100)
+
+  /*  var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
     this.sprite.scale = this._scale;
     this.sprite.drawWrappedCentredAt(
 	ctx, this.cx, this.cy, this.rotation
     );
-    this.sprite.scale = origScale;
+    this.sprite.scale = origScale;*/
 };
