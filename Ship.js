@@ -228,7 +228,7 @@ Ship.prototype.applyAccel = function (accelX, accelY, du) {
 	if (this.cy > maxY || this.cy < minY) {
 	    // do nothing
 	} else if (nextY > maxY || nextY < minY) {
-            this.velY = oldVelY * -0.9;
+            this.velY = 0;//oldVelY * -0.9;
             intervalVelY = this.velY;
         }
     }
