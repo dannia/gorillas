@@ -88,7 +88,7 @@ function updateSimulation(du) {
 // GAME-SPECIFIC DIAGNOSTICS
 
 var g_allowMixedActions = true;
-var g_useGravity = false;
+var g_useGravity = true;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
@@ -187,6 +187,7 @@ var g_sprites = {};
 function preloadDone() {
 
     g_sprites.ship  = new Sprite(g_images.ship);
+    g_sprites.ship.scale = 0.0005;
     g_sprites.ship2 = new Sprite(g_images.ship2);
     g_sprites.rock  = new Sprite(g_images.rock);
 

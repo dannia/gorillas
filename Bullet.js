@@ -53,9 +53,17 @@ Bullet.prototype.update = function (du) {
     spatialManager.unregister(this);
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
+<<<<<<< HEAD
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
 
+=======
+    var gravity = this.computeGravity();
+    //this.lifeSpan -= du;
+    //if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
+    var power = 2.5;
+    this.velY += du*gravity*power;
+>>>>>>> 68b6261d811362e1fb69e5188ec1e82c8d228cd5
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
@@ -64,6 +72,20 @@ Bullet.prototype.update = function (du) {
                                    0, consts.FULL_CIRCLE);
 
     this.wrapPosition();
+
+    if (g_useGravity) {
+
+    var minY = g_sprites.bullet.height / 2;
+    var maxY = g_canvas.height - minY;
+
+    // Ignore the bounce if the ship is already in
+    // the "border zone" (to avoid trapping them there)
+    if (this.cy > maxY || this.cy < minY) {
+        // do nothing
+    } else if (this.cy+5 > maxY || this.cx+5 < minY) {
+            return entityManager.KILL_ME_NOW;
+        }
+    }
     
     // TODO? NO, ACTUALLY, I JUST DID THIS BIT FOR YOU! :-)
     //
@@ -78,6 +100,13 @@ Bullet.prototype.update = function (du) {
     
     // TODO: YOUR STUFF HERE! --- (Re-)Register
     spatialManager.register(this);
+<<<<<<< HEAD
+=======
+};
+
+Bullet.prototype.computeGravity = function () {
+    return g_useGravity ? NOMINAL_GRAVITY : 0;
+>>>>>>> 68b6261d811362e1fb69e5188ec1e82c8d228cd5
 };
 
 Bullet.prototype.getRadius = function () {
@@ -92,16 +121,12 @@ Bullet.prototype.takeBulletHit = function () {
 };
 
 Bullet.prototype.render = function (ctx) {
-
-    var fadeThresh = Bullet.prototype.lifeSpan / 3;
-
-    if (this.lifeSpan < fadeThresh) {
-        ctx.globalAlpha = this.lifeSpan / fadeThresh;
-    }
-
     g_sprites.bullet.drawWrappedCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
+<<<<<<< HEAD
 
     ctx.globalAlpha = 1;
+=======
+>>>>>>> 68b6261d811362e1fb69e5188ec1e82c8d228cd5
 };

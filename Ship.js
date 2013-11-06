@@ -228,7 +228,7 @@ Ship.prototype.applyAccel = function (accelX, accelY, du) {
 	if (this.cy > maxY || this.cy < minY) {
 	    // do nothing
 	} else if (nextY > maxY || nextY < minY) {
-            this.velY = oldVelY * -0.9;
+            this.velY = 0;//oldVelY * -0.9;
             intervalVelY = this.velY;
         }
     }
@@ -299,5 +299,9 @@ Ship.prototype.render = function (ctx) {
     this.sprite.drawWrappedCentredAt(
 	ctx, this.cx, this.cy, this.rotation
     );
+<<<<<<< HEAD
     this.sprite.scale = origScale;*/
+=======
+    this.sprite.scale = origScale;
+>>>>>>> 68b6261d811362e1fb69e5188ec1e82c8d228cd5
 };
