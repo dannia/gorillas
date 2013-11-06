@@ -21,16 +21,6 @@ clampRange: function(value, lowBound, highBound) {
     return value;
 },
 
-wrapRange: function(value, lowBound, highBound) {
-    while (value < lowBound) {
-	value += (highBound - lowBound);
-    }
-    while (value > highBound) {
-	value -= (highBound - lowBound);
-    }
-    return value;
-},
-
 isBetween: function(value, lowBound, highBound) {
     if (value < lowBound) { return false; }
     if (value > highBound) { return false; }
@@ -59,18 +49,6 @@ square: function(x) {
 
 distSq: function(x1, y1, x2, y2) {
     return this.square(x2-x1) + this.square(y2-y1);
-},
-
-wrappedDistSq: function(x1, y1, x2, y2, xWrap, yWrap) {
-    var dx = Math.abs(x2-x1),
-	dy = Math.abs(y2-y1);
-    if (dx > xWrap/2) {
-	dx = xWrap - dx;
-    };
-    if (dy > yWrap/2) {
-	dy = yWrap - dy;
-    }
-    return this.square(dx) + this.square(dy);
 },
 
 

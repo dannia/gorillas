@@ -100,7 +100,6 @@ var KEY_SPATIAL = keyCode('X');
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
 
-var KEY_0 = keyCode('0');
 
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
@@ -121,8 +120,6 @@ function processDiagnostics() {
     if (eatKey(KEY_HALT)) entityManager.haltShips();
 
     if (eatKey(KEY_RESET)) entityManager.resetShips();
-
-    if (eatKey(KEY_0)) entityManager.toggleRocks();
 
     if (eatKey(KEY_1)) entityManager.generateShip({
         cx : g_mouseX,
@@ -176,7 +173,6 @@ function requestPreloads() {
     var requiredImages = {
         ship   : "https://notendur.hi.is/~pk/308G/images/ship.png",
         ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
-        rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -189,7 +185,6 @@ function preloadDone() {
     g_sprites.ship  = new Sprite(g_images.ship);
     g_sprites.ship.scale = 0.0005;
     g_sprites.ship2 = new Sprite(g_images.ship2);
-    g_sprites.rock  = new Sprite(g_images.rock);
 
     g_sprites.bullet = new Sprite(g_images.ship);
     g_sprites.bullet.scale = 0.25;

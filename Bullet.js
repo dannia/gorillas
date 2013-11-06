@@ -45,7 +45,7 @@ Bullet.prototype.velX = 1;
 Bullet.prototype.velY = 1;
 
 // Convert times from milliseconds to "nominal" time units.
-Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
+Bullet.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 Bullet.prototype.update = function (du) {
 
@@ -54,18 +54,21 @@ Bullet.prototype.update = function (du) {
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     var gravity = this.computeGravity();
-    //this.lifeSpan -= du;
-    //if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
+    this.lifeSpan -= du;
+    var airtime = 0;
+    if (this.lifeSpan < airtime)
+    { 
+        this.VelY += gravity;
+        airtime++;
+    }
     var power = 2.5;
-    this.velY += du*gravity*power;
+    this.velY += gravity;
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
     this.rotation += 1 * du;
-    this.rotation = util.wrapRange(this.rotation,
-                                   0, consts.FULL_CIRCLE);
-
-    this.wrapPosition();
+    //this.rotation = util.wrapRange(this.rotation,
+                                   //0, consts.FULL_CIRCLE);
 
     if (g_useGravity) {
 
@@ -76,15 +79,11 @@ Bullet.prototype.update = function (du) {
     // the "border zone" (to avoid trapping them there)
     if (this.cy > maxY || this.cy < minY) {
         // do nothing
-    } else if (this.cy+5 > maxY || this.cx+5 < minY) {
+    } else if (this.cy > maxY || this.cx < minY) {
             return entityManager.KILL_ME_NOW;
         }
     }
-    
-    // TODO? NO, ACTUALLY, I JUST DID THIS BIT FOR YOU! :-)
-    //
-    // Handle collisions
-    //
+
     var hitEntity = this.findHitEntity();
     if (hitEntity) {
         var canTakeHit = hitEntity.takeBulletHit;
@@ -112,7 +111,7 @@ Bullet.prototype.takeBulletHit = function () {
 };
 
 Bullet.prototype.render = function (ctx) {
-    g_sprites.bullet.drawWrappedCentredAt(
+    g_sprites.bullet.drawCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
 };

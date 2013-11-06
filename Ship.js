@@ -74,8 +74,6 @@ Ship.prototype._updateWarp = function (du) {
     this._scale += this._scaleDirn * SHRINK_RATE * du;
     
     if (this._scale < 0.2) {
-    
-        this._moveToASafePlace();
         this.halt();
         this._scaleDirn = 1;
         
@@ -84,7 +82,6 @@ Ship.prototype._updateWarp = function (du) {
         // then 'snaps' back to it's normal 1.0 size.
     
         this._scale = 1;
-        this._isWarping = false;
         
         // Reregister me from my old posistion
         // ...so that I can be collided with again
@@ -92,51 +89,11 @@ Ship.prototype._updateWarp = function (du) {
         
     }
 };
-
-Ship.prototype._moveToASafePlace = function () {
-
-    // Move to a safe place some suitable distance away
-    var origX = this.cx,
-        origY = this.cy,
-        MARGIN = 40,
-        isSafePlace = false;
-
-    for (var attempts = 0; attempts < 100; ++attempts) {
-    
-        var warpDistance = 100 + Math.random() * g_canvas.width /2;
-        var warpDirn = Math.random() * consts.FULL_CIRCLE;
-        
-        this.cx = origX + warpDistance * Math.sin(warpDirn);
-        this.cy = origY - warpDistance * Math.cos(warpDirn);
-        
-        this.wrapPosition();
-        
-        // Don't go too near the edges, and don't move into a collision!
-        if (!util.isBetween(this.cx, MARGIN, g_canvas.width - MARGIN)) {
-            isSafePlace = false;
-        } else if (!util.isBetween(this.cy, MARGIN, g_canvas.height - MARGIN)) {
-            isSafePlace = false;
-        } else {
-            isSafePlace = !this.isColliding();
-        }
-
-        // Get out as soon as we find a safe place
-        if (isSafePlace) break;
-        
-    }
-};
     
 Ship.prototype.update = function (du) {
-
-    // Handle warping
-    if (this._isWarping) {
-        this._updateWarp(du);
-        return;
-    }
-    
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
-    if(this.findHitEntity()) this.warp();
+    if(this.findHitEntity()) {}//this.warp();
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -149,7 +106,7 @@ Ship.prototype.update = function (du) {
     this.maybeFireBullet();
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
-    if(this.isColliding()) this.warp();
+    if(this.isColliding()) {}//this.warp();
     else spatialManager.register(this);
 };
 
@@ -165,7 +122,7 @@ Ship.prototype.computeSubStep = function (du) {
 
     this.applyAccel(accelX, accelY, du);
     
-    this.wrapPosition();
+    //this.wrapPosition();
     
     if (thrust === 0 || g_allowMixedActions) {
         this.updateRotation(du);
@@ -264,7 +221,7 @@ Ship.prototype.getRadius = function () {
 };
 
 Ship.prototype.takeBulletHit = function () {
-    this.warp();
+    // -health
 };
 
 Ship.prototype.reset = function () {
@@ -294,7 +251,7 @@ Ship.prototype.render = function (ctx) {
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
     this.sprite.scale = this._scale;
-    this.sprite.drawWrappedCentredAt(
+    this.sprite.drawCentredAt(
 	ctx, this.cx, this.cy, this.rotation
     );
     this.sprite.scale = origScale;
