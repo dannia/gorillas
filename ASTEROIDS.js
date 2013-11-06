@@ -140,9 +140,9 @@ function processDiagnostics() {
     if (eatKey(KEY_K)) entityManager.killNearestShip(
         g_mouseX, g_mouseY);
 
-    if (eatKey(KEY_4)) g_kraft += 0.005;
+    if (eatKey(KEY_4)) g_kraft += 0.001;
 
-    if (eatKey(KEY_5)) g_kraft -= 0.005;
+    if (eatKey(KEY_5)) g_kraft -= 0.001;
 }
 
 
