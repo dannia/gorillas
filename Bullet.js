@@ -13,6 +13,7 @@
 
 
 // A generic contructor which accepts an arbitrary descriptor object
+var g_kraft = -0.1;
 function Bullet(descr) {
 
     // Common inherited setup logic from Entity
@@ -54,15 +55,8 @@ Bullet.prototype.update = function (du) {
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     var gravity = this.computeGravity();
-    this.lifeSpan -= du;
-    var airtime = 0;
-    if (this.lifeSpan < airtime)
-    { 
-        this.VelY += gravity;
-        airtime++;
-    }
-    var power = 2.5;
-    this.velY += gravity;
+    var power = g_kraft;
+    this.velY +=  gravity + power;
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
@@ -79,6 +73,8 @@ Bullet.prototype.update = function (du) {
     // the "border zone" (to avoid trapping them there)
     if (this.cy > maxY || this.cy < minY) {
         // do nothing
+
+    // Þarf að bæta:
     } else if (this.cy > maxY || this.cx < minY) {
             return entityManager.KILL_ME_NOW;
         }

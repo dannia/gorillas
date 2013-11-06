@@ -52,6 +52,7 @@ Ship.prototype.velX = 0;
 Ship.prototype.velY = 0;
 Ship.prototype.launchVel = 2;
 Ship.prototype.numSubSteps = 1;
+Ship.prototype.health = 100;
 
 // HACKED-IN AUDIO (no preloading)
 Ship.prototype.warpSound = new Audio(
@@ -221,6 +222,7 @@ Ship.prototype.getRadius = function () {
 };
 
 Ship.prototype.takeBulletHit = function () {
+    //this.health--;
     // -health
 };
 

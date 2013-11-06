@@ -97,6 +97,9 @@ var KEY_GRAVITY = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 
+var KEY_4 = keyCode('4');
+var KEY_5 = keyCode('5');
+
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
 
@@ -137,6 +140,9 @@ function processDiagnostics() {
     if (eatKey(KEY_K)) entityManager.killNearestShip(
         g_mouseX, g_mouseY);
 
+    if (eatKey(KEY_4)) g_kraft += 0.005;
+
+    if (eatKey(KEY_5)) g_kraft -= 0.005;
 }
 
 
