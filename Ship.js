@@ -59,7 +59,6 @@ Ship.prototype.warpSound = new Audio(
     "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/shipWarp.ogg");
 
 Ship.prototype.warp = function () {
-
     this._isWarping = true;
     this._scaleDirn = -1;
     this.warpSound.play();
@@ -94,7 +93,7 @@ Ship.prototype._updateWarp = function (du) {
 Ship.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
-    if(this.findHitEntity()) {}//this.warp();
+    if(this.findHitEntity()) {this.health--;}//this.warp();
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -107,7 +106,7 @@ Ship.prototype.update = function (du) {
     this.maybeFireBullet();
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
-    if(this.isColliding()) {}//this.warp();
+    if(this.isColliding()) {this.health--;}//this.warp();
     else spatialManager.register(this);
 };
 
@@ -143,13 +142,13 @@ Ship.prototype.computeThrustMag = function () {
     
     var thrust = 0;
     
-    if (keys[this.KEY_THRUST]) {
-        thrust += NOMINAL_THRUST;
+    if (keys[this.KEY_LEFT]) {
+        this.cx--;
     }
-    if (keys[this.KEY_RETRO]) {
-        thrust += NOMINAL_RETRO;
+    if (keys[this.KEY_RIGHT]) {
+        this.cx++;
     }
-    
+
     return thrust;
 };
 
@@ -222,7 +221,8 @@ Ship.prototype.getRadius = function () {
 };
 
 Ship.prototype.takeBulletHit = function () {
-    //this.health--;
+    this.health--;
+    if(this.health < 100) entityManager.KILL_ME_NOW;
     // -health
 };
 
@@ -241,10 +241,10 @@ Ship.prototype.halt = function () {
 var NOMINAL_ROTATE_RATE = 0.1;
 
 Ship.prototype.updateRotation = function (du) {
-    if (keys[this.KEY_LEFT]) {
+    if (keys[this.KEY_RETRO]) {
         this.rotation -= NOMINAL_ROTATE_RATE * du;
     }
-    if (keys[this.KEY_RIGHT]) {
+    if (keys[this.KEY_THRUST]) {
         this.rotation += NOMINAL_ROTATE_RATE * du;
     }
 };
