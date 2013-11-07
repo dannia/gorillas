@@ -60,7 +60,7 @@ Bullet.prototype.update = function (du) {
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
-    this.rotation += 1 * du;
+    this.rotation += 0.25 * du;
     //this.rotation = util.wrapRange(this.rotation,
                                    //0, consts.FULL_CIRCLE);
 

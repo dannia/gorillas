@@ -178,7 +178,8 @@ function requestPreloads() {
 
     var requiredImages = {
         ship   : "gorilla-icon.png",
-        ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
+        ship2  : "gorilla-icon2.png",
+        bullet : "banana.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -192,7 +193,7 @@ function preloadDone() {
     g_sprites.ship.scale = 0.0005;
     g_sprites.ship2 = new Sprite(g_images.ship2);
 
-    g_sprites.bullet = new Sprite(g_images.ship);
+    g_sprites.bullet = new Sprite(g_images.bullet);
     g_sprites.bullet.scale = 0.25;
 
     entityManager.init();

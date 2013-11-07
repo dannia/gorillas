@@ -31,11 +31,6 @@ isBetween: function(value, lowBound, highBound) {
 // RANDOMNESS
 // ==========
 
-randRange: function(min, max) {
-    return (min + Math.random() * (max - min));
-},
-
-
 // MISC
 // ====
 
