@@ -46,8 +46,8 @@ Ship.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
 // Initial, inheritable, default values
 Ship.prototype.rotation = 0;
-Ship.prototype.cx = 200;
-Ship.prototype.cy = 200;
+Ship.prototype.cx = 20;
+Ship.prototype.cy = 500;
 Ship.prototype.velX = 0;
 Ship.prototype.velY = 0;
 Ship.prototype.launchVel = 2;
