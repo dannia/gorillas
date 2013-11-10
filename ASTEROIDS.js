@@ -179,7 +179,7 @@ function requestPreloads() {
     var requiredImages = {
         ship   : "gorilla-icon.png",
         ship2  : "gorilla-icon2.png",
-        bullet : "banana.png"
+        bullet : "Banana.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
