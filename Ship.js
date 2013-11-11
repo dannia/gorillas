@@ -94,7 +94,6 @@ Ship.prototype._updateWarp = function (du) {
 Ship.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
-    if(this.findHitEntity()) {this.health--;}//this.warp();
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -107,8 +106,15 @@ Ship.prototype.update = function (du) {
     this.maybeFireBullet();
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
-    if(this.isColliding()) {this.health--;}//this.warp();
-    else spatialManager.register(this);
+    if(this.health <= 0)
+    {
+        return entityManager.KILL_ME_NOW;
+    }
+    else
+    {
+        spatialManager.register(this);
+    }
+
 };
 
 Ship.prototype.computeSubStep = function (du) {
@@ -229,9 +235,7 @@ Ship.prototype.getRadius = function () {
 };
 
 Ship.prototype.takeBulletHit = function () {
-    this.health--;
-    if(this.health < 100) entityManager.KILL_ME_NOW;
-    // -health
+    this.health = this.health-10;
 };
 
 Ship.prototype.reset = function () {
@@ -268,4 +272,13 @@ Ship.prototype.render = function (ctx) {
 	ctx, this.cx, this.cy, this.rotation
     );
     this.sprite.scale = origScale;
+
+    var prevFont = ctx.font;
+    var prevColor = ctx.fillStyle;
+
+    ctx.font="14px Arial";
+    ctx.fillStyle = 'green';
+    ctx.fillText(this.health,this.cx-15,this.cy-50);
+    ctx.font = prevFont;
+    ctx.fillStyle = prevColor;
 };
