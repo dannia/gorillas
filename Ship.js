@@ -53,6 +53,7 @@ Ship.prototype.velY = 0;
 Ship.prototype.launchVel = 2;
 Ship.prototype.numSubSteps = 1;
 Ship.prototype.health = 100;
+Ship.prototype.player = 1;
 
 // HACKED-IN AUDIO (no preloading)
 Ship.prototype.warpSound = new Audio(
@@ -142,11 +143,14 @@ Ship.prototype.computeThrustMag = function () {
     
     var thrust = 0;
     
-    if (keys[this.KEY_LEFT]) {
-        this.cx--;
-    }
-    if (keys[this.KEY_RIGHT]) {
-        this.cx++;
+    if (turnHandler() === this.player)
+    {
+        if (keys[this.KEY_LEFT]) {
+            this.cx--;
+        }
+        if (keys[this.KEY_RIGHT]) {
+            this.cx++;
+        }
     }
 
     return thrust;
@@ -197,20 +201,24 @@ Ship.prototype.applyAccel = function (accelX, accelY, du) {
 
 Ship.prototype.maybeFireBullet = function () {
 
-    if (keys[this.KEY_FIRE]) {
-    
-        var dX = +Math.sin(this.rotation);
-        var dY = -Math.cos(this.rotation);
-        var launchDist = this.getRadius() * 1.2;
-        
-        var relVel = this.launchVel;
-        var relVelX = dX * relVel;
-        var relVelY = dY * relVel;
+    if (keys[this.KEY_FIRE] && turnHandler() === this.player) {
 
-        entityManager.fireBullet(
-           this.cx + dX * launchDist, this.cy + dY * launchDist,
-           this.velX + relVelX, this.velY + relVelY,
-           this.rotation);
+    
+            var dX = +Math.sin(this.rotation);
+            var dY = -Math.cos(this.rotation);
+            var launchDist = this.getRadius() * 1.2;
+            
+            var relVel = this.launchVel;
+            var relVelX = dX * relVel;
+            var relVelY = dY * relVel;
+
+            entityManager.fireBullet(
+               this.cx + dX * launchDist, this.cy + dY * launchDist,
+               this.velX + relVelX, this.velY + relVelY,
+               this.rotation);
+
+            endTurn(this.player);
+
            
     }
     
@@ -241,11 +249,14 @@ Ship.prototype.halt = function () {
 var NOMINAL_ROTATE_RATE = 0.1;
 
 Ship.prototype.updateRotation = function (du) {
-    if (keys[this.KEY_RETRO]) {
-        this.rotation -= NOMINAL_ROTATE_RATE * du;
-    }
-    if (keys[this.KEY_THRUST]) {
-        this.rotation += NOMINAL_ROTATE_RATE * du;
+    if(turnHandler() === this.player)
+    {
+        if (keys[this.KEY_RETRO]) {
+            this.rotation -= NOMINAL_ROTATE_RATE * du;
+        }
+        if (keys[this.KEY_THRUST]) {
+            this.rotation += NOMINAL_ROTATE_RATE * du;
+        }
     }
 };
 

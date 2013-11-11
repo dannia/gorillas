@@ -46,12 +46,16 @@ function createInitialShips() {
 
     entityManager.generateShip({
         cx : 50,
-        cy : 500
+        cy : 500,
+        player : 1
     });
 
     entityManager.generateShip({
         cx : 550,
-        cy : 500
+        cy : 500,
+
+        sprite : g_sprites.ship2,
+        player : 2
     })
     
 }
