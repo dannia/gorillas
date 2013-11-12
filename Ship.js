@@ -269,12 +269,18 @@ Ship.prototype.render = function (ctx) {
     // pass my scale into the sprite, for drawing
     this.sprite.scale = this._scale;
     this.sprite.drawCentredAt(
-	ctx, this.cx, this.cy, this.rotation
+	ctx, this.cx, this.cy, 0 //this.rotation
     );
     this.sprite.scale = origScale;
 
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
+
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
+    ctx.lineTo(this.cx  + 70 * Math.sin(this.rotation),this.cy - 70 * Math.cos(this.rotation));
+    ctx.stroke();
 
     ctx.font="14px Arial";
     ctx.fillStyle = 'green';
