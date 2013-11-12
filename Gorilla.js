@@ -1,5 +1,5 @@
 // ==========
-// SHIP STUFF
+// Gorilla STUFF
 // ==========
 
 "use strict";
@@ -21,7 +21,7 @@ function Gorilla(descr) {
     this.rememberResets();
     
     // Default sprite, if not otherwise specified
-    this.sprite = this.sprite || g_sprites.gorilla;
+    this.sprite = this.sprite || g_sprites.Gorilla;
     
     // Set normal drawing scale, and warp state off
     this._scale = 1;
@@ -42,6 +42,9 @@ Gorilla.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
 Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 
+Gorilla.prototype.KEY_PWRDWN  = '4'.charCodeAt(0);
+Gorilla.prototype.KEY_PWRUP  = '5'.charCodeAt(0);
+
 Gorilla.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
 // Initial, inheritable, default values
@@ -54,10 +57,11 @@ Gorilla.prototype.launchVel = 2;
 Gorilla.prototype.numSubSteps = 1;
 Gorilla.prototype.health = 100;
 Gorilla.prototype.player = 1;
+Gorilla.prototype.power = 1;
 
 // HACKED-IN AUDIO (no preloading)
 Gorilla.prototype.warpSound = new Audio(
-    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/shipWarp.ogg");
+    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/GorillaWarp.ogg");
 
 Gorilla.prototype.warp = function () {
     this._isWarping = true;
@@ -79,7 +83,7 @@ Gorilla.prototype._updateWarp = function (du) {
         this._scaleDirn = 1;
         
     } else if (this._scale > 1.2) { // default = 1.0
-        // So that the gorilla gets a little bigger than normal
+        // So that the Gorilla gets a little bigger than normal
         // then 'snaps' back to it's normal 1.0 size.
     
         this._scale = 1;
@@ -103,6 +107,7 @@ Gorilla.prototype.update = function (du) {
     }
 
     // Handle firing
+    this.adjustPower();
     this.maybeFireBullet();
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
@@ -187,10 +192,10 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     // bounce
     if (g_useGravity) {
 
-	var minY = g_sprites.gorilla.height / 2;
+	var minY = g_sprites.Gorilla.height / 2;
 	var maxY = g_canvas.height - minY;
 
-	// Ignore the bounce if the gorilla is already in
+	// Ignore the bounce if the Gorilla is already in
 	// the "border zone" (to avoid trapping them there)
 	if (this.cy > maxY || this.cy < minY) {
 	    // do nothing
@@ -217,15 +222,43 @@ Gorilla.prototype.maybeFireBullet = function () {
             var relVel = this.launchVel;
             var relVelX = dX * relVel;
             var relVelY = dY * relVel;
+            var xPower = 0;
+
+            if(Math.sin(this.rotation) > 0)
+            {
+                xPower = this.power;
+            }
+            else
+            {
+                xPower = -this.power;
+            }
 
             entityManager.fireBullet(
                this.cx + dX * launchDist, this.cy + dY * launchDist,
-               this.velX + relVelX, this.velY + relVelY,
+               xPower + relVelX, -this.power + relVelY,
                this.rotation);
 
+            console.log(this.power);
+            console.log(Math.sin(this.rotation))
             endTurn(this.player);
 
            
+    }
+    
+};
+
+Gorilla.prototype.adjustPower = function () {
+
+    if (turnHandler() === this.player) {
+
+        if((keys[this.KEY_PWRUP]) && (this.power <= 5))
+        {
+            this.power += 0.05;
+        }
+        else if((keys[this.KEY_PWRDWN]) && (this.power >= 0))
+        {
+            this.power -= 0.05;
+        }          
     }
     
 };
@@ -279,7 +312,7 @@ Gorilla.prototype.render = function (ctx) {
     ctx.strokeStyle = 'red';
     ctx.beginPath();
     ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
-    ctx.lineTo(this.cx  + 70 * Math.sin(this.rotation),this.cy - 70 * Math.cos(this.rotation));
+    ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
     ctx.stroke();
 
     ctx.font="14px Arial";

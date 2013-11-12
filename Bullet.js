@@ -13,7 +13,7 @@
 
 
 // A generic contructor which accepts an arbitrary descriptor object
-var g_kraft = -0.1;
+
 function Bullet(descr) {
 
     // Common inherited setup logic from Entity
@@ -52,12 +52,22 @@ Bullet.prototype.update = function (du) {
 
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
-    if(this._isDeadNow) 
-        return entityManager.KILL_ME_NOW;
 
-    var gravity = this.computeGravity();
-    var power = g_kraft;
-    this.velY +=  gravity + power;
+    if (this.lifeSpan < 0) 
+    {
+        nextTurn();
+        console.log("killed by lifespan");
+        return entityManager.KILL_ME_NOW;
+    }
+
+    if(this._isDeadNow) 
+    {
+        nextTurn();
+        console.log("killed by ideadNOW");
+        return entityManager.KILL_ME_NOW;
+    }
+
+    this.velY +=  NOMINAL_GRAVITY;
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
@@ -65,24 +75,19 @@ Bullet.prototype.update = function (du) {
     //this.rotation = util.wrapRange(this.rotation,
                                    //0, consts.FULL_CIRCLE);
 
-    if (g_useGravity) {
-
-    var minY = g_sprites.bullet.height / 2;
-    var maxY = g_canvas.height - minY;
-
-    // Ignore the bounce if the ship is already in
-    // the "border zone" (to avoid trapping them there)
-    if (this.cy > maxY || this.cy < minY) {
-        // do nothing
-
     // Þarf að bæta:
-    } else if (this.cy > maxY || this.cx < minY) {
-            return entityManager.KILL_ME_NOW;
-        }
+    if (this.cy > 620) 
+    {
+        nextTurn();
+        console.log("killed by outside the borders");
+        return entityManager.KILL_ME_NOW;
     }
+
 
     var hitEntity = this.findHitEntity();
     if (hitEntity) {
+        nextTurn();
+        console.log("killed by hit something");
         var canTakeHit = hitEntity.takeBulletHit;
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;
@@ -101,6 +106,7 @@ Bullet.prototype.getRadius = function () {
 };
 
 Bullet.prototype.takeBulletHit = function () {
+    
     this.kill();
     
     // Make a noise when I am zapped by another bullet
