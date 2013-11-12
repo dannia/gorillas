@@ -21,7 +21,7 @@ function Gorilla(descr) {
     this.rememberResets();
     
     // Default sprite, if not otherwise specified
-    this.sprite = this.sprite || g_sprites.Gorilla;
+    this.sprite = this.sprite || g_sprites.gorilla;
     
     // Set normal drawing scale, and warp state off
     this._scale = 1;
@@ -192,7 +192,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     // bounce
     if (g_useGravity) {
 
-	var minY = g_sprites.Gorilla.height / 2;
+	var minY = g_sprites.gorilla.height / 2;
 	var maxY = g_canvas.height - minY;
 
 	// Ignore the bounce if the Gorilla is already in
