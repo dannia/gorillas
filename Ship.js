@@ -1,5 +1,5 @@
 // ==========
-// Gorilla STUFF
+// SHIP STUFF
 // ==========
 
 "use strict";
@@ -13,7 +13,7 @@
 
 
 // A generic contructor which accepts an arbitrary descriptor object
-function Gorilla(descr) {
+function Ship(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
@@ -21,49 +21,49 @@ function Gorilla(descr) {
     this.rememberResets();
     
     // Default sprite, if not otherwise specified
-    this.sprite = this.sprite || g_sprites.gorilla;
+    this.sprite = this.sprite || g_sprites.ship;
     
     // Set normal drawing scale, and warp state off
     this._scale = 1;
     this._isWarping = false;
 };
 
-Gorilla.prototype = new Entity();
+Ship.prototype = new Entity();
 
-Gorilla.prototype.rememberResets = function () {
+Ship.prototype.rememberResets = function () {
     // Remember my reset positions
     this.reset_cx = this.cx;
     this.reset_cy = this.cy;
     this.reset_rotation = this.rotation;
 };
 
-Gorilla.prototype.KEY_THRUST = 'W'.charCodeAt(0);
-Gorilla.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
-Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
-Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
+Ship.prototype.KEY_THRUST = 'W'.charCodeAt(0);
+Ship.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
+Ship.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
+Ship.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 
-Gorilla.prototype.KEY_PWRDWN  = '4'.charCodeAt(0);
-Gorilla.prototype.KEY_PWRUP  = '5'.charCodeAt(0);
+Ship.prototype.KEY_PWRDWN  = '4'.charCodeAt(0);
+Ship.prototype.KEY_PWRUP  = '5'.charCodeAt(0);
 
-Gorilla.prototype.KEY_FIRE   = ' '.charCodeAt(0);
+Ship.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
 // Initial, inheritable, default values
-Gorilla.prototype.rotation = 0;
-Gorilla.prototype.cx = 20;
-Gorilla.prototype.cy = 500;
-Gorilla.prototype.velX = 0;
-Gorilla.prototype.velY = 0;
-Gorilla.prototype.launchVel = 2;
-Gorilla.prototype.numSubSteps = 1;
-Gorilla.prototype.health = 100;
-Gorilla.prototype.player = 1;
-Gorilla.prototype.power = 1;
+Ship.prototype.rotation = 0;
+Ship.prototype.cx = 20;
+Ship.prototype.cy = 500;
+Ship.prototype.velX = 0;
+Ship.prototype.velY = 0;
+Ship.prototype.launchVel = 2;
+Ship.prototype.numSubSteps = 1;
+Ship.prototype.health = 100;
+Ship.prototype.player = 1;
+Ship.prototype.power = 1;
 
 // HACKED-IN AUDIO (no preloading)
-Gorilla.prototype.warpSound = new Audio(
-    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/GorillaWarp.ogg");
+Ship.prototype.warpSound = new Audio(
+    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/shipWarp.ogg");
 
-Gorilla.prototype.warp = function () {
+Ship.prototype.warp = function () {
     this._isWarping = true;
     this._scaleDirn = -1;
     this.warpSound.play();
@@ -73,7 +73,7 @@ Gorilla.prototype.warp = function () {
     spatialManager.unregister(this);
 };
 
-Gorilla.prototype._updateWarp = function (du) {
+Ship.prototype._updateWarp = function (du) {
 
     var SHRINK_RATE = 3 / SECS_TO_NOMINALS;
     this._scale += this._scaleDirn * SHRINK_RATE * du;
@@ -83,7 +83,7 @@ Gorilla.prototype._updateWarp = function (du) {
         this._scaleDirn = 1;
         
     } else if (this._scale > 1.2) { // default = 1.0
-        // So that the Gorilla gets a little bigger than normal
+        // So that the ship gets a little bigger than normal
         // then 'snaps' back to it's normal 1.0 size.
     
         this._scale = 1;
@@ -95,18 +95,9 @@ Gorilla.prototype._updateWarp = function (du) {
     }
 };
     
-Gorilla.prototype.update = function (du) {
+Ship.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
-
-    if(this.player == turnHandler())
-    {
-        if(turnTimer <= 0)
-        {
-            endTurn(this.player);
-            nextTurn();
-        }
-    }
 
     // Perform movement substeps
     var steps = this.numSubSteps;
@@ -131,7 +122,7 @@ Gorilla.prototype.update = function (du) {
 
 };
 
-Gorilla.prototype.computeSubStep = function (du) {
+Ship.prototype.computeSubStep = function (du) {
     
     var thrust = this.computeThrustMag();
 
@@ -152,23 +143,23 @@ Gorilla.prototype.computeSubStep = function (du) {
 
 var NOMINAL_GRAVITY = 0.12;
 
-Gorilla.prototype.computeGravity = function () {
+Ship.prototype.computeGravity = function () {
     return g_useGravity ? NOMINAL_GRAVITY : 0;
 };
 
 var NOMINAL_THRUST = +0.2;
 var NOMINAL_RETRO  = -0.1;
 
-Gorilla.prototype.computeThrustMag = function () {
+Ship.prototype.computeThrustMag = function () {
     
     var thrust = 0;
     
     if (turnHandler() === this.player)
     {
-        if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
+        if (keys[this.KEY_LEFT]) {
             this.cx--;
         }
-        if ((keys[this.KEY_RIGHT]) && (this.cx < (g_canvas.width - this.getRadius()))) {
+        if (keys[this.KEY_RIGHT]) {
             this.cx++;
         }
     }
@@ -176,7 +167,7 @@ Gorilla.prototype.computeThrustMag = function () {
     return thrust;
 };
 
-Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
+Ship.prototype.applyAccel = function (accelX, accelY, du) {
     
     // u = original velocity
     var oldVelX = this.velX;
@@ -201,10 +192,10 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     // bounce
     if (g_useGravity) {
 
-	var minY = g_sprites.gorilla.height / 2;
+	var minY = g_sprites.ship.height / 2;
 	var maxY = g_canvas.height - minY;
 
-	// Ignore the bounce if the Gorilla is already in
+	// Ignore the bounce if the ship is already in
 	// the "border zone" (to avoid trapping them there)
 	if (this.cy > maxY || this.cy < minY) {
 	    // do nothing
@@ -219,7 +210,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     this.cy += du * intervalVelY;
 };
 
-Gorilla.prototype.maybeFireBullet = function () {
+Ship.prototype.maybeFireBullet = function () {
 
     if (keys[this.KEY_FIRE] && turnHandler() === this.player) {
 
@@ -256,7 +247,7 @@ Gorilla.prototype.maybeFireBullet = function () {
     
 };
 
-Gorilla.prototype.adjustPower = function () {
+Ship.prototype.adjustPower = function () {
 
     if (turnHandler() === this.player) {
 
@@ -272,29 +263,29 @@ Gorilla.prototype.adjustPower = function () {
     
 };
 
-Gorilla.prototype.getRadius = function () {
+Ship.prototype.getRadius = function () {
     return (this.sprite.width / 2) * 0.9;
 };
 
-Gorilla.prototype.takeBulletHit = function () {
+Ship.prototype.takeBulletHit = function () {
     this.health = this.health-10;
 };
 
-Gorilla.prototype.reset = function () {
+Ship.prototype.reset = function () {
     this.setPos(this.reset_cx, this.reset_cy);
     this.rotation = this.reset_rotation;
     
     this.halt();
 };
 
-Gorilla.prototype.halt = function () {
+Ship.prototype.halt = function () {
     this.velX = 0;
     this.velY = 0;
 };
 
 var NOMINAL_ROTATE_RATE = 0.1;
 
-Gorilla.prototype.updateRotation = function (du) {
+Ship.prototype.updateRotation = function (du) {
     if(turnHandler() === this.player)
     {
         if (keys[this.KEY_RETRO]) {
@@ -306,7 +297,7 @@ Gorilla.prototype.updateRotation = function (du) {
     }
 };
 
-Gorilla.prototype.render = function (ctx) {
+Ship.prototype.render = function (ctx) {
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
     this.sprite.scale = this._scale;
@@ -318,18 +309,15 @@ Gorilla.prototype.render = function (ctx) {
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 
-    if(turnHandler() === this.player)
-    {
-        ctx.strokeStyle = 'red';
-        ctx.beginPath();
-        ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
-        ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
-        ctx.stroke();
-    }
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
+    ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
+    ctx.stroke();
 
     ctx.font="14px Arial";
     ctx.fillStyle = 'green';
-    ctx.fillText(this.health,this.cx - 15,this.cy-50);
+    ctx.fillText(this.health,this.cx-15,this.cy-50);
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
 };

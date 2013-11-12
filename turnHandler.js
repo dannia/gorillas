@@ -9,8 +9,8 @@
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
-
-var turnTimer = 5000 / NOMINAL_UPDATE_INTERVAL;
+var originalturnTimer = 500/NOMINAL_UPDATE_INTERVAL;
+var turnTimer = 500/NOMINAL_UPDATE_INTERVAL;
 var playerTurn = 1;
 var lastPlayer = 0;
 
@@ -33,6 +33,8 @@ function gameOver()
 function nextTurn()
 {
     console.log(lastPlayer);
+
+    turnTimer = originalturnTimer;
     
     if(lastPlayer === 1)
     {
@@ -42,4 +44,17 @@ function nextTurn()
     {
         playerTurn = 1;
     }
+}
+
+function displayTime()
+{
+    var timeToShow = turnTimer.toFixed(2);
+    var prevFont = ctx.font;
+    var prevColor = ctx.fillStyle;
+    ctx.font="28px Arial Bold";
+    ctx.fillStyle = 'white';
+    ctx.fillText("Time : " + timeToShow,(g_canvas.width/2)-90,45);
+    ctx.font = prevFont;
+    ctx.fillStyle = prevColor;
+    turnTimer = turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
 }
