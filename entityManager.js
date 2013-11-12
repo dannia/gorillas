@@ -28,22 +28,22 @@ var entityManager = {
 // "PRIVATE" DATA
 
 _bullets : [],
-_ships   : [],
+_gorillas   : [],
 
 // "PRIVATE" METHODS
 
-_findNearestShip : function(posX, posY) {
-    var closestShip = null,
+_findNearestGorilla : function(posX, posY) {
+    var closestGorilla = null,
         closestIndex = -1,
         closestSq = 1000 * 1000;
 
-    for (var i = 0; i < this._ships.length; ++i) {
+    for (var i = 0; i < this._gorillas.length; ++i) {
 
-        var thisShip = this._ships[i];
-        var shipPos = thisShip.getPos();
+        var thisGorilla = this._gorillas[i];
+        var shipPos = thisGorilla.getPos();
     }
     return {
-        theShip : closestShip,
+        theGorilla : closestGorilla,
         theIndex: closestIndex
     };
 },
@@ -65,11 +65,11 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bullets, this._ships];
+    this._categories = [this._bullets, this._gorillas];
 },
 
 init: function() {
-    //this._generateShip();
+    //this._generateGorilla();
 },
 
 fireBullet: function(cx, cy, velX, velY, rotation) {
@@ -83,31 +83,31 @@ fireBullet: function(cx, cy, velX, velY, rotation) {
     }));
 },
 
-generateShip : function(descr) {
-    this._ships.push(new Ship(descr));
+generateGorilla : function(descr) {
+    this._gorillas.push(new Gorilla(descr));
 },
 
-killNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.kill();
+killNearestGorilla : function(xPos, yPos) {
+    var theGorilla = this._findNearestGorilla(xPos, yPos).theGorilla;
+    if (theGorilla) {
+        theGorilla.kill();
         console.log("Killed A ship");
     }
 },
 
-yoinkNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.setPos(xPos, yPos);
+yoinkNearestGorilla : function(xPos, yPos) {
+    var theGorilla = this._findNearestGorilla(xPos, yPos).theGorilla;
+    if (theGorilla) {
+        theGorilla.setPos(xPos, yPos);
     }
 },
 
-resetShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.reset);
+resetGorillas: function() {
+    this._forEachOf(this._gorillas, Gorilla.prototype.reset);
 },
 
-haltShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.halt);
+haltGorillas: function() {
+    this._forEachOf(this._gorillas, Gorilla.prototype.halt);
 },	
 
 

@@ -16,11 +16,11 @@ But also, to a lesser extent, in:
 
 Rock.js
 Bullet.js
-Ship.js
+Gorilla.js
 
 
 ...Basically, you need to implement the core of the spatialManager,
-and modify the Rock/Bullet/Ship so that the register (and unregister)
+and modify the Rock/Bullet/Gorilla so that the register (and unregister)
 with it correctly, so that they can participate in collisions.
 
 */
@@ -42,19 +42,19 @@ var g_ctx = g_canvas.getContext("2d");
 // CREATE INITIAL SHIPS
 // ====================
 
-function createInitialShips() {
+function createInitialGorillas() {
 
-    entityManager.generateShip({
+    entityManager.generateGorilla({
         cx : 50,
         cy : 500,
         player : 1
     });
 
-    entityManager.generateShip({
+    entityManager.generateGorilla({
         cx : 550,
         cy : 500,
 
-        sprite : g_sprites.ship2,
+        sprite : g_sprites.gorilla2,
         player : 2
     })
     
@@ -92,7 +92,7 @@ function updateSimulation(du) {
     entityManager.update(du);
 
     // Prevent perpetual firing!
-    eatKey(Ship.prototype.KEY_FIRE);
+    eatKey(Gorilla.prototype.KEY_FIRE);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -130,24 +130,24 @@ function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
-    if (eatKey(KEY_HALT)) entityManager.haltShips();
+    if (eatKey(KEY_HALT)) entityManager.haltGorillas();
 
-    if (eatKey(KEY_RESET)) entityManager.resetShips();
+    if (eatKey(KEY_RESET)) entityManager.resetGorillas();
 
-    if (eatKey(KEY_1)) entityManager.generateShip({
+    if (eatKey(KEY_1)) entityManager.generateGorilla({
         cx : g_mouseX,
         cy : g_mouseY,
         
-        sprite : g_sprites.ship});
+        sprite : g_sprites.gorilla});
 
-    if (eatKey(KEY_2)) entityManager.generateShip({
+    if (eatKey(KEY_2)) entityManager.generateGorilla({
         cx : g_mouseX,
         cy : g_mouseY,
         
-        sprite : g_sprites.ship2
+        sprite : g_sprites.gorilla2
         });
 
-    if (eatKey(KEY_K)) entityManager.killNearestShip(
+    if (eatKey(KEY_K)) entityManager.killNearestGorilla(
         g_mouseX, g_mouseY);
 
     if (eatKey(KEY_4)) g_kraft += 0.001;
@@ -187,8 +187,8 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        ship   : "gorilla-icon.png",
-        ship2  : "gorilla-icon2.png",
+        gorilla   : "gorilla-icon.png",
+        gorilla2  : "gorilla-icon2.png",
         bullet : "Banana.png"
     };
 
@@ -199,15 +199,15 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.ship  = new Sprite(g_images.ship);
-    g_sprites.ship.scale = 0.0005;
-    g_sprites.ship2 = new Sprite(g_images.ship2);
+    g_sprites.gorilla  = new Sprite(g_images.gorilla);
+    g_sprites.gorilla.scale = 0.0005;
+    g_sprites.gorilla2 = new Sprite(g_images.gorilla2);
 
     g_sprites.bullet = new Sprite(g_images.bullet);
     g_sprites.bullet.scale = 0.25;
 
     entityManager.init();
-    createInitialShips();
+    createInitialGorillas();
 
     main.init();
 }
