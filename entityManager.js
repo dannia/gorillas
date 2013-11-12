@@ -113,6 +113,8 @@ haltGorillas: function() {
 
 update: function(du) {
 
+    timer();
+
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
@@ -137,6 +139,7 @@ update: function(du) {
 render: function(ctx) {
 
     displayTime();   //Temporary
+
 
     var debugX = 10, debugY = 100;
 

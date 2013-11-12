@@ -46,6 +46,11 @@ function nextTurn()
     }
 }
 
+function timer()
+{
+    turnTimer = turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
+}
+
 function displayTime()
 {
     var timeToShow = turnTimer.toFixed(2);
@@ -56,5 +61,4 @@ function displayTime()
     ctx.fillText("Time : " + timeToShow,(g_canvas.width/2)-90,45);
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
-    turnTimer = turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
 }
