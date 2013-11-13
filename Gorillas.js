@@ -183,6 +183,7 @@ function preloadDone() {
     g_sprites.banana = new Sprite(g_images.banana);
     g_sprites.banana.scale = 0.25;
 
+
     entityManager.init();
     createInitialGorillas();
     randomWind();

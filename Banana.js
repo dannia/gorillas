@@ -54,7 +54,7 @@ Banana.prototype.update = function (du) {
     spatialManager.unregister(this);
 
     this.velY +=  NOMINAL_GRAVITY;
-    this.velX += windPower/100;
+    this.velX += windPower/50;
     this.cx += this.velX * du;
     this.cy += this.velY * du;
 
@@ -90,7 +90,7 @@ Banana.prototype.update = function (du) {
     if (hitEntity) {
         nextTurn();
         console.log("killed by hit something");
-        var canTakeHit = hitEntity.takeBananaHit;
+        var canTakeHit = hitEntity.takeBananaHit(this.velX);
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;
     }

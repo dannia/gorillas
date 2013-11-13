@@ -243,32 +243,18 @@ Gorilla.prototype.maybeFireBanana = function () {
             var yPower = 0;
 
 
-            // Very basic check to see there should be put any
-            // x-velocity on the projectile, if the angle is
-            // at close to 0 there is no x-velocity.
-
-            if(Math.sin(this.rotation) > 0.05)
-            {
-                xPower = this.power;
-            }
-            else if((Math.sin(this.rotation) < -0.05))
-            {
-                xPower = -this.power;
-            }
-            else
-            {
-                xPower = 0;
-            }
+            xPower = (2 * this.power*(Math.sin(this.rotation)));
 
             // Calculating if angle is up or downwards so that the power can be adjusted
+            // and if the y-angle is close to horizontal
 
             if ((this.cy - (45 + 10 * this.power) * Math.cos(this.rotation)) < this.cy)
             {
-                yPower = -this.power;
+                yPower = -(2 * this.power * (Math.cos(this.rotation)));
             }
             else
             {
-                yPower = this.power;
+                yPower = -(2 * this.power * (Math.cos(this.rotation)));
             }
 
             entityManager.fireBanana(
@@ -276,6 +262,7 @@ Gorilla.prototype.maybeFireBanana = function () {
                xPower + relVelX, yPower + relVelY,
                this.rotation);
 
+            console.log(Math.cos(this.rotation));
             console.log(Math.sin(this.rotation));
             console.log(this.rotation);
 
@@ -308,8 +295,12 @@ Gorilla.prototype.getRadius = function () {
     return (this.sprite.width / 2) * 0.9;
 };
 
-Gorilla.prototype.takeBananaHit = function () {
-    this.health = this.health-10;
+Gorilla.prototype.takeBananaHit = function (velX) {
+
+    var damage = 2*Math.abs(velX);
+    damage = Math.floor(damage);
+    this.health -= damage;
+    //this.health = this.health-10;
 };
 
 Gorilla.prototype.reset = function () {
@@ -324,7 +315,7 @@ Gorilla.prototype.halt = function () {
     this.velY = 0;
 };
 
-var NOMINAL_ROTATE_RATE = 0.1;
+var NOMINAL_ROTATE_RATE = 0.04;
 
 Gorilla.prototype.updateRotation = function (du) {
     if(turnHandler() === this.player)
