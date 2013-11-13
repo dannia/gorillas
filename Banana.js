@@ -53,6 +53,16 @@ Banana.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
 
+    this.velY +=  NOMINAL_GRAVITY;
+    this.velX += windPower/100;
+    this.cx += this.velX * du;
+    this.cy += this.velY * du;
+
+    this.rotation += 0.25 * du;
+    //this.rotation = util.wrapRange(this.rotation,
+                                   //0, consts.FULL_CIRCLE);
+
+
     if (this.lifeSpan < 0) 
     {
         nextTurn();
@@ -66,14 +76,6 @@ Banana.prototype.update = function (du) {
         console.log("killed by ideadNOW");
         return entityManager.KILL_ME_NOW;
     }
-
-    this.velY +=  NOMINAL_GRAVITY;
-    this.cx += this.velX * du;
-    this.cy += this.velY * du;
-
-    this.rotation += 0.25 * du;
-    //this.rotation = util.wrapRange(this.rotation,
-                                   //0, consts.FULL_CIRCLE);
 
     // Þarf að bæta:
     if (this.cy > 620) 

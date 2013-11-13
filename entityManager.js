@@ -139,6 +139,7 @@ update: function(du) {
 render: function(ctx) {
 
     displayTime();   //Temporary
+    displayWind(); //Temporary
 
 
     var debugX = 10, debugY = 100;

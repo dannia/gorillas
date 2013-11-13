@@ -41,6 +41,7 @@ Gorilla.prototype.KEY_THRUST = 'W'.charCodeAt(0);
 Gorilla.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
 Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
+Gorilla.prototype.JUMP = 16;    //Shift button
 
 Gorilla.prototype.KEY_PWRDWN  = 'Q'.charCodeAt(0);
 Gorilla.prototype.KEY_PWRUP  = 'E'.charCodeAt(0);
@@ -235,14 +236,25 @@ Gorilla.prototype.maybeFireBanana = function () {
             var xPower = 0;
             var yPower = 0;
 
-            if(Math.sin(this.rotation) > 0)
+
+            // Very basic check to see there should be put any
+            // x-velocity on the projectile, if the angle is
+            // at close to 0 there is no x-velocity.
+
+            if(Math.sin(this.rotation) > 0.05)
             {
                 xPower = this.power;
             }
-            else
+            else if((Math.sin(this.rotation) < -0.05))
             {
                 xPower = -this.power;
             }
+            else
+            {
+                xPower = 0;
+            }
+
+            // Calculating if angle is up or downwards so that the power can be adjusted
 
             if ((this.cy - (45 + 10 * this.power) * Math.cos(this.rotation)) < this.cy)
             {
@@ -269,6 +281,8 @@ Gorilla.prototype.maybeFireBanana = function () {
 };
 
 Gorilla.prototype.adjustPower = function () {
+
+    //Adjust the power of the shot for this character
 
     if (turnHandler() === this.player) {
 
@@ -330,6 +344,9 @@ Gorilla.prototype.render = function (ctx) {
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 
+    // Render the power and aim bar of the gorilla
+    // Should possibly be a function on its own
+
     if(turnHandler() === this.player)
     {
         ctx.strokeStyle = 'red';
@@ -339,6 +356,10 @@ Gorilla.prototype.render = function (ctx) {
                     this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
         ctx.stroke();
     }
+
+
+    // Render the healthbar of the gorilla
+    // Should possibly be a function on its own
 
     ctx.font="16px Arial Bold";
 

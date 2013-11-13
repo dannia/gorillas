@@ -185,6 +185,7 @@ function preloadDone() {
 
     entityManager.init();
     createInitialGorillas();
+    randomWind();
 
     main.init();
 }
