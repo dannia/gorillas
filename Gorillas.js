@@ -3,25 +3,7 @@
 // =========
 /*
 
-A sort-of-playable version of the classic arcade game.
 
-
-HOMEWORK INSTRUCTIONS:
-
-You have some "TODO"s to fill in again, particularly in:
-
-spatialManager.js
-
-But also, to a lesser extent, in:
-
-Rock.js
-Bullet.js
-Gorilla.js
-
-
-...Basically, you need to implement the core of the spatialManager,
-and modify the Rock/Bullet/Gorilla so that the register (and unregister)
-with it correctly, so that they can participate in collisions.
 
 */
 
@@ -184,7 +166,7 @@ function requestPreloads() {
     var requiredImages = {
         gorilla   : "gorilla-icon.png",
         gorilla2  : "gorilla-icon2.png",
-        bullet : "Banana.png"
+        banana : "Banana.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -198,8 +180,8 @@ function preloadDone() {
     g_sprites.gorilla.scale = 0.0005;
     g_sprites.gorilla2 = new Sprite(g_images.gorilla2);
 
-    g_sprites.bullet = new Sprite(g_images.bullet);
-    g_sprites.bullet.scale = 0.25;
+    g_sprites.banana = new Sprite(g_images.banana);
+    g_sprites.banana.scale = 0.25;
 
     entityManager.init();
     createInitialGorillas();

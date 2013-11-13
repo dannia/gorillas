@@ -27,7 +27,7 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_bullets : [],
+_bananas : [],
 _gorillas   : [],
 
 // "PRIVATE" METHODS
@@ -65,15 +65,15 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bullets, this._gorillas];
+    this._categories = [this._bananas, this._gorillas];
 },
 
 init: function() {
     //this._generateGorilla();
 },
 
-fireBullet: function(cx, cy, velX, velY, rotation,power) {
-    this._bullets.push(new Bullet({
+fireBanana: function(cx, cy, velX, velY, rotation,power) {
+    this._bananas.push(new Banana({
         cx   : cx,
         cy   : cy,
         velX : velX,

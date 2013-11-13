@@ -42,8 +42,8 @@ Gorilla.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
 Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 
-Gorilla.prototype.KEY_PWRDWN  = '4'.charCodeAt(0);
-Gorilla.prototype.KEY_PWRUP  = '5'.charCodeAt(0);
+Gorilla.prototype.KEY_PWRDWN  = 'Q'.charCodeAt(0);
+Gorilla.prototype.KEY_PWRUP  = 'E'.charCodeAt(0);
 
 Gorilla.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
@@ -117,7 +117,7 @@ Gorilla.prototype.update = function (du) {
 
     // Handle firing
     this.adjustPower();
-    this.maybeFireBullet();
+    this.maybeFireBanana();
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
     if(this.health <= 0)
@@ -219,7 +219,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     this.cy += du * intervalVelY;
 };
 
-Gorilla.prototype.maybeFireBullet = function () {
+Gorilla.prototype.maybeFireBanana = function () {
 
     if (keys[this.KEY_FIRE] && turnHandler() === this.player) {
 
@@ -231,7 +231,9 @@ Gorilla.prototype.maybeFireBullet = function () {
             var relVel = this.launchVel;
             var relVelX = dX * relVel;
             var relVelY = dY * relVel;
+
             var xPower = 0;
+            var yPower = 0;
 
             if(Math.sin(this.rotation) > 0)
             {
@@ -242,13 +244,23 @@ Gorilla.prototype.maybeFireBullet = function () {
                 xPower = -this.power;
             }
 
-            entityManager.fireBullet(
+            if ((this.cy - (45 + 10 * this.power) * Math.cos(this.rotation)) < this.cy)
+            {
+                yPower = -this.power;
+            }
+            else
+            {
+                yPower = this.power;
+            }
+
+            entityManager.fireBanana(
                this.cx + dX * launchDist, this.cy + dY * launchDist,
-               xPower + relVelX, -this.power + relVelY,
+               xPower + relVelX, yPower + relVelY,
                this.rotation);
 
-            console.log(this.power);
-            console.log(Math.sin(this.rotation))
+            console.log(Math.sin(this.rotation));
+            console.log(this.rotation);
+
             endTurn(this.player);
 
            
@@ -276,7 +288,7 @@ Gorilla.prototype.getRadius = function () {
     return (this.sprite.width / 2) * 0.9;
 };
 
-Gorilla.prototype.takeBulletHit = function () {
+Gorilla.prototype.takeBananaHit = function () {
     this.health = this.health-10;
 };
 
@@ -323,13 +335,28 @@ Gorilla.prototype.render = function (ctx) {
         ctx.strokeStyle = 'red';
         ctx.beginPath();
         ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
-        ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
+        ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),
+                    this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
         ctx.stroke();
     }
 
-    ctx.font="14px Arial";
-    ctx.fillStyle = 'green';
-    ctx.fillText(this.health,this.cx - 15,this.cy-50);
+    ctx.font="16px Arial Bold";
+
+    if(this.health >= 60)
+    {
+        ctx.fillStyle = 'green';
+    }
+    else if((20 < this.health) && (this.health < 60))
+    {
+        ctx.fillStyle = 'orange';
+    }
+    else if(this.health <= 20)
+    {
+        ctx.fillStyle = 'red';
+    }
+
+    ctx.fillText(this.health,this.cx - 15,this.cy-70);
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
+
 };
