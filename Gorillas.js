@@ -97,7 +97,8 @@ var KEY_RESET = keyCode('R');
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
 
-var KEY_K = keyCode('K');
+//Not needed
+//var KEY_K = keyCode('K');
 
 function processDiagnostics() {
 
@@ -127,8 +128,8 @@ function processDiagnostics() {
         sprite : g_sprites.gorilla2
         });
 
-    if (eatKey(KEY_K)) entityManager.killNearestGorilla(
-        g_mouseX, g_mouseY);
+    //if (eatKey(KEY_K)) entityManager.killNearestGorilla(
+     //   g_mouseX, g_mouseY);
 
 }
 

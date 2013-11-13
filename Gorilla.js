@@ -37,14 +37,26 @@ Gorilla.prototype.rememberResets = function () {
     this.reset_rotation = this.rotation;
 };
 
-Gorilla.prototype.KEY_THRUST = 'W'.charCodeAt(0);
-Gorilla.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
+//Cheaty way of making different controls for each player
+//Since we just have one common file for both players ATM
+
+Gorilla.prototype.KEY_CLOCKWISE = 'W'.charCodeAt(0);
+Gorilla.prototype.KEY_COUNTER  = 'S'.charCodeAt(0);
 Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
+
+Gorilla.prototype.KEY_CLOCKWISE2 = 'I'.charCodeAt(0);
+Gorilla.prototype.KEY_COUNTER2  = 'K'.charCodeAt(0);
+Gorilla.prototype.KEY_LEFT2   = 'J'.charCodeAt(0);
+Gorilla.prototype.KEY_RIGHT2  = 'L'.charCodeAt(0);
+
 Gorilla.prototype.KEY_JUMP = 16;    //Shift button
 
 Gorilla.prototype.KEY_PWRDWN  = 'Q'.charCodeAt(0);
 Gorilla.prototype.KEY_PWRUP  = 'E'.charCodeAt(0);
+
+Gorilla.prototype.KEY_PWRDWN2  = 'U'.charCodeAt(0);
+Gorilla.prototype.KEY_PWRUP2  = 'O'.charCodeAt(0);
 
 Gorilla.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
@@ -163,19 +175,28 @@ Gorilla.prototype.computeGravity = function () {
     return g_useGravity ? NOMINAL_GRAVITY : 0;
 };
 
-var NOMINAL_THRUST = +0.2;
-var NOMINAL_RETRO  = -0.1;
+var NOMINAL_CLOCKWISE = +0.2;
+var NOMINAL_COUNTER  = -0.1;
 
 Gorilla.prototype.computeThrustMag = function () {
     
     var thrust = 0;
     
-    if (turnHandler() === this.player)
+    if ((turnHandler() === 1) && (1 === this.player))
     {
         if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
             this.cx--;
         }
         if ((keys[this.KEY_RIGHT]) && (this.cx < (g_canvas.width - this.getRadius()))) {
+            this.cx++;
+        }
+    }
+    else if ((turnHandler() === 2) && (2 ===  this.player))
+    {
+        if ((keys[this.KEY_LEFT2]) && (this.cx > this.getRadius())) {
+            this.cx--;
+        }
+        if ((keys[this.KEY_RIGHT2]) && (this.cx < (g_canvas.width - this.getRadius()))) {
             this.cx++;
         }
     }
@@ -277,13 +298,24 @@ Gorilla.prototype.adjustPower = function () {
 
     //Adjust the power of the shot for this character
 
-    if (turnHandler() === this.player) {
+    if ((turnHandler() === 1) && (1 === this.player)) {
 
         if((keys[this.KEY_PWRUP]) && (this.power <= 5))
         {
             this.power += 0.05;
         }
         else if((keys[this.KEY_PWRDWN]) && (this.power >= 0))
+        {
+            this.power -= 0.05;
+        }          
+    }
+    else if ((turnHandler() === 2) && (2 === this.player)) {
+
+        if((keys[this.KEY_PWRUP2]) && (this.power <= 5))
+        {
+            this.power += 0.05;
+        }
+        else if((keys[this.KEY_PWRDWN2]) && (this.power >= 0))
         {
             this.power -= 0.05;
         }          
@@ -318,13 +350,26 @@ Gorilla.prototype.halt = function () {
 
 var NOMINAL_ROTATE_RATE = 0.03;
 
-Gorilla.prototype.updateRotation = function (du) {
-    if(turnHandler() === this.player)
+Gorilla.prototype.updateRotation = function (du) 
+{
+
+    if((turnHandler() ===  1) && (1 === this.player))
     {
-        if (keys[this.KEY_RETRO]) {
+        if (keys[this.KEY_COUNTER]) {
             this.rotation -= NOMINAL_ROTATE_RATE * du;
         }
-        if (keys[this.KEY_THRUST]) {
+        if (keys[this.KEY_CLOCKWISE]) {
+            this.rotation += NOMINAL_ROTATE_RATE * du;
+        }
+    }
+
+
+    else if((turnHandler() === 2) && (2 === this.player))
+    {
+        if (keys[this.KEY_COUNTER2]) {
+            this.rotation -= NOMINAL_ROTATE_RATE * du;
+        }
+        if (keys[this.KEY_CLOCKWISE2]) {
             this.rotation += NOMINAL_ROTATE_RATE * du;
         }
     }
