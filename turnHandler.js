@@ -100,7 +100,7 @@ function displayWind()
     var prevColor = ctx.fillStyle;
     ctx.font="24px Arial Bold";
     ctx.fillStyle = 'white';
-    ctx.fillText("Wind : " + windPower,(g_canvas.width/2)-90,75);
+    ctx.fillText("Wind : " + windPower,(g_canvas.width/2)-55,75);
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
 }

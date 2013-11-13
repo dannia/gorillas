@@ -41,7 +41,7 @@ Gorilla.prototype.KEY_THRUST = 'W'.charCodeAt(0);
 Gorilla.prototype.KEY_RETRO  = 'S'.charCodeAt(0);
 Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
-Gorilla.prototype.JUMP = 16;    //Shift button
+Gorilla.prototype.KEY_JUMP = 16;    //Shift button
 
 Gorilla.prototype.KEY_PWRDWN  = 'Q'.charCodeAt(0);
 Gorilla.prototype.KEY_PWRUP  = 'E'.charCodeAt(0);
@@ -135,12 +135,18 @@ Gorilla.prototype.update = function (du) {
 Gorilla.prototype.computeSubStep = function (du) {
     
     var thrust = this.computeThrustMag();
+    var jumpPwr = 0;
 
     // Apply thrust directionally, based on our rotation
     var accelX = +Math.sin(this.rotation) * thrust;
     var accelY = -Math.cos(this.rotation) * thrust;
-    
-    accelY += this.computeGravity();
+
+    if ((keys[this.KEY_JUMP]) && (turnHandler() === this.player) && (this.velY === 0))
+    {
+        jumpPwr = 4;
+    }
+
+    accelY += this.computeGravity() - jumpPwr;
 
     this.applyAccel(accelX, accelY, du);
     
