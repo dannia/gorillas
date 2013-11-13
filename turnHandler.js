@@ -59,7 +59,14 @@ function nextTurn()
 
 function timer()
 {
-    turnTimer = turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
+    if(turnTimer > 0)
+    {
+        turnTimer = turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
+    }
+    else
+    {
+        turnTimer = 0;
+    }
 }
 
 function displayTime()
