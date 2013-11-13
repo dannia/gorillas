@@ -295,9 +295,10 @@ Gorilla.prototype.getRadius = function () {
     return (this.sprite.width / 2) * 0.9;
 };
 
-Gorilla.prototype.takeBananaHit = function (velX) {
+Gorilla.prototype.takeBananaHit = function (velX,velY) {
 
-    var damage = 2*Math.abs(velX);
+    var damage = util.square(velX) + util.square(velY);
+    damage = Math.sqrt(damage);
     damage = Math.floor(damage);
     this.health -= damage;
     //this.health = this.health-10;
@@ -315,7 +316,7 @@ Gorilla.prototype.halt = function () {
     this.velY = 0;
 };
 
-var NOMINAL_ROTATE_RATE = 0.04;
+var NOMINAL_ROTATE_RATE = 0.03;
 
 Gorilla.prototype.updateRotation = function (du) {
     if(turnHandler() === this.player)

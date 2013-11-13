@@ -90,7 +90,7 @@ Banana.prototype.update = function (du) {
     if (hitEntity) {
         nextTurn();
         console.log("killed by hit something");
-        var canTakeHit = hitEntity.takeBananaHit(this.velX);
+        var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;
     }
