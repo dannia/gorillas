@@ -55,10 +55,17 @@ Banana.prototype.update = function (du) {
 
     this.velY +=  NOMINAL_GRAVITY;
     this.velX += windPower/50;
+
     this.cx += this.velX * du;
     this.cy += this.velY * du;
-
     this.rotation += 0.25 * du;
+
+    //Bouncing off the walls
+
+    if((this.cx >= canvas.width) || (this.cx <= 0))
+    {
+        this.velX = - this.velX;
+    }
     //this.rotation = util.wrapRange(this.rotation,
                                    //0, consts.FULL_CIRCLE);
 
