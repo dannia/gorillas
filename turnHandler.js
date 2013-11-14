@@ -9,8 +9,8 @@
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
-var originalturnTimer = 166/NOMINAL_UPDATE_INTERVAL;
-var turnTimer = 166/NOMINAL_UPDATE_INTERVAL;
+var originalturnTimer = 166.5/NOMINAL_UPDATE_INTERVAL;
+var turnTimer = 166.5/NOMINAL_UPDATE_INTERVAL;
 var playerTurn = 1;
 var lastPlayer = 0;
 var windPower = 0;
@@ -40,8 +40,6 @@ function nextTurn()
 {
     // Uses the variable of the Last Player to have a turn 
     // to give next player control
-
-    console.log(lastPlayer);
 
     turnTimer = originalturnTimer;
     
@@ -127,14 +125,14 @@ function displayWind()
          windDisplay = negPowerArray[Math.abs(windPower) - 1];
          ctx.fillStyle = colorArray[Math.abs(windPower)];
     }
-    else if(windPower === 0)
+    else
     {
         windDisplay = "0"
         ctx.fillStyle = colorArray[0];
     }
 
     ctx.font="24px Arial Bold";
-    ctx.fillText("Wind : " + windDisplay,(g_canvas.width/2)-55,75);
+    ctx.fillText("Wind : " + windDisplay,((g_canvas.width/2)- 55 - (Math.abs(windPower) * 5)),75);
 
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
