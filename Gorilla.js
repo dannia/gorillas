@@ -131,7 +131,6 @@ Gorilla.prototype.computeSubStep = function (du) {
 
     this.applyAccel(accelX, accelY, du);
     
-    //this.wrapPosition();
     
     if (thrust === 0 || g_allowMixedActions) {
         this.updateRotation(du);
@@ -226,9 +225,10 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
 
 	// Ignore the bounce if the Gorilla is already in
 	// the "border zone" (to avoid trapping them there)
-	if (this.cy > maxY || this.cy < minY) {
+	//if (this.cy > maxY || this.cy < minY) {
 	    // do nothing
-	} else if (nextY > maxY || nextY < minY) {
+	//}
+    if(nextY > maxY || nextY < minY) {
             this.velY = 0;//oldVelY * -0.9;
             intervalVelY = this.velY;
         }
@@ -255,7 +255,6 @@ Gorilla.prototype.maybeFireBanana = function () {
             var xPower = 0;
             var yPower = 0;
 
-
             xPower = (2 * this.power*(Math.sin(this.rotation)));
 
             // Calculating if angle is up or downwards so that the power can be adjusted
@@ -275,9 +274,7 @@ Gorilla.prototype.maybeFireBanana = function () {
                xPower + relVelX, yPower + relVelY,
                this.rotation);
 
-            endTurn(this.player);
-
-           
+            endTurn(this.player);       
     }
     
 };
@@ -389,7 +386,6 @@ Gorilla.prototype.render = function (ctx) {
                     this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
         ctx.stroke();
     }
-
 
     // Render the healthbar of the gorilla
     // Should possibly be a function on its own

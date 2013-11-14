@@ -189,13 +189,7 @@ function requestPreloads() {
 var g_sprites = {};
 
 function preloadDone() {
-    
-    //TODO: Make different maps activate different background images.
     g_sprites.jungle = new Sprite(g_images.jungle);
-    g_sprites.jungle.scale = 2;
-    
-    g_sprites.jungle.drawCentredAt(
-        ctx, 200, 200, 0);
 
     g_sprites.gorilla  = new Sprite(g_images.gorilla);
     g_sprites.gorilla.scale = 0.0005;
