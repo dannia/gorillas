@@ -178,7 +178,9 @@ function requestPreloads() {
     var requiredImages = {
         gorilla   : "gorilla-icon.png",
         gorilla2  : "gorilla-icon2.png",
-        banana : "Banana.png"
+        banana : "Banana.png",
+        jungle : "jungle.png"
+        //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -187,6 +189,13 @@ function requestPreloads() {
 var g_sprites = {};
 
 function preloadDone() {
+    
+    //TODO: Make different maps activate different background images.
+    g_sprites.jungle = new Sprite(g_images.jungle);
+    g_sprites.jungle.scale = 2;
+    
+    g_sprites.jungle.drawCentredAt(
+        ctx, 200, 200, 0);
 
     g_sprites.gorilla  = new Sprite(g_images.gorilla);
     g_sprites.gorilla.scale = 0.0005;

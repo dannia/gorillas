@@ -143,10 +143,11 @@ update: function(du) {
 },
 
 render: function(ctx) {
+    g_sprites.jungle.drawCentredAt(ctx,300,400,0);
+    g_sprites.jungle.scale = 0.90;
 
     displayTime();   //Temporary
     displayWind(); //Temporary
-
 
     var debugX = 10, debugY = 100;
 
