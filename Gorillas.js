@@ -21,7 +21,7 @@ var g_ctx = g_canvas.getContext("2d");
 
 
 // ====================
-// CREATE INITIAL SHIPS
+// CREATE INITIAL GORILLAS
 // ====================
 
 function createInitialGorillas() {
@@ -38,8 +38,19 @@ function createInitialGorillas() {
 
         sprite : g_sprites.gorilla2,
         player : 2
-    })
-    
+    });
+
+    var currentx = 0;
+    var currenty = 550;
+
+    //Build bricks.. sad sad way
+
+    for (var i = 0; i < 15; i++) {
+
+        entityManager.generateBrick({cx: currentx,cy: currenty})
+
+        currentx = currentx + 60;
+    };
 }
 
 

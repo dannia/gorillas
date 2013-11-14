@@ -51,7 +51,6 @@ unregister: function(entity) {
 },
 
 findEntityInRange: function(posX, posY, radius) {
-    // TODO: YOUR STUFF HERE!
     for(var ID in this._entities)
     {
         var distSq = util.distSq(this._entities[ID].cx, this._entities[ID].cy, posX, posY);

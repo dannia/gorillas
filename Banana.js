@@ -73,14 +73,12 @@ Banana.prototype.update = function (du) {
     if (this.lifeSpan < 0) 
     {
         nextTurn();
-        console.log("killed by lifespan");
         return entityManager.KILL_ME_NOW;
     }
 
     if(this._isDeadNow) 
     {
         nextTurn();
-        console.log("killed by ideadNOW");
         return entityManager.KILL_ME_NOW;
     }
 
@@ -88,7 +86,6 @@ Banana.prototype.update = function (du) {
     if (this.cy > 620) 
     {
         nextTurn();
-        console.log("killed by outside the borders");
         return entityManager.KILL_ME_NOW;
     }
 
@@ -96,7 +93,6 @@ Banana.prototype.update = function (du) {
     var hitEntity = this.findHitEntity();
     if (hitEntity) {
         nextTurn();
-        console.log("killed by hit something");
         var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;

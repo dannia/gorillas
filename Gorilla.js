@@ -76,37 +76,6 @@ Gorilla.prototype.power = 1;
 Gorilla.prototype.warpSound = new Audio(
     "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/GorillaWarp.ogg");
 
-Gorilla.prototype.warp = function () {
-    this._isWarping = true;
-    this._scaleDirn = -1;
-    this.warpSound.play();
-    
-    // Unregister me from my old posistion
-    // ...so that I can't be collided with while warping
-    spatialManager.unregister(this);
-};
-
-Gorilla.prototype._updateWarp = function (du) {
-
-    var SHRINK_RATE = 3 / SECS_TO_NOMINALS;
-    this._scale += this._scaleDirn * SHRINK_RATE * du;
-    
-    if (this._scale < 0.2) {
-        this.halt();
-        this._scaleDirn = 1;
-        
-    } else if (this._scale > 1.2) { // default = 1.0
-        // So that the Gorilla gets a little bigger than normal
-        // then 'snaps' back to it's normal 1.0 size.
-    
-        this._scale = 1;
-        
-        // Reregister me from my old posistion
-        // ...so that I can be collided with again
-        spatialManager.register(this);
-        
-    }
-};
     
 Gorilla.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
@@ -205,6 +174,29 @@ Gorilla.prototype.computeThrustMag = function () {
 };
 
 Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
+
+
+    var collideX = false;
+    var collideY = false;
+    var hitEntity = this.findHitEntity();
+    if (hitEntity) 
+    { 
+        var hitPosition = hitEntity.getPos();
+        var hitRadius = hitEntity.getRadius();
+        var gorillaRadius = this.getRadius();
+
+        if(((hitPosition.posY - hitRadius) <= (this.cy + gorillaRadius)) || ((hitPosition.posY + hitRadius) >= (this.cy - gorillaRadius))) 
+        {
+            collideY = true;
+
+        }
+
+        if(((hitPosition.posX - hitRadius) <= (this.cx + gorillaRadius)) || ((hitPosition.posX + hitRadius) >= (this.cx - gorillaRadius)))
+        {
+            collideX = true;
+        }
+
+    }
     
     // u = original velocity
     var oldVelX = this.velX;
@@ -282,10 +274,6 @@ Gorilla.prototype.maybeFireBanana = function () {
                this.cx + dX * launchDist, this.cy + dY * launchDist,
                xPower + relVelX, yPower + relVelY,
                this.rotation);
-
-            console.log(Math.cos(this.rotation));
-            console.log(Math.sin(this.rotation));
-            console.log(this.rotation);
 
             endTurn(this.player);
 
@@ -386,6 +374,7 @@ Gorilla.prototype.render = function (ctx) {
 
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
+    var prevLineWidth = ctx.lineWidth;
 
     // Render the power and aim bar of the gorilla
     // Should possibly be a function on its own
@@ -393,6 +382,7 @@ Gorilla.prototype.render = function (ctx) {
     if(turnHandler() === this.player)
     {
         ctx.strokeStyle = 'red';
+        ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
         ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),
@@ -422,5 +412,6 @@ Gorilla.prototype.render = function (ctx) {
     ctx.fillText(this.health,this.cx - 15,this.cy-70);
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
+    ctx.lineWidth = prevLineWidth;
 
 };

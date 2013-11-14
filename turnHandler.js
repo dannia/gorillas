@@ -9,6 +9,11 @@
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
+
+ // PlayerTurn kind of gamestate variable
+ // controls wich player is allowed to move and 
+ // can be used to track game over state, between rounds state or main menu state
+ 
 var originalturnTimer = 166.5/NOMINAL_UPDATE_INTERVAL;
 var turnTimer = 166.5/NOMINAL_UPDATE_INTERVAL;
 var playerTurn = 1;

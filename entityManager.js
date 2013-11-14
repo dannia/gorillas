@@ -2,7 +2,7 @@
 
 entityManager.js
 
-A module which handles arbitrary entity-management for "Asteroids"
+A module which handles arbitrary entity-management for "Gorillas"
 
 
 We create this module as a single global object, and initialise it
@@ -29,6 +29,7 @@ var entityManager = {
 
 _bananas : [],
 _gorillas   : [],
+_bricks : [],
 
 // "PRIVATE" METHODS
 
@@ -65,7 +66,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bananas, this._gorillas];
+    this._categories = [this._bananas, this._gorillas, this._bricks];
 },
 
 init: function() {
@@ -86,6 +87,11 @@ fireBanana: function(cx, cy, velX, velY, rotation,power) {
 generateGorilla : function(descr) {
     this._gorillas.push(new Gorilla(descr));
 },
+
+generateBrick : function(descr){
+    this._bricks.push(new Brick(descr));
+},
+
 
 killNearestGorilla : function(xPos, yPos) {
     var theGorilla = this._findNearestGorilla(xPos, yPos).theGorilla;
@@ -108,7 +114,7 @@ resetGorillas: function() {
 
 haltGorillas: function() {
     this._forEachOf(this._gorillas, Gorilla.prototype.halt);
-},	
+},
 
 
 update: function(du) {
