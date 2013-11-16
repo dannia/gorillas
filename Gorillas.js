@@ -52,9 +52,22 @@ function createInitialGorillas() {
         currentx = currentx + 40;
     };
 
-    entityManager.generateBrick({cx: g_canvas.width/2 + 40,cy: 525});
-    entityManager.generateBrick({cx: g_canvas.width/2 + -40,cy: 525});
-    entityManager.generateBrick({cx: g_canvas.width/2,cy: 480});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 520});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 520});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 490});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 490});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 90,cy: 490});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 90,cy: 490});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 460});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 460});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 430});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 430});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 400});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 400});
+    entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 370});
+    entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 370});
+    entityManager.generateBrick({cx: g_canvas.width/2,cy: 370});
+
 }
 
 
@@ -183,7 +196,8 @@ function requestPreloads() {
         gorilla   : "gorilla-icon.png",
         gorilla2  : "gorilla-icon2.png",
         banana : "Banana.png",
-        jungle : "jungle.png"
+        jungle : "jungle.png",
+        level0 : "level1.png"
         //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
     };
 
@@ -194,6 +208,7 @@ var g_sprites = {};
 
 function preloadDone() {
     g_sprites.jungle = new Sprite(g_images.jungle);
+    g_sprites.level1 = new Sprite(g_images.level0);
 
     g_sprites.gorilla  = new Sprite(g_images.gorilla);
     g_sprites.gorilla.scale = 0.0005;

@@ -95,14 +95,17 @@ Brick.prototype.collidesWithX = function (nextX, nextY, X, Y, r) {
 
 Brick.prototype.render = function (ctx) {
 
-     var oldStyle = ctx.fillStyle;
+    if(g_renderBricks)
+    {
+         var oldStyle = ctx.fillStyle;
 
-     ctx.fillStyle = 'blue';
+         ctx.fillStyle = 'blue';
 
-     ctx.fillRect(this.cx - this.halfWidth,
-             this.cy - this.halfHeight,
-             this.halfWidth * 2,
-             this.halfHeight * 2);
+         ctx.fillRect(this.cx - this.halfWidth,
+                 this.cy - this.halfHeight,
+                 this.halfWidth * 2,
+                 this.halfHeight * 2);
 
-    ctx.fillStyle = oldStyle;
+        ctx.fillStyle = oldStyle;
+    }
 };

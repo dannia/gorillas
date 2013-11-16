@@ -61,7 +61,7 @@ Banana.prototype.update = function (du) {
     this.rotation += 0.25 * du;
 
     //Bouncing off the walls
-
+    //Bugged .. sometimes gets stuck !
     if((this.cx >= canvas.width) || (this.cx <= 0))
     {
         this.velX = - this.velX;

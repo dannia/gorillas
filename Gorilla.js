@@ -4,6 +4,10 @@
 
 "use strict";
 
+
+        var NOMINAL_ROTATE_RATE = 0.03;
+        var NOMINAL_GRAVITY = 0.12;
+
 /* jshint browser: true, devel: true, globalstrict: true */
 
 /*
@@ -137,8 +141,6 @@ Gorilla.prototype.computeSubStep = function (du) {
         this.updateRotation(du);
     }
 };
-
-var NOMINAL_GRAVITY = 0.12;
 
 Gorilla.prototype.computeGravity = function () {
     return g_useGravity ? NOMINAL_GRAVITY : 0;
@@ -329,8 +331,6 @@ Gorilla.prototype.halt = function () {
     this.velX = 0;
     this.velY = 0;
 };
-
-var NOMINAL_ROTATE_RATE = 0.03;
 
 Gorilla.prototype.updateRotation = function (du) 
 {
