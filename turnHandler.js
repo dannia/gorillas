@@ -130,8 +130,8 @@ var turnHandler = {
         var windDisplay = "";
         var prevFont = ctx.font;
         var prevColor = ctx.fillStyle;
-        var negPowerArray = ["<    ","<<   ","<<<  ","<<<< ","<<<<<"];
-        var posPowerArray = [">    ",">>   ",">>>  ",">>>> ",">>>>>"];
+        var negPowerArray = ["<","<<","<<<","<<<<","<<<<<"];
+        var posPowerArray = [">",">>",">>>",">>>>",">>>>>"];
         var colorArray = ["green","yellow","yellow","orange","orange","red"];
 
         if(this.windPower > 0)
