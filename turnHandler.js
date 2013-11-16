@@ -10,135 +10,144 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
- // PlayerTurn kind of gamestate variable
- // controls wich player is allowed to move and 
- // can be used to track game over state, between rounds state or main menu state
- 
-var originalturnTimer = 166.5/NOMINAL_UPDATE_INTERVAL;
-var turnTimer = 166.5/NOMINAL_UPDATE_INTERVAL;
-var playerTurn = 1;
-var lastPlayer = 0;
-var windPower = 0;
+var turnHandler = {
 
-function turnHandler()
-{
-    // Returns what player is allowed to
-    // control (1,2 for players) or (0 for no player control)
-    return playerTurn;
-}
+     // PlayerTurn kind of gamestate variable
+     // controls wich player is allowed to move and 
+     // can be used to track game over state, between rounds state or main menu state
 
-function endTurn(lastPl)
-{
-    // Passes the current player value (1 or 2) to this function
-    // and sets control to 0 (no player)
-    playerTurn = 0;
-    lastPlayer = lastPl;
-}
+    //  PlayerTurn overview
+    //  0 = Neither player can move or do anything
+    //  1 = Player 1 is in control
+    //  2 = Player 2 is in control
+    //  5 = Inbetween turns
+     
+    originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
+    turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
+    playerTurn : 1,
+    lastPlayer : 0,
+    windPower : 0,
 
-function gameOver()
-{
-    // Removes control from both players
-    playerTurn = 0;
-}
-
-function nextTurn()
-{
-    // Uses the variable of the Last Player to have a turn 
-    // to give next player control
-
-    turnTimer = originalturnTimer;
-    
-    if(lastPlayer === 1)
+    turnHandler : function ()
     {
-        playerTurn = 2;
-    }
-    else if(lastPlayer === 2)
-    {
-        playerTurn = 1;
-    }
+        // Returns what player is allowed to
+        // control (1,2 for players) or (0 for no player control)
+        return this.playerTurn;
+    },
 
-    randomWind();
-}
-
-function timer()
-{
-    if(turnTimer > 0)
+    endTurn : function (lastPl)
     {
-        turnTimer = turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
-    }
-    else
-    {
-        turnTimer = 0;
-    }
-}
+        // Passes the current player value (1 or 2) to this function
+        // and sets control to 0 (no player)
+        this.playerTurn = 0;
+        this.lastPlayer = lastPl;
+    },
 
-function displayTime()
-{
-    // A render function for turn Timer
-    // Possibly not the best place to have this function
-
-    var timeToShow = turnTimer.toFixed(2);
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-    ctx.font="28px Arial Bold";
-    if(timeToShow >= 5)
+    gameOver : function ()
     {
-        ctx.fillStyle = 'white';
-    }
-    else
-    {
-        ctx.fillStyle = 'red';
-    }
-    ctx.fillText("Time : " + timeToShow,(g_canvas.width/2)-90,45);
-    ctx.font = prevFont;
-    ctx.fillStyle = prevColor;
-}
+        // Removes control from both players
+        this.playerTurn = 0;
+    },
 
-function randomWind()
-{
-    var randomPower = Math.random()*5;
-    var posOrNeg = Math.random();
-    if(posOrNeg > 0.5)
+    nextTurn : function ()
     {
-        windPower = randomPower.toFixed(0);
-    }
-    else if(posOrNeg <= 0.5)
+        // Uses the variable of the Last Player to have a turn 
+        // to give next player control
+
+        this.turnTimer = this.originalturnTimer;
+        
+        if(this.lastPlayer === 1)
+        {
+            this.playerTurn = 2;
+        }
+        else if(this.lastPlayer === 2)
+        {
+            this.playerTurn = 1;
+        }
+
+        this.randomWind();
+    },
+
+    timer : function ()
     {
-        windPower = -randomPower.toFixed(0);
-    }
-}
+        if((this.turnTimer > 0) && (this.playerTurn === 1 || this.playerTurn === 2)) 
+        {
+            this.turnTimer = this.turnTimer - NOMINAL_UPDATE_INTERVAL/1000;
+        }
+        else
+        {
+            this.turnTimer = 0;
+        }
+    },
 
-function displayWind()
-{
-    // A render function for wind power
-    // Possibly not the best place to have this function
-
-    var windDisplay = "";
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-    var negPowerArray = ["<    ","<<   ","<<<  ","<<<< ","<<<<<"];
-    var posPowerArray = [">    ",">>   ",">>>  ",">>>> ",">>>>>"];
-    var colorArray = ["green","yellow","yellow","orange","orange","red"];
-
-    if(windPower > 0)
+    displayTime : function ()
     {
-        windDisplay = posPowerArray[windPower - 1];
-        ctx.fillStyle = colorArray[windPower];
-    }
-    else if(windPower < 0)
-    {
-         windDisplay = negPowerArray[Math.abs(windPower) - 1];
-         ctx.fillStyle = colorArray[Math.abs(windPower)];
-    }
-    else
-    {
-        windDisplay = "0"
-        ctx.fillStyle = colorArray[0];
-    }
+        // A render function for turn Timer
+        // Possibly not the best place to have this function
 
-    ctx.font="24px Arial Bold";
-    ctx.fillText("Wind : " + windDisplay,((g_canvas.width/2)- 55 - (Math.abs(windPower) * 5)),75);
+        var timeToShow = this.turnTimer.toFixed(2);
+        var prevFont = ctx.font;
+        var prevColor = ctx.fillStyle;
+        ctx.font="28px Arial Bold";
+        if(timeToShow >= 5)
+        {
+            ctx.fillStyle = 'white';
+        }
+        else
+        {
+            ctx.fillStyle = 'red';
+        }
+        ctx.fillText("Time : " + timeToShow,(g_canvas.width/2)-90,45);
+        ctx.font = prevFont;
+        ctx.fillStyle = prevColor;
+    },
 
-    ctx.font = prevFont;
-    ctx.fillStyle = prevColor;
-}
+    randomWind : function ()
+    {
+        var randomPower = Math.random()*5;
+        var posOrNeg = Math.random();
+        if(posOrNeg > 0.5)
+        {
+            this.windPower = randomPower.toFixed(0);
+        }
+        else if(posOrNeg <= 0.5)
+        {
+            this.windPower = -randomPower.toFixed(0);
+        }
+    },
+
+    displayWind : function ()
+    {
+        // A render function for wind power
+        // Possibly not the best place to have this function
+
+        var windDisplay = "";
+        var prevFont = ctx.font;
+        var prevColor = ctx.fillStyle;
+        var negPowerArray = ["<    ","<<   ","<<<  ","<<<< ","<<<<<"];
+        var posPowerArray = [">    ",">>   ",">>>  ",">>>> ",">>>>>"];
+        var colorArray = ["green","yellow","yellow","orange","orange","red"];
+
+        if(this.windPower > 0)
+        {
+            windDisplay = posPowerArray[this.windPower - 1];
+            ctx.fillStyle = colorArray[this.windPower];
+        }
+        else if(this.windPower < 0)
+        {
+             windDisplay = negPowerArray[Math.abs(this.windPower) - 1];
+             ctx.fillStyle = colorArray[Math.abs(this.windPower)];
+        }
+        else
+        {
+            windDisplay = "0"
+            ctx.fillStyle = colorArray[0];
+        }
+
+        ctx.font="24px Arial Bold";
+        ctx.fillText("Wind : " + windDisplay,((g_canvas.width/2)- 55 - (Math.abs(this.windPower) * 5)),75);
+
+        ctx.font = prevFont;
+        ctx.fillStyle = prevColor;
+    },
+};

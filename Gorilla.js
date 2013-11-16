@@ -4,10 +4,6 @@
 
 "use strict";
 
-
-        var NOMINAL_ROTATE_RATE = 0.03;
-        var NOMINAL_GRAVITY = 0.12;
-
 /* jshint browser: true, devel: true, globalstrict: true */
 
 /*
@@ -85,11 +81,11 @@ Gorilla.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
 
-    if(this.player == turnHandler())
+    if(this.player == turnHandler.playerTurn)
     {
-        if(turnTimer <= 0)
+        if(turnHandler.turnTimer <= 0)
         {
-            endTurn(this.player);
+            turnHandler.endTurn(this.player);
             nextTurn();
         }
     }
@@ -127,7 +123,7 @@ Gorilla.prototype.computeSubStep = function (du) {
     var accelX = +Math.sin(this.rotation) * thrust;
     var accelY = -Math.cos(this.rotation) * thrust;
 
-    if ((keys[this.KEY_JUMP]) && (turnHandler() === this.player) && (this.velY === 0))
+    if ((keys[this.KEY_JUMP]) && (turnHandler.playerTurn === this.player) && (this.velY === 0))
     {
         jumpPwr = 4;
     }
@@ -153,7 +149,7 @@ Gorilla.prototype.computeThrustMag = function () {
     
     var thrust = 0;
     
-    if ((turnHandler() === 1) && (1 === this.player))
+    if ((turnHandler.playerTurn === 1) && (1 === this.player))
     {
         if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
             this.velX = -1;
@@ -162,7 +158,7 @@ Gorilla.prototype.computeThrustMag = function () {
             this.velX = 1;
         }
     }
-    else if ((turnHandler() === 2) && (2 ===  this.player))
+    else if ((turnHandler.playerTurn === 2) && (2 ===  this.player))
     {
         if ((keys[this.KEY_LEFT2]) && (this.cx > this.getRadius())) {
             this.velX = -1;
@@ -240,7 +236,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
 
 Gorilla.prototype.maybeFireBanana = function () {
 
-    if (keys[this.KEY_FIRE] && turnHandler() === this.player) {
+    if (keys[this.KEY_FIRE] && turnHandler.playerTurn === this.player) {
 
     
             var dX = +Math.sin(this.rotation);
@@ -273,7 +269,7 @@ Gorilla.prototype.maybeFireBanana = function () {
                xPower + relVelX, yPower + relVelY,
                this.rotation);
 
-            endTurn(this.player);       
+            turnHandler.endTurn(this.player);       
     }
     
 };
@@ -282,7 +278,7 @@ Gorilla.prototype.adjustPower = function () {
 
     //Adjust the power of the shot for this character
 
-    if ((turnHandler() === 1) && (1 === this.player)) {
+    if ((turnHandler.playerTurn === 1) && (1 === this.player)) {
 
         if((keys[this.KEY_PWRUP]) && (this.power <= 5))
         {
@@ -293,7 +289,7 @@ Gorilla.prototype.adjustPower = function () {
             this.power -= 0.05;
         }          
     }
-    else if ((turnHandler() === 2) && (2 === this.player)) {
+    else if ((turnHandler.playerTurn === 2) && (2 === this.player)) {
 
         if((keys[this.KEY_PWRUP2]) && (this.power <= 5))
         {
@@ -335,7 +331,7 @@ Gorilla.prototype.halt = function () {
 Gorilla.prototype.updateRotation = function (du) 
 {
 
-    if((turnHandler() ===  1) && (1 === this.player))
+    if((turnHandler.playerTurn ===  1) && (1 === this.player))
     {
         if (keys[this.KEY_COUNTER]) {
             this.rotation -= NOMINAL_ROTATE_RATE * du;
@@ -346,7 +342,7 @@ Gorilla.prototype.updateRotation = function (du)
     }
 
 
-    else if((turnHandler() === 2) && (2 === this.player))
+    else if((turnHandler.playerTurn === 2) && (2 === this.player))
     {
         if (keys[this.KEY_COUNTER2]) {
             this.rotation -= NOMINAL_ROTATE_RATE * du;
@@ -373,7 +369,7 @@ Gorilla.prototype.render = function (ctx) {
     // Render the power and aim bar of the gorilla
     // Should possibly be a function on its own
 
-    if(turnHandler() === this.player)
+    if(turnHandler.playerTurn === this.player)
     {
         ctx.strokeStyle = 'red';
         ctx.lineWidth = 3;

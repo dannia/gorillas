@@ -20,57 +20,6 @@ var g_ctx = g_canvas.getContext("2d");
 */
 
 
-// ====================
-// CREATE INITIAL GORILLAS
-// ====================
-
-function createInitialGorillas() {
-
-    entityManager.generateGorilla({
-        cx : 70,
-        cy : 250,
-        player : 1
-    });
-
-    entityManager.generateGorilla({
-        cx : g_canvas.width - 70,
-        cy : 250,
-
-        sprite : g_sprites.gorilla2,
-        player : 2
-    });
-
-    var currentx = 0;
-    var currenty = 550;
-
-    //Build bricks.. sad sad way
-
-    for (var i = 0; i < 22; i++) {
-
-        entityManager.generateBrick({cx: currentx,cy: currenty})
-
-        currentx = currentx + 40;
-    };
-
-    entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 520});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 520});
-    entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 490});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 490});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 90,cy: 490});
-    entityManager.generateBrick({cx: g_canvas.width/2 + 90,cy: 490});
-    entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 460});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 460});
-    entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 430});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 430});
-    entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 400});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 400});
-    entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 370});
-    entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 370});
-    entityManager.generateBrick({cx: g_canvas.width/2,cy: 370});
-
-}
-
-
 // =============
 // GATHER INPUTS
 // =============
@@ -197,7 +146,8 @@ function requestPreloads() {
         gorilla2  : "gorilla-icon2.png",
         banana : "Banana.png",
         jungle : "jungle.png",
-        level0 : "level1.png"
+        level0 : "level0.png",
+        level1 : "level1.png"
         //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
     };
 
@@ -208,7 +158,8 @@ var g_sprites = {};
 
 function preloadDone() {
     g_sprites.jungle = new Sprite(g_images.jungle);
-    g_sprites.level1 = new Sprite(g_images.level0);
+    g_sprites.level0 = new Sprite(g_images.level0);
+    g_sprites.level1 = new Sprite(g_images.level1);
 
     g_sprites.gorilla  = new Sprite(g_images.gorilla);
     g_sprites.gorilla.scale = 0.0005;
@@ -219,8 +170,8 @@ function preloadDone() {
 
 
     entityManager.init();
-    createInitialGorillas();
-    randomWind();
+    level.setLevel1();
+    turnHandler.randomWind();
 
     main.init();
 }

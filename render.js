@@ -25,7 +25,9 @@ function render(ctx) {
     if (eatKey(TOGGLE_UNDO_BOX)) g_undoBox = !g_undoBox;
     if (eatKey(TOGGLE_FLIPFLOP)) g_doFlipFlop = !g_doFlipFlop;
     if (eatKey(TOGGLE_RENDER)) g_doRender = !g_doRender;
-    if (eatKey(TOGGLE_BRICKS)) g_renderBricks = !g_renderBricks;
+    //if (eatKey(TOGGLE_BRICKS)) g_renderBricks = !g_renderBricks;
+    if (eatKey(TOGGLE_BRICKS)) level.resetLevel();
+
     // I've pulled the clear out of `renderSimulation()` and into
     // here, so that it becomes part of our "diagnostic" wrappers
     //

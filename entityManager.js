@@ -143,7 +143,7 @@ checkBricksX : function(nextX,nextY,X,Y,radius) {
 
 update: function(du) {
 
-    timer();
+    turnHandler.timer();
 
     for (var c = 0; c < this._categories.length; ++c) {
 
@@ -167,12 +167,11 @@ update: function(du) {
 },
 
 render: function(ctx) {
-    //g_sprites.jungle.drawCentredAt(ctx,300,400,0);
-    //g_sprites.jungle.scale = 0.90;
-    g_sprites.level1.drawCentredAt(ctx,400,300,0);
 
-    displayTime();   //Temporary
-    displayWind(); //Temporary
+    levelBackground.drawCentredAt(ctx,400,300,0);
+
+    turnHandler.displayTime();   //Temporary
+    turnHandler.displayWind(); //Temporary
 
     var debugX = 10, debugY = 100;
 

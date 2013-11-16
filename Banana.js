@@ -54,7 +54,7 @@ Banana.prototype.update = function (du) {
     spatialManager.unregister(this);
 
     this.velY +=  NOMINAL_GRAVITY;
-    this.velX += windPower/50;
+    this.velX +=  turnHandler.windPower/50;
 
     this.cx += this.velX * du;
     this.cy += this.velY * du;
@@ -72,27 +72,27 @@ Banana.prototype.update = function (du) {
 
     if (this.lifeSpan < 0) 
     {
-        nextTurn();
+        turnHandler.nextTurn();
         return entityManager.KILL_ME_NOW;
     }
 
     if(this._isDeadNow) 
     {
-        nextTurn();
+        turnHandler.nextTurn();
         return entityManager.KILL_ME_NOW;
     }
 
     // Þarf að bæta:
     if (this.cy > 620) 
     {
-        nextTurn();
+        turnHandler.nextTurn();
         return entityManager.KILL_ME_NOW;
     }
 
 
     var hitEntity = this.findHitEntity();
     if (hitEntity) {
-        nextTurn();
+        turnHandler.nextTurn();
         var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;
