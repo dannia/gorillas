@@ -147,7 +147,8 @@ function requestPreloads() {
         banana : "Banana.png",
         jungle : "jungle.png",
         level0 : "level0.png",
-        level1 : "level1.png"
+        level1 : "level1.png",
+        level2 : "level2.png"
         //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
     };
 
@@ -160,6 +161,7 @@ function preloadDone() {
     g_sprites.jungle = new Sprite(g_images.jungle);
     g_sprites.level0 = new Sprite(g_images.level0);
     g_sprites.level1 = new Sprite(g_images.level1);
+    g_sprites.level2 = new Sprite(g_images.level2);
 
     g_sprites.gorilla  = new Sprite(g_images.gorilla);
     g_sprites.gorilla.scale = 0.0005;
@@ -170,7 +172,7 @@ function preloadDone() {
 
 
     entityManager.init();
-    level.setLevel1();
+    level.setLevel2();
     turnHandler.randomWind();
 
     main.init();

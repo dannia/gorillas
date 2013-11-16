@@ -105,6 +105,17 @@ Gorilla.prototype.update = function (du) {
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
     if((this.health <= 0) || this.cy > g_canvas.height)
     {
+        if(this.player === 1)
+        {
+            turnHandler.winner = 2;
+        }
+        else if(this.player === 2)
+        {
+            turnHandler.winner = 1;
+        }
+        
+        turnHandler.playerTurn = 6;
+
         return entityManager.KILL_ME_NOW;
     }
     else

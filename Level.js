@@ -82,7 +82,7 @@ var level = {
 
     setLevel2 : function()
     {
-        levelBackground = g_sprites.jungle;
+        levelBackground = g_sprites.level2;
 
         NOMINAL_ROTATE_RATE = 0.03;
         NOMINAL_GRAVITY = 0.12;

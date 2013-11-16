@@ -170,8 +170,15 @@ render: function(ctx) {
 
     levelBackground.drawCentredAt(ctx,400,300,0);
 
-    turnHandler.displayTime();   //Temporary
-    turnHandler.displayWind(); //Temporary
+    if(turnHandler.playerTurn != 6)
+    {
+        turnHandler.displayTime();   //Temporary
+        turnHandler.displayWind(); //Temporary
+    }
+    else
+    {
+        turnHandler.displayWinner();
+    }
 
     var debugX = 10, debugY = 100;
 

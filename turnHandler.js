@@ -21,12 +21,14 @@ var turnHandler = {
     //  1 = Player 1 is in control
     //  2 = Player 2 is in control
     //  5 = Inbetween turns
+    //  6 = game is over
      
     originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     playerTurn : 1,
     lastPlayer : 0,
     windPower : 0,
+    winner : 0,
 
     turnHandler : function ()
     {
@@ -146,6 +148,31 @@ var turnHandler = {
 
         ctx.font="24px Arial Bold";
         ctx.fillText("Wind : " + windDisplay,((g_canvas.width/2)- 55 - (Math.abs(this.windPower) * 5)),75);
+
+        ctx.font = prevFont;
+        ctx.fillStyle = prevColor;
+    },
+
+    displayWinner : function ()
+    {
+        // A render function for wind power
+        // Possibly not the best place to have this function
+
+        var prevFont = ctx.font;
+        var prevColor = ctx.fillStyle;
+
+        if(this.winner === 1)
+        {
+            ctx.fillStyle = "blue";
+        }
+        else
+        {
+            ctx.fillStyle = "red";
+        }
+
+
+        ctx.font="50px Arial Bold";
+        ctx.fillText("Player " + this.winner + " wins !",g_canvas.width/2 - 150,g_canvas.height/2);
 
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
