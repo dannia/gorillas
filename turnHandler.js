@@ -99,7 +99,11 @@ var turnHandler = {
         {
             ctx.fillStyle = 'red';
         }
-        ctx.fillText("Time : " + timeToShow,(g_canvas.width/2)-90,45);
+
+        var ttxtlength = ctx.measureText("Time : " + timeToShow);
+        var xt = (ctx.canvas.width - ttxtlength.width) / 2;
+
+        ctx.fillText("Time : " + timeToShow,xt,45);
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
     },
@@ -146,8 +150,12 @@ var turnHandler = {
             ctx.fillStyle = colorArray[0];
         }
 
+        var wtxtlength = ctx.measureText("Wind : " + windDisplay);
+        var xw = (ctx.canvas.width / 2) - wtxtlength.width;
+        //var xw = ((g_canvas.width/2)- 55 - (Math.abs(this.windPower) * 5))
+
         ctx.font="24px Arial Bold";
-        ctx.fillText("Wind : " + windDisplay,((g_canvas.width/2)- 55 - (Math.abs(this.windPower) * 5)),75);
+        ctx.fillText("Wind : " + windDisplay,xw,75);
 
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
