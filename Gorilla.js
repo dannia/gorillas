@@ -1,5 +1,5 @@
 // ==========
-// Gorilla STUFF
+// Gorilla
 // ==========
 
 "use strict";
@@ -78,7 +78,7 @@ Gorilla.prototype.warpSound = new Audio(
 
     
 Gorilla.prototype.update = function (du) {
-    // TODO: YOUR STUFF HERE! --- Unregister and check for death
+
     spatialManager.unregister(this);
 
     if(this.player == turnHandler.playerTurn)
@@ -102,7 +102,6 @@ Gorilla.prototype.update = function (du) {
     this.maybeFireBanana();
 
 
-    // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
     if((this.health <= 0) || this.cy > g_canvas.height)
     {
         if(this.player === 1)
@@ -143,10 +142,8 @@ Gorilla.prototype.computeSubStep = function (du) {
 
     this.applyAccel(accelX, accelY, du);
     
-    
-    if (thrust === 0 || g_allowMixedActions) {
-        this.updateRotation(du);
-    }
+    this.updateRotation(du);
+
 };
 
 Gorilla.prototype.computeGravity = function () {
@@ -207,18 +204,14 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
 
     var collideY = entityManager.checkBricksY(nextX,nextY,this.cx,this.cy,this.getRadius());
     var collideX = entityManager.checkBricksX(nextX,nextY,this.cx,this.cy,this.getRadius());
+
     
-    // bounce
     if (g_useGravity) {
 
         var minY = g_sprites.gorilla.height / 2;
         var maxY = g_canvas.height - minY;
 
-        // Ignore the bounce if the Gorilla is already in
-        // the "border zone" (to avoid trapping them there)
-        //if (this.cy > maxY || this.cy < minY) {
-            // do nothing
-        //}
+
         if(collideY === true)
         {
             if(this.velY >= 0)

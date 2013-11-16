@@ -37,18 +37,8 @@ Brick.prototype.update = function (du) {
     if(this._isDeadNow) 
     {
         nextTurn();
-        console.log("killed by ideadNOW");
         return entityManager.KILL_ME_NOW;
     }
-
-    /*var hitEntity = this.findHitEntity();
-    if (hitEntity) {
-        nextTurn();
-        console.log("killed by hit something");
-        var canTakeHit = hitEntity.takeBrickHit(this.velX, this.velY);
-        if (canTakeHit) canTakeHit.call(hitEntity); 
-        return entityManager.KILL_ME_NOW;
-    }*/
     
     spatialManager.register(this);
 };

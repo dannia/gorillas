@@ -1,5 +1,5 @@
 // ======
-// BULLET
+// Banana
 // ======
 
 "use strict";
@@ -50,7 +50,6 @@ Banana.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 Banana.prototype.update = function (du) {
 
-    // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
 
     this.velY +=  NOMINAL_GRAVITY;
@@ -66,8 +65,6 @@ Banana.prototype.update = function (du) {
     {
         this.velX = - this.velX;
     }
-    //this.rotation = util.wrapRange(this.rotation,
-                                   //0, consts.FULL_CIRCLE);
 
 
     if (this.lifeSpan < 0) 

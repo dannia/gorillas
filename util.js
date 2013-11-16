@@ -74,6 +74,6 @@ fillBox: function (ctx, x, y, w, h, style) {
     ctx.fillStyle = style;
     ctx.fillRect(x, y, w, h);
     ctx.fillStyle = oldStyle;
-}
+},
 
 };
