@@ -101,6 +101,7 @@ Gorilla.prototype.update = function (du) {
     this.adjustPower();
     this.maybeFireBanana();
 
+
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
     if(this.health <= 0)
     {
@@ -153,19 +154,19 @@ Gorilla.prototype.computeThrustMag = function () {
     if ((turnHandler() === 1) && (1 === this.player))
     {
         if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
-            this.cx--;
+            this.velX = -1;
         }
         if ((keys[this.KEY_RIGHT]) && (this.cx < (g_canvas.width - this.getRadius()))) {
-            this.cx++;
+            this.velX = 1;
         }
     }
     else if ((turnHandler() === 2) && (2 ===  this.player))
     {
         if ((keys[this.KEY_LEFT2]) && (this.cx > this.getRadius())) {
-            this.cx--;
+            this.velX = -1;
         }
         if ((keys[this.KEY_RIGHT2]) && (this.cx < (g_canvas.width - this.getRadius()))) {
-            this.cx++;
+            this.velX = 1;
         }
     }
 
@@ -173,29 +174,6 @@ Gorilla.prototype.computeThrustMag = function () {
 };
 
 Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
-
-
-    var collideX = false;
-    var collideY = false;
-    var hitEntity = this.findHitEntity();
-    if (hitEntity) 
-    { 
-        var hitPosition = hitEntity.getPos();
-        var hitRadius = hitEntity.getRadius();
-        var gorillaRadius = this.getRadius();
-
-        if(((hitPosition.posY - hitRadius) <= (this.cy + gorillaRadius)) || ((hitPosition.posY + hitRadius) >= (this.cy - gorillaRadius))) 
-        {
-            collideY = true;
-
-        }
-
-        if(((hitPosition.posX - hitRadius) <= (this.cx + gorillaRadius)) || ((hitPosition.posX + hitRadius) >= (this.cx - gorillaRadius)))
-        {
-            collideX = true;
-        }
-
-    }
     
     // u = original velocity
     var oldVelX = this.velX;
@@ -216,27 +194,46 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     // s = s + v_ave * t
     var nextX = this.cx + intervalVelX * du;
     var nextY = this.cy + intervalVelY * du;
+
+
+    var collideY = entityManager.checkBricksY(nextX,nextY,this.cx,this.cy,this.getRadius());
+    var collideX = entityManager.checkBricksX(nextX,nextY,this.cx,this.cy,this.getRadius());
     
     // bounce
     if (g_useGravity) {
 
-	var minY = g_sprites.gorilla.height / 2;
-	var maxY = g_canvas.height - minY;
+        var minY = g_sprites.gorilla.height / 2;
+        var maxY = g_canvas.height - minY;
 
-	// Ignore the bounce if the Gorilla is already in
-	// the "border zone" (to avoid trapping them there)
-	//if (this.cy > maxY || this.cy < minY) {
-	    // do nothing
-	//}
-    if(nextY > maxY || nextY < minY) {
-            this.velY = 0;//oldVelY * -0.9;
-            intervalVelY = this.velY;
+        // Ignore the bounce if the Gorilla is already in
+        // the "border zone" (to avoid trapping them there)
+        //if (this.cy > maxY || this.cy < minY) {
+            // do nothing
+        //}
+        if((nextY > maxY || nextY < minY) || (collideY === true)) 
+        {
+            if(this.velY >= 0)
+            {
+                this.velY = 0;
+                intervalVelY = this.velY;
+            }
+        }
+
+        if(collideX === true) 
+        {
+            this.velX = 0;
+            intervalVelX = this.velX;
         }
     }
-    
+
+
+
     // s = s + v_ave * t
-    this.cx += du * intervalVelX;
     this.cy += du * intervalVelY;
+    this.cx += du * intervalVelX;
+
+    // So the gorilla won´t go on forever
+    this.velX = 0;
 };
 
 Gorilla.prototype.maybeFireBanana = function () {
@@ -309,7 +306,7 @@ Gorilla.prototype.adjustPower = function () {
 };
 
 Gorilla.prototype.getRadius = function () {
-    return (this.sprite.width / 2) * 0.9;
+    return (this.sprite.width / 2);
 };
 
 Gorilla.prototype.takeBananaHit = function (velX,velY) {

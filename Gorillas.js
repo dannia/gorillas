@@ -45,12 +45,16 @@ function createInitialGorillas() {
 
     //Build bricks.. sad sad way
 
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < 22; i++) {
 
         entityManager.generateBrick({cx: currentx,cy: currenty})
 
-        currentx = currentx + 60;
+        currentx = currentx + 40;
     };
+
+    entityManager.generateBrick({cx: g_canvas.width/2 + 40,cy: 525});
+    entityManager.generateBrick({cx: g_canvas.width/2 + -40,cy: 525});
+    entityManager.generateBrick({cx: g_canvas.width/2,cy: 480});
 }
 
 

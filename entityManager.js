@@ -116,6 +116,30 @@ haltGorillas: function() {
     this._forEachOf(this._gorillas, Gorilla.prototype.halt);
 },
 
+checkBricksY : function(nextX,nextY,X,Y,radius) {
+    var collideY = false;
+    for (var i = 0; i < this._bricks.length; i++)
+    {
+        if(this._bricks[i].collidesWithY(nextX,nextY,X,Y,radius))
+        {
+            collideY = true;
+        }
+    }
+    return collideY;
+},
+
+checkBricksX : function(nextX,nextY,X,Y,radius) {
+    var collideX = false;
+    for (var i = 0; i < this._bricks.length; i++)
+    {
+        if(this._bricks[i].collidesWithX(nextX,nextY,X,Y,radius))
+        {
+            collideX = true;
+        }
+    }
+    return collideX;
+},
+
 
 update: function(du) {
 

@@ -107,7 +107,7 @@ Banana.prototype.computeGravity = function () {
 };
 
 Banana.prototype.getRadius = function () {
-    return 4;
+    return 7;
 };
 
 Banana.prototype.takeBananaHit = function () {
