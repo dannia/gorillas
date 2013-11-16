@@ -86,7 +86,7 @@ Gorilla.prototype.update = function (du) {
         if(turnHandler.turnTimer <= 0)
         {
             turnHandler.endTurn(this.player);
-            nextTurn();
+            turnHandler.nextTurn();
         }
     }
 
@@ -103,7 +103,7 @@ Gorilla.prototype.update = function (du) {
 
 
     // TODO: YOUR STUFF HERE! --- Warp if isColliding, otherwise Register
-    if(this.health <= 0)
+    if((this.health <= 0) || this.cy > g_canvas.height)
     {
         return entityManager.KILL_ME_NOW;
     }
@@ -208,7 +208,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
         //if (this.cy > maxY || this.cy < minY) {
             // do nothing
         //}
-        if((nextY > maxY || nextY < minY) || (collideY === true)) 
+        if(collideY === true)
         {
             if(this.velY >= 0)
             {

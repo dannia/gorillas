@@ -89,45 +89,50 @@ var level = {
 
         entityManager.generateGorilla({
             cx : 70,
-            cy : 350,
+            cy : 250,
             player : 1
         });
 
         entityManager.generateGorilla({
             cx : g_canvas.width - 70,
-            cy : 350,
+            cy : 250,
 
             sprite : g_sprites.gorilla2,
             player : 2
         });
 
         var currentx = 0;
-        var currenty = 550;
+        var currenty = 460;
 
         //Build bricks.. sad sad way
 
-        for (var i = 0; i < 22; i++) {
+        for (var i = 0; i < 7; i++) {
 
             entityManager.generateBrick({cx: currentx,cy: currenty})
 
             currentx = currentx + 40;
         };
 
-        entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 520});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 520});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 90,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 90,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 460});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 460});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 430});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 430});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 400});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 400});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 370});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 370});
-        entityManager.generateBrick({cx: g_canvas.width/2,cy: 370});
+
+        currentx = g_canvas.width;
+        currenty = 460;
+
+        //Build bricks.. sad sad way
+
+        for (var i = 0; i < 7; i++) {
+
+            entityManager.generateBrick({cx: currentx,cy: currenty})
+
+            currentx = currentx - 40;
+        };
+
+        entityManager.generateBrick({cx: g_canvas.width/2 ,cy: 405});
+        entityManager.generateBrick({cx: g_canvas.width/2 + 20 ,cy: 405});
+        entityManager.generateBrick({cx: g_canvas.width/2 - 20 ,cy: 405});
+        entityManager.generateBrick({cx: g_canvas.width/2 + 40 ,cy: 405});
+        entityManager.generateBrick({cx: g_canvas.width/2 - 40 ,cy: 405});
+        entityManager.generateBrick({cx: g_canvas.width/2 + 45 ,cy: 405});
+        entityManager.generateBrick({cx: g_canvas.width/2 - 45 ,cy: 405});
 
     },
 
