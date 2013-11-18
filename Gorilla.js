@@ -4,14 +4,6 @@
 
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-
 // A generic contructor which accepts an arbitrary descriptor object
 function Gorilla(descr) {
 
@@ -121,7 +113,6 @@ Gorilla.prototype.update = function (du) {
     {
         spatialManager.register(this);
     }
-
 };
 
 Gorilla.prototype.computeSubStep = function (du) {
@@ -143,7 +134,6 @@ Gorilla.prototype.computeSubStep = function (du) {
     this.applyAccel(accelX, accelY, du);
     
     this.updateRotation(du);
-
 };
 
 Gorilla.prototype.computeGravity = function () {
@@ -175,7 +165,6 @@ Gorilla.prototype.computeThrustMag = function () {
             this.velX = 1;
         }
     }
-
     return thrust;
 };
 
@@ -205,36 +194,29 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     var collideY = entityManager.checkBricksY(nextX,nextY,this.cx,this.cy,this.getRadius());
     var collideX = entityManager.checkBricksX(nextX,nextY,this.cx,this.cy,this.getRadius());
 
-    
-    if (g_useGravity) {
+    var minY = g_sprites.gorilla.height / 2;
+    var maxY = g_canvas.height - minY;
 
-        var minY = g_sprites.gorilla.height / 2;
-        var maxY = g_canvas.height - minY;
-
-
-        if(collideY === true)
+    if(collideY === true)
+    {
+        if(this.velY >= 0)
         {
-            if(this.velY >= 0)
-            {
-                this.velY = 0;
-                intervalVelY = this.velY;
-            }
-        }
-
-        if(collideX === true) 
-        {
-            this.velX = 0;
-            intervalVelX = this.velX;
+            this.velY = 0;
+            intervalVelY = this.velY;
         }
     }
 
-
+    if(collideX === true) 
+    {
+        this.velX = 0;
+        intervalVelX = this.velX;
+    }
 
     // s = s + v_ave * t
     this.cy += du * intervalVelY;
     this.cx += du * intervalVelX;
 
-    // So the gorilla won´t go on forever
+    // So the gorilla won't go on forever
     this.velX = 0;
 };
 
@@ -242,7 +224,6 @@ Gorilla.prototype.maybeFireBanana = function () {
 
     if (keys[this.KEY_FIRE] && turnHandler.playerTurn === this.player) {
 
-    
             var dX = +Math.sin(this.rotation);
             var dY = -Math.cos(this.rotation);
             var launchDist = this.getRadius() * 1.2;
@@ -321,19 +302,11 @@ Gorilla.prototype.takeBananaHit = function (velX,velY) {
     damage = Math.sqrt(damage);
     damage = Math.floor(damage);
     this.health -= damage;
-    //this.health = this.health-10;
 };
 
 Gorilla.prototype.reset = function () {
     this.setPos(this.reset_cx, this.reset_cy);
     this.rotation = this.reset_rotation;
-    
-    this.halt();
-};
-
-Gorilla.prototype.halt = function () {
-    this.velX = 0;
-    this.velY = 0;
 };
 
 Gorilla.prototype.updateRotation = function (du) 
@@ -348,7 +321,6 @@ Gorilla.prototype.updateRotation = function (du)
             this.rotation += NOMINAL_ROTATE_RATE * du;
         }
     }
-
 
     else if((turnHandler.playerTurn === 2) && (2 === this.player))
     {
@@ -414,5 +386,4 @@ Gorilla.prototype.render = function (ctx) {
     ctx.fillStyle = prevColor;
     ctx.lineWidth = prevLineWidth;
     ctx.textAlign = prevTextAlign;
-
 };

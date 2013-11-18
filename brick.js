@@ -4,18 +4,9 @@
 
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-
 // A generic contructor which accepts an arbitrary descriptor object
 
 function Brick(descr) {
-
     // Common inherited setup logic from Entity
     this.setup(descr);
 }
@@ -30,8 +21,6 @@ Brick.prototype.halfWidth = 20;
 Brick.prototype.halfHeight = 20;
 
 Brick.prototype.update = function (du) {
-
-    // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
 
     if(this._isDeadNow) 

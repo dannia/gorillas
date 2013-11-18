@@ -4,14 +4,6 @@
 
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-
 // A generic contructor which accepts an arbitrary descriptor object
 
 function Banana(descr) {
@@ -106,8 +98,6 @@ Banana.prototype.update = function (du) {
         if (canTakeHit) canTakeHit.call(hitEntity); 
         return entityManager.KILL_ME_NOW;
     }
-    
-    // TODO: YOUR STUFF HERE! --- (Re-)Register
     spatialManager.register(this);
 };
 
@@ -117,14 +107,6 @@ Banana.prototype.computeGravity = function () {
 
 Banana.prototype.getRadius = function () {
     return 7;
-};
-
-Banana.prototype.takeBananaHit = function () {
-    
-    this.kill();
-    
-    // Make a noise when I am zapped by another banana
-    this.zappedSound.play();
 };
 
 Banana.prototype.render = function (ctx) {

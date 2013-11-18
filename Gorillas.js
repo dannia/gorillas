@@ -1,23 +1,11 @@
 // =========
-// Gorilla
+// Gorillas
 // =========
-/*
-
-
-
-*/
 
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
 
 
 // =============
@@ -66,8 +54,6 @@ var KEY_GRAVITY = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 
-
-var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
 
 
@@ -87,8 +73,6 @@ function processDiagnostics() {
     if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
-
-    if (eatKey(KEY_HALT)) entityManager.haltGorillas();
 
     if (eatKey(KEY_RESET)) entityManager.resetGorillas();
 
@@ -131,7 +115,6 @@ function renderSimulation(ctx) {
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
-
 
 // =============
 // PRELOAD STUFF

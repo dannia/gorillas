@@ -88,28 +88,8 @@ generateBrick : function(descr){
     this._bricks.push(new Brick(descr));
 },
 
-
-killNearestGorilla : function(xPos, yPos) {
-    var theGorilla = this._findNearestGorilla(xPos, yPos).theGorilla;
-    if (theGorilla) {
-        theGorilla.kill();
-        console.log("Killed A gorilla");
-    }
-},
-
-yoinkNearestGorilla : function(xPos, yPos) {
-    var theGorilla = this._findNearestGorilla(xPos, yPos).theGorilla;
-    if (theGorilla) {
-        theGorilla.setPos(xPos, yPos);
-    }
-},
-
 resetGorillas: function() {
     this._forEachOf(this._gorillas, Gorilla.prototype.reset);
-},
-
-haltGorillas: function() {
-    this._forEachOf(this._gorillas, Gorilla.prototype.halt);
 },
 
 checkBricksY : function(nextX,nextY,X,Y,radius) {
@@ -163,7 +143,6 @@ deleteAll : function()
 update: function(du) {
     if(gameState === 1)
     {
-
         turnHandler.timer();
 
         for (var c = 0; c < this._categories.length; ++c) {
@@ -190,7 +169,7 @@ update: function(du) {
     {
 
         for (var c = 0; c < this._categories.length; ++c) {
-
+            
             var aCategory = this._categories[c];
             var i = 0;
 
