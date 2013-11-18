@@ -187,6 +187,11 @@ var turnHandler = {
 
         ctx.fillText(stringToDisplay,stringX,200);
 
+        ctx.font="30px Arial Bold";
+        stringToDisplay = "Press Spacebar";
+        stringX = util.centerText(stringToDisplay);
+
+        ctx.fillText(stringToDisplay,stringX,300);
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
 
