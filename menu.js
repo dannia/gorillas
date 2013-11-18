@@ -63,7 +63,7 @@ handleClick : function(x,y){
         }
         if(y > 475 && y < 525)
         {
-            main.gameOver();
+            //main.gameOver();
             console.log("EXIT BUTTON");
         }
     }
