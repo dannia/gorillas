@@ -142,7 +142,7 @@ Gorilla.prototype.computeThrustMag = function () {
     
     var thrust = 0;
     
-    if ((turnHandler.playerTurn === 1) && (1 === this.player))
+    if (this.checkPermission() === 1)
     {
         if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
             this.velX = -1;
@@ -151,7 +151,7 @@ Gorilla.prototype.computeThrustMag = function () {
             this.velX = 1;
         }
     }
-    else if ((turnHandler.playerTurn === 2) && (2 ===  this.player))
+    else if (this.checkPermission() === 2)
     {
         if ((keys[this.KEY_LEFT2]) && (this.cx > this.getRadius())) {
             this.velX = -1;
@@ -262,7 +262,7 @@ Gorilla.prototype.adjustPower = function () {
 
     //Adjust the power of the shot for this character
 
-    if ((turnHandler.playerTurn === 1) && (1 === this.player)) {
+    if (this.checkPermission() === 1) {
 
         if((keys[this.KEY_PWRUP]) && (this.power <= 5))
         {
@@ -273,7 +273,7 @@ Gorilla.prototype.adjustPower = function () {
             this.power -= 0.05;
         }          
     }
-    else if ((turnHandler.playerTurn === 2) && (2 === this.player)) {
+    else if (this.checkPermission() === 2) {
 
         if((keys[this.KEY_PWRUP2]) && (this.power <= 5))
         {
@@ -307,7 +307,7 @@ Gorilla.prototype.reset = function () {
 Gorilla.prototype.updateRotation = function (du) 
 {
 
-    if((turnHandler.playerTurn ===  1) && (1 === this.player))
+    if(this.checkPermission() === 1)
     {
         if (keys[this.KEY_COUNTER]) {
             this.rotation -= NOMINAL_ROTATE_RATE * du;
@@ -317,7 +317,7 @@ Gorilla.prototype.updateRotation = function (du)
         }
     }
 
-    else if((turnHandler.playerTurn === 2) && (2 === this.player))
+    else if(this.checkPermission() === 2)
     {
         if (keys[this.KEY_COUNTER2]) {
             this.rotation -= NOMINAL_ROTATE_RATE * du;
@@ -350,6 +350,7 @@ Gorilla.prototype.renderHealth = function (ctx) {
 
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
+    var prevTextAlign = ctx.textAlign;
 
 
     // Render the healthbar of the gorilla
@@ -376,6 +377,7 @@ Gorilla.prototype.renderHealth = function (ctx) {
 
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
+    ctx.textAlign = prevTextAlign;
 };
 
 Gorilla.prototype.renderAim = function (ctx) {
@@ -396,4 +398,16 @@ Gorilla.prototype.renderAim = function (ctx) {
 
     ctx.strokeStyle = prevStrokeStyle;
     ctx.lineWidth = prevLineWidth;
+};
+
+Gorilla.prototype.checkPermission = function () {
+
+    if ((turnHandler.playerTurn === 1) && (1 === this.player)) 
+    {
+        return 1;
+    }
+    else if((turnHandler.playerTurn === 2) && (2 === this.player))  
+    {
+        return 2;
+    }
 };
