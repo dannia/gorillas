@@ -104,4 +104,11 @@ renderButton: function(ctx,y,w,h,color,borderColor,text){
         ctx.fillStyle = oldStyle;
 },
 
+
+randomPlayer : function()
+{   
+    return  Math.floor((Math.random()*2)+1);
+},
+
+
 };

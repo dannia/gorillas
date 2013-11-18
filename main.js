@@ -73,9 +73,8 @@ main.gameOver = function () {
 
 // Simple voluntary quit mechanism
 //
-var KEY_QUIT = 27;   //Escape button
 function requestedQuit() {
-    return keys[KEY_QUIT];
+
 }
 
 // Annoying shim for Firefox and Safari

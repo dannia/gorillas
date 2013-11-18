@@ -19,7 +19,7 @@ var turnHandler = {
      
     originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
-    playerTurn : 1,
+    playerTurn : util.randomPlayer(),
     lastPlayer : 0,
     windPower : 0,
     winner : 0,
@@ -202,7 +202,7 @@ var turnHandler = {
     backToMenu : function()
     {
         this.winner = 0;
-        this.playerTurn = 2;
+        this.playerTurn = util.randomPlayer();
         gameState = 3;
     },
 
