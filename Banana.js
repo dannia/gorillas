@@ -60,46 +60,24 @@ Banana.prototype.update = function (du) {
         this.velX = - this.velX;
     }
 
-
-    if (this.lifeSpan < 0) 
-    {
-        if(turnHandler.playerTurn !== 6)
-        {
-            turnHandler.nextTurn();
-        }
-        return entityManager.KILL_ME_NOW;
-    }
-
-    if(this._isDeadNow) 
-    {
-        if(turnHandler.playerTurn !== 6)
-        {
-            turnHandler.nextTurn();
-        }
-        return entityManager.KILL_ME_NOW;
-    }
-
-    // Þarf að bæta:
-    if (this.cy > 620) 
-    {
-        if(turnHandler.playerTurn !== 6)
-        {
-            turnHandler.nextTurn();
-        }
-        return entityManager.KILL_ME_NOW;
-    }
-
-
     var hitEntity = this.findHitEntity();
-    if (hitEntity) {
+
+    if ((this.lifeSpan < 0) || (this._isDeadNow) || (this.cy > 620) || (hitEntity)) 
+    {
+        if(hitEntity)
+        {
+            var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
+            if (canTakeHit) canTakeHit.call(hitEntity); 
+        }
+
         if(turnHandler.playerTurn !== 6)
         {
             turnHandler.nextTurn();
         }
-        var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
-        if (canTakeHit) canTakeHit.call(hitEntity); 
+        
         return entityManager.KILL_ME_NOW;
     }
+
     spatialManager.register(this);
 };
 

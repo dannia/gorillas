@@ -173,8 +173,11 @@ update: function(du) {
             var i = 0;
 
             while (i < aCategory.length) {
-
-                aCategory[i].kill();
+                if(gameState === 3)
+                {
+                    aCategory[i].kill();
+                }
+                
                 var status = aCategory[i].update(du);
 
                 if ((status === this.KILL_ME_NOW) || (status === this._isDeadNow)) {

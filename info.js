@@ -33,7 +33,7 @@ render : function() {
     ctx.font="30px Arial Bold";
     ctx.fillStyle = "blue";
 
-    stringToDisplay = "Player 1 Controls : ";
+    stringToDisplay = "Player 1 Controls";
     stringX = util.centerText(stringToDisplay);
 
     ctx.fillText(stringToDisplay,stringX,150);
@@ -57,7 +57,7 @@ render : function() {
 
     //Player 2 text
 
-    stringToDisplay = "Player 2 Controls : ";
+    stringToDisplay = "Player 2 Controls";
     stringX = util.centerText(stringToDisplay);
 
     ctx.fillText(stringToDisplay,stringX,340);
