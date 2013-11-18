@@ -25,7 +25,7 @@ Brick.prototype.halfHeight = 20;
 Brick.prototype.update = function (du) {
     spatialManager.unregister(this);
 
-    if(this._isDeadNow) 
+    if(this._isDeadNow)
     {
         return entityManager.KILL_ME_NOW;
     }

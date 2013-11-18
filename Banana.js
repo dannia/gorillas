@@ -47,7 +47,7 @@ Banana.prototype.update = function (du) {
     spatialManager.unregister(this);
 
     this.velY +=  NOMINAL_GRAVITY;
-    this.velX +=  turnHandler.windPower/50;
+    this.velX +=  turnHandler.windPower/100; //50
 
     this.cx += this.velX * du;
     this.cy += this.velY * du;
