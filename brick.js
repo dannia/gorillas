@@ -47,8 +47,8 @@ Brick.prototype.collidesWithY = function (nextX, nextY, X, Y, r) {
     // Check Y coords
     if ((nextY - r < brickEdge + this.getRadius()) && (nextY + r > brickEdge - this.getRadius())) {
         // Check X coords
-        if (X + r >= this.cx - this.halfWidth &&
-            X - r <= this.cx + this.halfWidth) {
+        if (X + r >= this.cx - this.getRadius() &&
+            X - r <= this.cx + this.getRadius()) {
             // It's a hit!
             return true;
         }

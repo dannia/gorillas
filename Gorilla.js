@@ -65,6 +65,8 @@ Gorilla.prototype.health = 100;
 Gorilla.prototype.player = 1;
 Gorilla.prototype.power = 1;
 Gorilla.prototype.opponent = 2;
+Gorilla.prototype.isJumping = false;
+
 
 // HACKED-IN AUDIO (no preloading)
 Gorilla.prototype.warpSound = new Audio(
@@ -133,9 +135,10 @@ Gorilla.prototype.computeSubStep = function (du) {
         }
     }
 
-    if ((keys[this.KEY_JUMP]) && (turnHandler.playerTurn === this.player) && (this.velY === 0))
+    if ((keys[this.KEY_JUMP]) && (turnHandler.playerTurn === this.player) && (!this.isJumping))
     {
         jumpPwr = 4;
+        this.isJumping = true;
     }
 
     accelY += this.computeGravity() - jumpPwr;
@@ -180,11 +183,12 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
 
     if(collideY === true)
     {
-        if(this.velY >= 0)
-        {
+            if(this.velY > 0)
+            {
+                this.isJumping = false;
+            }
             this.velY = 0;
             intervalVelY = this.velY;
-        }
     }
 
     if(collideX === true) 

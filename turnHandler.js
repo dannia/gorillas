@@ -105,7 +105,7 @@ var turnHandler = {
 
     randomWind : function ()
     {
-        var randomPower = Math.random()*5;
+        var randomPower = Math.random() * level.maxWind;
         var posOrNeg = Math.random();
         if(posOrNeg > 0.5)
         {

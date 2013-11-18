@@ -27,9 +27,10 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
+_bricks : [],
 _bananas : [],
 _gorillas   : [],
-_bricks : [],
+
 
 // "PRIVATE" METHODS
 
@@ -66,7 +67,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bananas, this._gorillas, this._bricks];
+    this._categories = [this._bricks,this._bananas, this._gorillas];
 },
 
 fireBanana: function(cx, cy, velX, velY, rotation,power) {
@@ -177,7 +178,7 @@ update: function(du) {
                 {
                     aCategory[i].kill();
                 }
-                
+
                 var status = aCategory[i].update(du);
 
                 if ((status === this.KILL_ME_NOW) || (status === this._isDeadNow)) {

@@ -48,7 +48,7 @@ handleClick : function(x,y){
         if(y > 275 && y < 325)
         {
             level.chosenLevel++;
-            if(level.chosenLevel > 2)
+            if(level.chosenLevel > 3)
             {
                 level.chosenLevel = 1;
             }
