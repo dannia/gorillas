@@ -60,7 +60,7 @@ render : function() {
     stringToDisplay = "Player 2 Controls";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,340);
+    ctx.fillText(stringToDisplay,stringX,300);
 
     ctx.font="20px Arial Bold";
     ctx.fillStyle = "white";
@@ -68,12 +68,20 @@ render : function() {
     stringToDisplay = "J and L to move around - I and K to aim - U and O to control Power";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,400);
+    ctx.fillText(stringToDisplay,stringX,350);
 
     stringToDisplay = "Shift to jump - Spacebar to shoot";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,425);
+    ctx.fillText(stringToDisplay,stringX,375);
+
+    ctx.font="25px Arial Bold";
+    ctx.fillStyle = "white";
+
+    stringToDisplay = "Escape returns you to Main Menu";
+    stringX = util.centerText(stringToDisplay);
+
+    ctx.fillText(stringToDisplay,stringX,450);
 
 
 
