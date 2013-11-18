@@ -100,10 +100,11 @@ var turnHandler = {
             ctx.fillStyle = 'red';
         }
 
-        var ttxtlength = ctx.measureText("Time : " + timeToShow);
-        var xt = (ctx.canvas.width - ttxtlength.width) / 2;
 
-        ctx.fillText("Time : " + timeToShow,xt,45);
+        var stringToDisplay = "Time : " + timeToShow;
+        var stringX = util.centerText(stringToDisplay);
+
+        ctx.fillText(stringToDisplay,stringX,45);
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
     },
@@ -134,6 +135,8 @@ var turnHandler = {
         var posPowerArray = [">",">>",">>>",">>>>",">>>>>"];
         var colorArray = ["green","yellow","yellow","orange","orange","red"];
 
+        ctx.font="24px Arial Bold";
+
         if(this.windPower > 0)
         {
             windDisplay = posPowerArray[this.windPower - 1];
@@ -150,12 +153,10 @@ var turnHandler = {
             ctx.fillStyle = colorArray[0];
         }
 
-        var wtxtlength = ctx.measureText("Wind : " + windDisplay);
-        var xw = (ctx.canvas.width / 2) - wtxtlength.width;
-        //var xw = ((g_canvas.width/2)- 55 - (Math.abs(this.windPower) * 5))
+        var stringToDisplay = "Wind : " + windDisplay;
+        var stringX = util.centerText(stringToDisplay);
 
-        ctx.font="24px Arial Bold";
-        ctx.fillText("Wind : " + windDisplay,xw,75);
+        ctx.fillText(stringToDisplay,stringX,75);
 
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
@@ -169,6 +170,9 @@ var turnHandler = {
         var prevFont = ctx.font;
         var prevColor = ctx.fillStyle;
 
+
+        ctx.font="50px Arial Bold";
+
         if(this.winner === 1)
         {
             ctx.fillStyle = "blue";
@@ -178,11 +182,29 @@ var turnHandler = {
             ctx.fillStyle = "red";
         }
 
+        var stringToDisplay = "Player " + this.winner + " wins !";
+        var stringX = util.centerText(stringToDisplay);
 
-        ctx.font="50px Arial Bold";
-        ctx.fillText("Player " + this.winner + " wins !",g_canvas.width/2 - 150,g_canvas.height/2);
+        ctx.fillText(stringToDisplay,stringX,200);
 
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
+
+        this.playerTurn = 6;
+
     },
+
+    startGame : function()
+    {
+        level.setLevel(level.chosenLevel);
+        turnHandler.randomWind();
+    },
+
+    backToMenu : function()
+    {
+        this.winner = 0;
+        this.playerTurn = 2;
+        gameState = 3;
+    },
+
 };

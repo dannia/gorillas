@@ -275,6 +275,10 @@ Gorilla.prototype.maybeFireBanana = function () {
 
             turnHandler.endTurn(this.player);       
     }
+    else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 6)
+    {
+        turnHandler.backToMenu();
+    }
     
 };
 

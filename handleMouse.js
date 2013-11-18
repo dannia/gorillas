@@ -22,8 +22,15 @@ function handleMouse(evt) {
     // If no button is being pressed, then bail
     var button = evt.buttons === undefined ? evt.which : evt.buttons;
     if (!button) return;
-    
-    entityManager.yoinkNearestGorilla(g_mouseX, g_mouseY);
+
+    if(gameState === 0)
+    {
+    	menu.handleClick(g_mouseX,g_mouseY);
+    }
+   	else
+   	{
+
+   	}
 }
 
 // Handle "down" and "move" events the same way.

@@ -36,7 +36,6 @@ Brick.prototype.update = function (du) {
 
     if(this._isDeadNow) 
     {
-        nextTurn();
         return entityManager.KILL_ME_NOW;
     }
     

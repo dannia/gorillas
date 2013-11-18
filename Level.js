@@ -17,6 +17,9 @@
 
 var level = {
 
+    chosenLevel : 1,
+
+
     //Not really working atm
 
     resetLevel : function ()
@@ -28,61 +31,60 @@ var level = {
         entityManager._bricks = [];
     },
 
-    setLevel1 : function()
+    setLevel : function(lvl)
     {
-        levelBackground = g_sprites.level1;
+        if(lvl === 1)
+        {
+            levelBackground = g_sprites.level1;
 
-        NOMINAL_ROTATE_RATE = 0.03;
-        NOMINAL_GRAVITY = 0.12;
+            NOMINAL_ROTATE_RATE = 0.03;
+            NOMINAL_GRAVITY = 0.12;
 
-        entityManager.generateGorilla({
-            cx : 70,
-            cy : 350,
-            player : 1
-        });
+            entityManager.generateGorilla({
+                cx : 70,
+                cy : 350,
+                player : 1
+            });
 
-        entityManager.generateGorilla({
-            cx : g_canvas.width - 70,
-            cy : 350,
+            entityManager.generateGorilla({
+                cx : g_canvas.width - 70,
+                cy : 350,
 
-            sprite : g_sprites.gorilla2,
-            player : 2
-        });
+                sprite : g_sprites.gorilla2,
+                player : 2
+            });
 
-        var currentx = 0;
-        var currenty = 550;
+            var currentx = 0;
+            var currenty = 550;
 
-        //Build bricks.. sad sad way
+            //Build bricks.. sad sad way
 
-        for (var i = 0; i < 22; i++) {
+            for (var i = 0; i < 22; i++) {
 
-            entityManager.generateBrick({cx: currentx,cy: currenty})
+                entityManager.generateBrick({cx: currentx,cy: currenty})
 
-            currentx = currentx + 40;
-        };
+                currentx = currentx + 40;
+            };
 
-        entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 520});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 520});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 90,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 90,cy: 490});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 460});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 460});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 430});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 430});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 400});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 400});
-        entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 370});
-        entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 370});
-        entityManager.generateBrick({cx: g_canvas.width/2,cy: 370});
-
-    },
-
-
-    setLevel2 : function()
-    {
-        levelBackground = g_sprites.level2;
+            entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 520});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 520});
+            entityManager.generateBrick({cx: g_canvas.width/2 + 120,cy: 490});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 120,cy: 490});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 90,cy: 490});
+            entityManager.generateBrick({cx: g_canvas.width/2 + 90,cy: 490});
+            entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 460});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 460});
+            entityManager.generateBrick({cx: g_canvas.width/2 + 60,cy: 430});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 60,cy: 430});
+            entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 400});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 400});
+            entityManager.generateBrick({cx: g_canvas.width/2 + 30,cy: 370});
+            entityManager.generateBrick({cx: g_canvas.width/2 - 30,cy: 370});
+            entityManager.generateBrick({cx: g_canvas.width/2,cy: 370});
+        }
+        else if(lvl === 2)
+        {
+            levelBackground = g_sprites.level2;
 
         NOMINAL_ROTATE_RATE = 0.03;
         NOMINAL_GRAVITY = 0.12;
@@ -133,8 +135,10 @@ var level = {
         entityManager.generateBrick({cx: g_canvas.width/2 - 40 ,cy: 405});
         entityManager.generateBrick({cx: g_canvas.width/2 + 45 ,cy: 405});
         entityManager.generateBrick({cx: g_canvas.width/2 - 45 ,cy: 405});
+        };
 
     },
+
 
 };
 

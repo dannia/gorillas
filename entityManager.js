@@ -69,10 +69,6 @@ deferredSetup : function () {
     this._categories = [this._bananas, this._gorillas, this._bricks];
 },
 
-init: function() {
-    //this._generateGorilla();
-},
-
 fireBanana: function(cx, cy, velX, velY, rotation,power) {
     this._bananas.push(new Banana({
         cx   : cx,
@@ -140,66 +136,130 @@ checkBricksX : function(nextX,nextY,X,Y,radius) {
     return collideX;
 },
 
-
-update: function(du) {
-
-    turnHandler.timer();
-
+deleteAll : function()
+{
     for (var c = 0; c < this._categories.length; ++c) {
 
-        var aCategory = this._categories[c];
-        var i = 0;
+    var aCategory = this._categories[c];
+    var i = 0;
 
-        while (i < aCategory.length) {
+    while (i < aCategory.length) {
 
-            var status = aCategory[i].update(du);
+        aCategory[i].kill();
 
-            if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
-                aCategory.splice(i,1);
-            }
-            else {
-                ++i;
+        if (status === this.KILL_ME_NOW) {
+            // remove the dead guy, and shuffle the others down to
+            // prevent a confusing gap from appearing in the array
+            aCategory.splice(i,1);
+        }
+        else {
+            ++i;
+        }
+    }
+}
+},
+
+
+update: function(du) {
+    if(gameState === 1)
+    {
+
+        turnHandler.timer();
+
+        for (var c = 0; c < this._categories.length; ++c) {
+
+            var aCategory = this._categories[c];
+            var i = 0;
+
+            while (i < aCategory.length) {
+
+                var status = aCategory[i].update(du);
+
+                if (status === this.KILL_ME_NOW) {
+                    // remove the dead guy, and shuffle the others down to
+                    // prevent a confusing gap from appearing in the array
+                    aCategory.splice(i,1);
+                }
+                else {
+                    ++i;
+                }
             }
         }
+    }
+    else if(gameState === 3)
+    {
+
+        for (var c = 0; c < this._categories.length; ++c) {
+
+            var aCategory = this._categories[c];
+            var i = 0;
+
+            while (i < aCategory.length) {
+
+                aCategory[i].kill();
+                var status = aCategory[i].update(du);
+
+                if ((status === this.KILL_ME_NOW) || (status === this._isDeadNow)) {
+                    console.log("KILLING THINGS");
+                    // remove the dead guy, and shuffle the others down to
+                    // prevent a confusing gap from appearing in the array
+                    aCategory.splice(i,1);
+                }
+                else {
+                    ++i;
+                }
+            }
+        }
+        gameState = 0;
+    }
+    else if(gameState === 0)
+    {
+
     }
 },
 
 render: function(ctx) {
 
-    levelBackground.drawCentredAt(ctx,400,300,0);
-
-    if(turnHandler.playerTurn != 6)
+    if(gameState === 1)
     {
-        turnHandler.displayTime();   //Temporary
-        turnHandler.displayWind(); //Temporary
-    }
-    else
-    {
-        turnHandler.displayWinner();
-    }
 
-    var debugX = 10, debugY = 100;
+        levelBackground.drawCentredAt(ctx,400,300,0);
 
-    for (var c = 0; c < this._categories.length; ++c) {
-
-        var aCategory = this._categories[c];
-
-        if (!this._bShowRocks && 
-            aCategory == this._rocks)
-            continue;
-
-        for (var i = 0; i < aCategory.length; ++i) {
-
-            aCategory[i].render(ctx);
-            //debug.text(".", debugX + i * 10, debugY);
-
+        if(turnHandler.playerTurn != 6)
+        {
+            turnHandler.displayTime();   //Temporary
+            turnHandler.displayWind(); //Temporary
         }
-        debugY += 10;
-    }
-}
+        else
+        {
+            turnHandler.displayWinner();
+        }
 
+        var debugX = 10, debugY = 100;
+
+        for (var c = 0; c < this._categories.length; ++c) {
+
+            var aCategory = this._categories[c];
+
+            if (!this._bShowRocks && 
+                aCategory == this._rocks)
+                continue;
+
+            for (var i = 0; i < aCategory.length; ++i) {
+
+                aCategory[i].render(ctx);
+                //debug.text(".", debugX + i * 10, debugY);
+
+            }
+            debugY += 10;
+        }
+    }
+    else if(gameState === 0)
+    {
+        menu.render();
+    }
+
+},
 }
 
 // Some deferred setup which needs the object to have been created first

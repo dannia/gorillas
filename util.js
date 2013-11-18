@@ -76,4 +76,29 @@ fillBox: function (ctx, x, y, w, h, style) {
     ctx.fillStyle = oldStyle;
 },
 
+centerText: function (string){
+
+    var stringLength = ctx.measureText(string);
+    return ((ctx.canvas.width / 2) - (stringLength.width / 2));
+},
+
+renderButton: function(ctx,y,w,h,color,text){
+
+        var oldStyle = ctx.fillStyle;
+
+        var xCoord = g_canvas.width/2 - (w/2);
+        var yCoord = y - (h/2);
+
+        util.fillBox(ctx,xCoord,yCoord,w,h,color)
+
+        ctx.font = (h/2)+"px Arial Bold";
+        ctx.fillStyle = 'white';
+
+        var stringX = util.centerText(text);
+
+        ctx.fillText(text,stringX,y + (h/4));
+
+        ctx.fillStyle = oldStyle;
+},
+
 };
