@@ -35,7 +35,8 @@ var level = {
             entityManager.generateGorilla({
                 cx : 70,
                 cy : 350,
-                player : 1
+                player : 1,
+                opponent : 2
             });
 
             entityManager.generateGorilla({
@@ -43,7 +44,8 @@ var level = {
                 cy : 350,
 
                 sprite : g_sprites.gorilla2,
-                player : 2
+                player : 2,
+                opponent : 1
             });
 
             var currentx = 0;
@@ -84,7 +86,8 @@ var level = {
         entityManager.generateGorilla({
             cx : 70,
             cy : 250,
-            player : 1
+            player : 1,
+            opponent : 2
         });
 
         entityManager.generateGorilla({
@@ -92,7 +95,8 @@ var level = {
             cy : 250,
 
             sprite : g_sprites.gorilla2,
-            player : 2
+            player : 2,
+            opponent : 1
         });
 
         var currentx = 0;

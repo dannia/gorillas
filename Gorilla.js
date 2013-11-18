@@ -65,6 +65,7 @@ Gorilla.prototype.numSubSteps = 1;
 Gorilla.prototype.health = 100;
 Gorilla.prototype.player = 1;
 Gorilla.prototype.power = 1;
+Gorilla.prototype.opponent = 2;
 
 // HACKED-IN AUDIO (no preloading)
 Gorilla.prototype.warpSound = new Audio(
@@ -98,17 +99,9 @@ Gorilla.prototype.update = function (du) {
 
     if((this.health <= 0) || this.cy > g_canvas.height)
     {
-        if(this.player === 1)
-        {
-            turnHandler.winner = 2;
-        }
-        else if(this.player === 2)
-        {
-            turnHandler.winner = 1;
-        }
-        
-        turnHandler.playerTurn = 6;
 
+        turnHandler.winner = this.opponent;     
+        turnHandler.playerTurn = 6;
         return entityManager.KILL_ME_NOW;
     }
     else
@@ -336,6 +329,7 @@ Gorilla.prototype.updateRotation = function (du)
 };
 
 Gorilla.prototype.render = function (ctx) {
+
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
     this.sprite.scale = this._scale;
@@ -344,24 +338,19 @@ Gorilla.prototype.render = function (ctx) {
     );
     this.sprite.scale = origScale;
 
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-    var prevLineWidth = ctx.lineWidth;
-    var prevTextAlign = ctx.textAlign;
-
-    // Render the power and aim bar of the gorilla
-    // Should possibly be a function on its own
+    this.renderHealth(ctx);
 
     if(turnHandler.playerTurn === this.player)
     {
-        ctx.strokeStyle = 'red';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
-        ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),
-                    this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
-        ctx.stroke();
-    }
+        this.renderAim(ctx);
+    }   
+};
+
+Gorilla.prototype.renderHealth = function (ctx) {
+
+    var prevFont = ctx.font;
+    var prevColor = ctx.fillStyle;
+
 
     // Render the healthbar of the gorilla
     // Should possibly be a function on its own
@@ -384,8 +373,27 @@ Gorilla.prototype.render = function (ctx) {
     }
 
     ctx.fillText(this.health,this.cx ,this.cy-70);
+
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
+};
+
+Gorilla.prototype.renderAim = function (ctx) {
+
+    var prevLineWidth = ctx.lineWidth;
+    var prevStrokeStyle = ctx.strokeStyle;
+
+    // Render the power and aim bar of the gorilla
+    // Should possibly be a function on its own
+
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
+    ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),
+                this.cy - (45 + 10 * this.power) * Math.cos(this.rotation));
+    ctx.stroke();
+
+    ctx.strokeStyle = prevStrokeStyle;
     ctx.lineWidth = prevLineWidth;
-    ctx.textAlign = prevTextAlign;
 };
