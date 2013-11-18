@@ -19,7 +19,6 @@ function Gorilla(descr) {
     
     // Set normal drawing scale, and warp state off
     this._scale = 1;
-    this._isWarping = false;
 };
 
 Gorilla.prototype = new Entity();
@@ -96,7 +95,6 @@ Gorilla.prototype.update = function (du) {
     this.adjustPower();
     this.maybeFireBanana();
 
-
     if((this.health <= 0) || this.cy > g_canvas.height)
     {
 
@@ -112,36 +110,10 @@ Gorilla.prototype.update = function (du) {
 
 Gorilla.prototype.computeSubStep = function (du) {
     
-    var thrust = this.computeThrustMag();
     var jumpPwr = 0;
+    var accelX = 0;
+    var accelY = 0;
 
-    // Apply thrust directionally, based on our rotation
-    var accelX = +Math.sin(this.rotation) * thrust;
-    var accelY = -Math.cos(this.rotation) * thrust;
-
-    if ((keys[this.KEY_JUMP]) && (turnHandler.playerTurn === this.player) && (this.velY === 0))
-    {
-        jumpPwr = 4;
-    }
-
-    accelY += this.computeGravity() - jumpPwr;
-
-    this.applyAccel(accelX, accelY, du);
-    
-    this.updateRotation(du);
-};
-
-Gorilla.prototype.computeGravity = function () {
-    return g_useGravity ? NOMINAL_GRAVITY : 0;
-};
-
-var NOMINAL_CLOCKWISE = +0.2;
-var NOMINAL_COUNTER  = -0.1;
-
-Gorilla.prototype.computeThrustMag = function () {
-    
-    var thrust = 0;
-    
     if (this.checkPermission() === 1)
     {
         if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
@@ -160,7 +132,21 @@ Gorilla.prototype.computeThrustMag = function () {
             this.velX = 1;
         }
     }
-    return thrust;
+
+    if ((keys[this.KEY_JUMP]) && (turnHandler.playerTurn === this.player) && (this.velY === 0))
+    {
+        jumpPwr = 4;
+    }
+
+    accelY += this.computeGravity() - jumpPwr;
+
+    this.applyAccel(accelX, accelY, du);
+    
+    this.updateRotation(du);
+};
+
+Gorilla.prototype.computeGravity = function () {
+    return g_useGravity ? NOMINAL_GRAVITY : 0;
 };
 
 Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
@@ -219,37 +205,37 @@ Gorilla.prototype.maybeFireBanana = function () {
 
     if (keys[this.KEY_FIRE] && turnHandler.playerTurn === this.player) {
 
-            var dX = +Math.sin(this.rotation);
-            var dY = -Math.cos(this.rotation);
-            var launchDist = this.getRadius() * 1.2;
-            
-            var relVel = this.launchVel;
-            var relVelX = dX * relVel;
-            var relVelY = dY * relVel;
+        var dX = +Math.sin(this.rotation);
+        var dY = -Math.cos(this.rotation);
+        var launchDist = this.getRadius() * 1.2;
+        
+        var relVel = this.launchVel;
+        var relVelX = dX * relVel;
+        var relVelY = dY * relVel;
 
-            var xPower = 0;
-            var yPower = 0;
+        var xPower = 0;
+        var yPower = 0;
 
-            xPower = (2 * this.power*(Math.sin(this.rotation)));
+        xPower = (2 * this.power*(Math.sin(this.rotation)));
 
-            // Calculating if angle is up or downwards so that the power can be adjusted
-            // and if the y-angle is close to horizontal
+        // Calculating if angle is up or downwards so that the power can be adjusted
+        // and if the y-angle is close to horizontal
 
-            if ((this.cy - (45 + 10 * this.power) * Math.cos(this.rotation)) < this.cy)
-            {
-                yPower = -(2 * this.power * (Math.cos(this.rotation)));
-            }
-            else
-            {
-                yPower = -(2 * this.power * (Math.cos(this.rotation)));
-            }
+        if ((this.cy - (45 + 10 * this.power) * Math.cos(this.rotation)) < this.cy)
+        {
+            yPower = -(2 * this.power * (Math.cos(this.rotation)));
+        }
+        else
+        {
+            yPower = -(2 * this.power * (Math.cos(this.rotation)));
+        }
 
-            entityManager.fireBanana(
-               this.cx + dX * launchDist, this.cy + dY * launchDist,
-               xPower + relVelX, yPower + relVelY,
-               this.rotation);
+        entityManager.fireBanana(
+           this.cx + dX * launchDist, this.cy + dY * launchDist,
+           xPower + relVelX, yPower + relVelY,
+           this.rotation);
 
-            turnHandler.endTurn(this.player);       
+        turnHandler.endTurn(this.player);       
     }
     else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 6)
     {
