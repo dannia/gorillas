@@ -4,6 +4,8 @@
 
 "use strict";
 
+/*jslint browser: true, devel: true, white: true */
+
 // A generic contructor which accepts an arbitrary descriptor object
 
 function Brick(descr) {
