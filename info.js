@@ -16,6 +16,8 @@ fillBox: function (ctx, x, y, w, h, style) {
 
 render : function() {
 
+    g_sprites.level3.drawCentredAt(ctx,400,300,0);
+
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 
