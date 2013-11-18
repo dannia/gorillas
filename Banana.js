@@ -51,7 +51,7 @@ Banana.prototype.update = function (du) {
 
     this.cx += this.velX * du;
     this.cy += this.velY * du;
-    this.rotation += 0.25 * du;
+    this.rotation += (2*NOMINAL_GRAVITY) * du;
 
     //Bouncing off the walls
     //Bugged .. sometimes gets stuck !

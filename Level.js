@@ -12,15 +12,9 @@ var level = {
 
     chosenLevel : 1,
 
-    //Not really working atm
-
     resetLevel : function ()
     {
-        NOMINAL_ROTATE_RATE = 0.03;
         NOMINAL_GRAVITY = 0.12;
-        entityManager._bananas = [];
-        entityManager._gorillas   = [];
-        entityManager._bricks = [];
     },
 
     setLevel : function(lvl)
@@ -29,7 +23,6 @@ var level = {
         {
             levelBackground = g_sprites.level1;
 
-            NOMINAL_ROTATE_RATE = 0.03;
             NOMINAL_GRAVITY = 0.12;
 
             entityManager.generateGorilla({
@@ -78,9 +71,9 @@ var level = {
         }
         else if(lvl === 2)
         {
-            levelBackground = g_sprites.level2;
+        
+        levelBackground = g_sprites.level2;
 
-        NOMINAL_ROTATE_RATE = 0.03;
         NOMINAL_GRAVITY = 0.12;
 
         entityManager.generateGorilla({
