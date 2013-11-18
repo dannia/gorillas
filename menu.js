@@ -3,11 +3,9 @@
 
 "use strict";
 
-
 var menu = {
 
     buttons : [],
-
 
 fillBox: function (ctx, x, y, w, h, style) {
     var oldStyle = ctx.fillStyle;

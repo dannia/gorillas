@@ -6,19 +6,11 @@
 
 /* jshint browser: true, devel: true, globalstrict: true */
 
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-
 // A generic contructor which accepts an arbitrary descriptor object
-
 
 var level = {
 
     chosenLevel : 1,
-
 
     //Not really working atm
 
@@ -115,7 +107,6 @@ var level = {
             currentx = currentx + 40;
         };
 
-
         currentx = g_canvas.width;
         currenty = 460;
 
@@ -138,7 +129,4 @@ var level = {
         };
 
     },
-
-
 };
-

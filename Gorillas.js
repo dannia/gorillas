@@ -9,7 +9,6 @@
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
 
-
 // =============
 // GATHER INPUTS
 // =============
@@ -18,7 +17,6 @@ function gatherInputs() {
     // Nothing to do here!
     // The event handlers do everything we need for now.
 }
-
 
 // =================
 // UPDATE SIMULATION
@@ -58,7 +56,6 @@ var KEY_SPATIAL = keyCode('X');
 
 var KEY_RESET = keyCode('R');
 
-
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
 
@@ -95,7 +92,6 @@ function processDiagnostics() {
      //   g_mouseX, g_mouseY);
 
 }
-
 
 // =================
 // RENDER SIMULATION

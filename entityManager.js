@@ -139,7 +139,6 @@ deleteAll : function()
 }
 },
 
-
 update: function(du) {
     if(gameState === 1)
     {
