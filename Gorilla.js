@@ -373,6 +373,7 @@ Gorilla.prototype.render = function (ctx) {
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
     var prevLineWidth = ctx.lineWidth;
+    var prevTextAlign = ctx.textAlign;
 
     // Render the power and aim bar of the gorilla
     // Should possibly be a function on its own
@@ -393,6 +394,8 @@ Gorilla.prototype.render = function (ctx) {
 
     ctx.font="16px Arial Bold";
 
+    ctx.textAlign="center"; 
+
     if(this.health >= 60)
     {
         ctx.fillStyle = 'green';
@@ -406,9 +409,10 @@ Gorilla.prototype.render = function (ctx) {
         ctx.fillStyle = 'red';
     }
 
-    ctx.fillText(this.health,this.cx - 15,this.cy-70);
+    ctx.fillText(this.health,this.cx ,this.cy-70);
     ctx.font = prevFont;
     ctx.fillStyle = prevColor;
     ctx.lineWidth = prevLineWidth;
+    ctx.textAlign = prevTextAlign;
 
 };

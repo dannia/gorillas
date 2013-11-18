@@ -142,13 +142,12 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        gorilla   : "gorilla-icon.png",
-        gorilla2  : "gorilla-icon2.png",
-        banana : "Banana.png",
-        jungle : "jungle.png",
-        level0 : "level0.png",
-        level1 : "level1.png",
-        level2 : "level2.png"
+        gorilla   : "sprites/gorilla-icon.png",
+        gorilla2  : "sprites/gorilla-icon2.png",
+        banana : "sprites/Banana.png",
+        level0 : "levels/level0.png",
+        level1 : "levels/level1.png",
+        level2 : "levels/level2.png"
         //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
     };
 
@@ -158,7 +157,6 @@ function requestPreloads() {
 var g_sprites = {};
 
 function preloadDone() {
-    g_sprites.jungle = new Sprite(g_images.jungle);
     g_sprites.level0 = new Sprite(g_images.level0);
     g_sprites.level1 = new Sprite(g_images.level1);
     g_sprites.level2 = new Sprite(g_images.level2);

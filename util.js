@@ -82,14 +82,17 @@ centerText: function (string){
     return ((ctx.canvas.width / 2) - (stringLength.width / 2));
 },
 
-renderButton: function(ctx,y,w,h,color,text){
+renderButton: function(ctx,y,w,h,color,borderColor,text){
 
         var oldStyle = ctx.fillStyle;
 
         var xCoord = g_canvas.width/2 - (w/2);
         var yCoord = y - (h/2);
 
-        util.fillBox(ctx,xCoord,yCoord,w,h,color)
+
+        util.fillBox(ctx,xCoord-3,yCoord-3,w+6,h+6,borderColor);
+
+        util.fillBox(ctx,xCoord,yCoord,w,h,color);
 
         ctx.font = (h/2)+"px Arial Bold";
         ctx.fillStyle = 'white';

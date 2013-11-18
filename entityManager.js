@@ -254,6 +254,11 @@ render: function(ctx) {
             debugY += 10;
         }
     }
+    else if(gameState === 4)
+    {
+        info.render();
+    }
+    
     else if(gameState === 0)
     {
         menu.render();

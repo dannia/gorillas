@@ -6,6 +6,8 @@
 
 var menu = {
 
+    buttons : [],
+
 
 fillBox: function (ctx, x, y, w, h, style) {
     var oldStyle = ctx.fillStyle;
@@ -19,8 +21,7 @@ render : function() {
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 
-
-    ctx.font="56px Arial Bold";
+    ctx.font="60px Arial Bold";
     ctx.fillStyle = "white";
 
     var stringToDisplay = "GORILLAS !";
@@ -28,10 +29,11 @@ render : function() {
 
     ctx.fillText(stringToDisplay,stringX,100);
 
-    util.renderButton(ctx,200,200,50,'red','Play');
-    util.renderButton(ctx,300,200,50,'red','Level ' + level.chosenLevel);
-    util.renderButton(ctx,400,200,50,'red', 'Information');
-    util.renderButton(ctx,500,200,50,'red','Exit');
+
+    util.renderButton(ctx,200,200,50,'black','white','Play');
+    util.renderButton(ctx,300,200,50,'black','white','Level ' + level.chosenLevel);
+    util.renderButton(ctx,400,200,50,'black','white', 'Information');
+    util.renderButton(ctx,500,200,50,'black','white','Exit');
 
 },
 
@@ -56,7 +58,7 @@ handleClick : function(x,y){
         }
         if(y > 375 && y < 425)
         {
-            gameState = 3;
+            gameState = 4;
             console.log("INFO BUTTON");
         }
         if(y > 475 && y < 525)

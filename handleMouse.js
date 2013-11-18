@@ -27,9 +27,9 @@ function handleMouse(evt) {
     {
     	menu.handleClick(g_mouseX,g_mouseY);
     }
-   	else
+   	else if(gameState === 4)
    	{
-
+      info.handleClick(g_mouseX,g_mouseY);
    	}
 }
 
