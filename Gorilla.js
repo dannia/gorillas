@@ -211,7 +211,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
 
 Gorilla.prototype.maybeFireBanana = function () {
 
-    if (keys[this.KEY_FIRE] && turnHandler.playerTurn === this.player) {
+    if (keys[this.KEY_FIRE] && turnHandler.playerTurn === this.player && turnHandler.turnTimer <= turnHandler.originalturnTimer - 2/NOMINAL_UPDATE_INTERVAL) {
 
         var dX = +Math.sin(this.rotation);
         var dY = -Math.cos(this.rotation);
@@ -244,6 +244,10 @@ Gorilla.prototype.maybeFireBanana = function () {
            this.rotation);
 
         turnHandler.endTurn(this.player);       
+    }
+    else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 5 && turnHandler.turnTimer === 0)
+    {
+        turnHandler.nextTurn();
     }
     else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 6)
     {

@@ -230,6 +230,11 @@ renderGame: function(ctx){
         turnHandler.displayWinner();
     }
 
+    if(turnHandler.playerTurn === 5)
+    {
+        turnHandler.displayPressSpace();
+    }
+
     var debugX = 10, debugY = 100;
 
     for (var c = 0; c < this._categories.length; ++c) {

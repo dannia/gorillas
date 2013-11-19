@@ -193,9 +193,33 @@ var turnHandler = {
 
     },
 
+    displayPressSpace : function ()
+    {
+        // A render function for wind power
+        // Possibly not the best place to have this function
+
+        var prevFont = ctx.font;
+        var prevColor = ctx.fillStyle;
+
+
+        ctx.font="40px Arial Bold";
+
+        ctx.fillStyle = "white";
+
+        var stringToDisplay = "Press Space For Next Turn";
+        var stringX = util.centerText(stringToDisplay);
+
+        ctx.fillText(stringToDisplay,stringX,570);
+
+
+        ctx.font = prevFont;
+        ctx.fillStyle = prevColor;
+    },
+
     startGame : function()
     {
         level.setLevel(level.chosenLevel);
+        this.turnTimer = this.originalturnTimer;
         turnHandler.randomWind();
     },
 

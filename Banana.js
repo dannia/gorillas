@@ -72,7 +72,7 @@ Banana.prototype.update = function (du) {
 
         if(turnHandler.playerTurn !== 6)
         {
-            turnHandler.nextTurn();
+            turnHandler.playerTurn = 5;
         }
         
         return entityManager.KILL_ME_NOW;
