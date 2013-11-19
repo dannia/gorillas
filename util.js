@@ -115,16 +115,7 @@ randomPlayer : function()
 
 renderLogo : function()
 {
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-
-    ctx.font="60px Arial Bold";
-    ctx.fillStyle = "white";
-
-    var stringToDisplay = "GORILLAS !";
-    var stringX = util.centerText(stringToDisplay);
-
-    ctx.fillText(stringToDisplay,stringX,100);
+    g_sprites.logo.drawCentredAt(ctx,400,70,0);
 },
 
 

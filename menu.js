@@ -16,7 +16,7 @@ fillBox: function (ctx, x, y, w, h, style) {
 
 render : function() {
 
-    g_sprites.menu.drawCentredAt(ctx,400,300,0);
+    backgrounds[level.chosenLevel - 1].drawCentredAt(ctx,400,300,0);
 
     util.renderLogo();
 
@@ -43,6 +43,7 @@ handleClick : function(x,y){
             if(level.chosenLevel > 3)
             {
                 level.chosenLevel = 1;
+
             }
             console.log("LEVEL BUTTON");
         }

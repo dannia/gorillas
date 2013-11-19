@@ -19,7 +19,7 @@ render : function() {
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 
-    g_sprites.menu.drawCentredAt(ctx,400,300,0);
+    backgrounds[level.chosenLevel - 1].drawCentredAt(ctx,400,300,0);
 
     util.fillBox(ctx, g_canvas.width/2 - 352, g_canvas.height/2 - 182, 704, 364, 'white');
     util.fillBox(ctx, g_canvas.width/2 - 350, g_canvas.height/2 - 180, 700, 360, 'black');
