@@ -18,17 +18,7 @@ render : function() {
 
     g_sprites.menu.drawCentredAt(ctx,400,300,0);
 
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-
-    ctx.font="60px Arial Bold";
-    ctx.fillStyle = "white";
-
-    var stringToDisplay = "GORILLAS !";
-    var stringX = util.centerText(stringToDisplay);
-
-    ctx.fillText(stringToDisplay,stringX,100);
-
+    util.renderLogo();
 
     util.renderButton(ctx,200,200,50,'black','white','Play');
     util.renderButton(ctx,300,200,50,'black','white','Level ' + level.chosenLevel);

@@ -16,22 +16,15 @@ fillBox: function (ctx, x, y, w, h, style) {
 
 render : function() {
 
+    var prevFont = ctx.font;
+    var prevColor = ctx.fillStyle;
+
     g_sprites.menu.drawCentredAt(ctx,400,300,0);
 
     util.fillBox(ctx, g_canvas.width/2 - 352, g_canvas.height/2 - 182, 704, 364, 'white');
     util.fillBox(ctx, g_canvas.width/2 - 350, g_canvas.height/2 - 180, 700, 360, 'black');
 
-
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-
-    ctx.font="60px Arial Bold";
-    ctx.fillStyle = "white";
-
-    var stringToDisplay = "GORILLAS !";
-    var stringX = util.centerText(stringToDisplay);
-
-    ctx.fillText(stringToDisplay,stringX,100);
+    util.renderLogo();
 
 
     // Player 1 text
@@ -39,10 +32,10 @@ render : function() {
     ctx.font="30px Arial Bold";
     ctx.fillStyle = "blue";
 
-    stringToDisplay = "Player 1 Controls";
-    stringX = util.centerText(stringToDisplay);
+    var stringToDisplay = "Player 1 Controls";
+    var stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,150);
+    ctx.fillText(stringToDisplay,stringX,160);
 
     ctx.font="20px Arial Bold";
     ctx.fillStyle = "white";
@@ -50,12 +43,12 @@ render : function() {
     stringToDisplay = "A and D to move around - W and S to aim - Q and E to control Power";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,200);
+    ctx.fillText(stringToDisplay,stringX,210);
 
     stringToDisplay = "Shift to jump - Spacebar to shoot";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,230);
+    ctx.fillText(stringToDisplay,stringX,240);
 
     ctx.font="30px Arial Bold";
     ctx.fillStyle = "red";
@@ -66,7 +59,7 @@ render : function() {
     stringToDisplay = "Player 2 Controls";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,300);
+    ctx.fillText(stringToDisplay,stringX,310);
 
     ctx.font="20px Arial Bold";
     ctx.fillStyle = "white";
@@ -74,12 +67,12 @@ render : function() {
     stringToDisplay = "J and L to move around - I and K to aim - U and O to control Power";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,350);
+    ctx.fillText(stringToDisplay,stringX,360);
 
     stringToDisplay = "Shift to jump - Spacebar to shoot";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,380);
+    ctx.fillText(stringToDisplay,stringX,390);
 
     ctx.font="25px Arial Bold";
     ctx.fillStyle = "white";
@@ -94,7 +87,6 @@ render : function() {
     util.renderButton(ctx,550,200,50,'black','white','Back');
 
 },
-
 handleClick : function(x,y){
 
 if((x > g_canvas.width/2 - 100) && (x < g_canvas.width/2 + 100))

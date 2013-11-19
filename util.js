@@ -85,29 +85,46 @@ centerText: function (string){
 renderButton: function(ctx,y,w,h,color,borderColor,text){
 
         var oldStyle = ctx.fillStyle;
+        var oldTextAlign = ctx.textAlign;
+
+        ctx.textAlign = "center";
 
         var xCoord = g_canvas.width/2 - (w/2);
         var yCoord = y - (h/2);
+        var difference = 3;
 
 
-        util.fillBox(ctx,xCoord-3,yCoord-3,w+6,h+6,borderColor);
+        util.fillBox(ctx,xCoord-difference,yCoord-difference,w+ 2 * difference,h + 2* difference,borderColor);
 
         util.fillBox(ctx,xCoord,yCoord,w,h,color);
 
         ctx.font = (h/2)+"px Arial Bold";
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = borderColor;
 
-        var stringX = util.centerText(text);
-
-        ctx.fillText(text,stringX,y + (h/4));
+        ctx.fillText(text,xCoord + (w/2),yCoord + h/1.5);
 
         ctx.fillStyle = oldStyle;
+        ctx.textAlign = oldTextAlign;
 },
 
 
 randomPlayer : function()
 {   
     return  Math.floor((Math.random()*2)+1);
+},
+
+renderLogo : function()
+{
+    var prevFont = ctx.font;
+    var prevColor = ctx.fillStyle;
+
+    ctx.font="60px Arial Bold";
+    ctx.fillStyle = "white";
+
+    var stringToDisplay = "GORILLAS !";
+    var stringX = util.centerText(stringToDisplay);
+
+    ctx.fillText(stringToDisplay,stringX,100);
 },
 
 
