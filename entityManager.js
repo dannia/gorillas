@@ -30,6 +30,7 @@ var entityManager = {
 _bricks : [],
 _bananas : [],
 _gorillas   : [],
+_powerups : [],
 
 
 // "PRIVATE" METHODS
@@ -67,7 +68,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._bricks,this._bananas, this._gorillas];
+    this._categories = [this._bricks,this._bananas, this._gorillas, this._powerups];
 },
 
 fireBanana: function(cx, cy, velX, velY, rotation,power) {
@@ -83,6 +84,10 @@ fireBanana: function(cx, cy, velX, velY, rotation,power) {
 
 generateGorilla : function(descr) {
     this._gorillas.push(new Gorilla(descr));
+},
+
+generatePowerup : function(descr) {
+    this._powerups.push(new Powerup(descr));
 },
 
 generateBrick : function(descr){
