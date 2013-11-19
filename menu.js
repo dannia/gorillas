@@ -40,22 +40,19 @@ handleClick : function(x,y){
         if(y > 275 && y < 325)
         {
             level.chosenLevel++;
-            if(level.chosenLevel > 3)
+            if(level.chosenLevel > level.levelCount)
             {
                 level.chosenLevel = 1;
 
             }
-            console.log("LEVEL BUTTON");
         }
         if(y > 375 && y < 425)
         {
             gameState = 4;
-            console.log("INFO BUTTON");
         }
         if(y > 475 && y < 525)
         {
             //main.gameOver();
-            console.log("EXIT BUTTON");
         }
     }
 },

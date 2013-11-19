@@ -28,4 +28,10 @@ var NOMINAL_ROTATE_RATE = 0.03;
 var NOMINAL_GRAVITY = 0.12;
 var levelBackground;
 var backgrounds = [];
+
+
+//Gamestate 0 = menu
+//Gamestate 4 = info
+//Gamestate 1 = game
+//Gamestate 3 = game over waiting for entity clearing
 var gameState = 0;

@@ -182,7 +182,6 @@ update: function(du) {
                 var status = aCategory[i].update(du);
 
                 if ((status === this.KILL_ME_NOW) || (status === this._isDeadNow)) {
-                    console.log("KILLING THINGS");
                     // remove the dead guy, and shuffle the others down to
                     // prevent a confusing gap from appearing in the array
                     aCategory.splice(i,1);
@@ -204,37 +203,7 @@ render: function(ctx) {
 
     if(gameState === 1)
     {
-
-        levelBackground.drawCentredAt(ctx,400,300,0);
-
-        if(turnHandler.playerTurn != 6)
-        {
-            turnHandler.displayTime();   //Temporary
-            turnHandler.displayWind(); //Temporary
-        }
-        else
-        {
-            turnHandler.displayWinner();
-        }
-
-        var debugX = 10, debugY = 100;
-
-        for (var c = 0; c < this._categories.length; ++c) {
-
-            var aCategory = this._categories[c];
-
-            if (!this._bShowRocks && 
-                aCategory == this._rocks)
-                continue;
-
-            for (var i = 0; i < aCategory.length; ++i) {
-
-                aCategory[i].render(ctx);
-                //debug.text(".", debugX + i * 10, debugY);
-
-            }
-            debugY += 10;
-        }
+        this.renderGame(ctx);
     }
     else if(gameState === 4)
     {
@@ -247,6 +216,36 @@ render: function(ctx) {
     }
 
 },
+renderGame: function(ctx){
+
+    levelBackground.drawCentredAt(ctx,400,300,0);
+
+    if(turnHandler.playerTurn != 6)
+    {
+        turnHandler.displayTime();      //Temporary
+        turnHandler.displayWind();      //Temporary
+    }
+    else
+    {
+        turnHandler.displayWinner();
+    }
+
+    var debugX = 10, debugY = 100;
+
+    for (var c = 0; c < this._categories.length; ++c) {
+
+        var aCategory = this._categories[c];
+
+        for (var i = 0; i < aCategory.length; ++i) {
+
+            aCategory[i].render(ctx);
+            //debug.text(".", debugX + i * 10, debugY);
+
+        }
+        debugY += 10;
+    }
+},
+
 }
 
 // Some deferred setup which needs the object to have been created first

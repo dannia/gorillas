@@ -129,16 +129,19 @@ function requestPreloads() {
     var requiredImages = {
         gorilla   : "sprites/gorilla-icon.png",
         gorilla2  : "sprites/gorilla-icon2.png",
-        banana : "sprites/Banana.png",
-        level1 : "levels/level1.png",
-        level2 : "levels/level2.png",
-        level3 : "levels/level3.png",
-        level1back : "levels/level01.png",
-        level2back : "levels/level02.png",
-        level3back : "levels/level03.png",
+        banana :    "sprites/Banana.png",
+        level1 :    "levels/level1.png",
+        level2 :    "levels/level2.png",
+        level3 :    "levels/level3.png",
+        level4 :    "levels/level4.png",
+        level1back :    "levels/level01.png",
+        level2back :    "levels/level02.png",
+        level3back :    "levels/level03.png",
+        level4back :    "levels/level04.png",
         menu : "levels/menu.png",
         logo : "logo/logo.png"
         //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
+        //http://www.newgrounds.com/art/view/katatafisch/wda-prehistoric-jungle
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -150,10 +153,12 @@ function preloadDone() {
     g_sprites.level1 = new Sprite(g_images.level1);
     g_sprites.level2 = new Sprite(g_images.level2);
     g_sprites.level3 = new Sprite(g_images.level3);
+    g_sprites.level4 = new Sprite(g_images.level4);
 
     g_sprites.level1back = new Sprite(g_images.level1back);
     g_sprites.level2back = new Sprite(g_images.level2back);
     g_sprites.level3back = new Sprite(g_images.level3back);
+    g_sprites.level4back = new Sprite(g_images.level4back);
 
     g_sprites.menu = new Sprite(g_images.menu);
     g_sprites.logo = new Sprite(g_images.logo);
@@ -165,7 +170,7 @@ function preloadDone() {
     g_sprites.banana = new Sprite(g_images.banana);
     g_sprites.banana.scale = 0.25;
 
-    backgrounds = [g_sprites.level1back ,g_sprites.level2back, g_sprites.level3back];
+    backgrounds = [g_sprites.level1back ,g_sprites.level2back, g_sprites.level3back, g_sprites.level4back];
 
     main.init();
 }
