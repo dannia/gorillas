@@ -203,7 +203,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
 
     // So the gorilla won't go on forever
 
-    if(!this.isJumping)
+    if((!this.isJumping) || ((this.cx > g_canvas.width - this.getRadius()) || (this.cx < this.getRadius()))) 
     {
         this.velX = 0;
     }
