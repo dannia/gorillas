@@ -202,7 +202,11 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     this.cx += du * intervalVelX;
 
     // So the gorilla won't go on forever
-    this.velX = 0;
+
+    if(!this.isJumping)
+    {
+        this.velX = 0;
+    }
 };
 
 Gorilla.prototype.maybeFireBanana = function () {
