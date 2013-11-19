@@ -18,6 +18,10 @@ render : function() {
 
     g_sprites.menu.drawCentredAt(ctx,400,300,0);
 
+    util.fillBox(ctx, g_canvas.width/2 - 352, g_canvas.height/2 - 182, 704, 364, 'white');
+    util.fillBox(ctx, g_canvas.width/2 - 350, g_canvas.height/2 - 180, 700, 360, 'black');
+
+
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 
@@ -51,7 +55,7 @@ render : function() {
     stringToDisplay = "Shift to jump - Spacebar to shoot";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,225);
+    ctx.fillText(stringToDisplay,stringX,230);
 
     ctx.font="30px Arial Bold";
     ctx.fillStyle = "red";
@@ -75,7 +79,7 @@ render : function() {
     stringToDisplay = "Shift to jump - Spacebar to shoot";
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,375);
+    ctx.fillText(stringToDisplay,stringX,380);
 
     ctx.font="25px Arial Bold";
     ctx.fillStyle = "white";
@@ -87,7 +91,7 @@ render : function() {
 
 
 
-    util.renderButton(ctx,500,200,50,'black','white','Back');
+    util.renderButton(ctx,550,200,50,'black','white','Back');
 
 },
 
@@ -95,7 +99,7 @@ handleClick : function(x,y){
 
 if((x > g_canvas.width/2 - 100) && (x < g_canvas.width/2 + 100))
     {
-        if(y > 475 && y < 525)
+        if(y > 525 && y < 575)
         {
             gameState = 0;
         }
