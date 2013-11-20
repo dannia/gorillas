@@ -144,7 +144,7 @@ Gorilla.prototype.computeSubStep = function (du) {
 };
 
 Gorilla.prototype.computeGravity = function () {
-    return g_useGravity ? NOMINAL_GRAVITY : 0;
+    return g_useGravity ? level.gravity : 0;
 };
 
 Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
@@ -287,7 +287,7 @@ Gorilla.prototype.getRadius = function () {
 Gorilla.prototype.takeBananaHit = function (velX,velY) {
 
     var damage = util.square(velX) + util.square(velY);
-    damage = Math.sqrt(damage);
+    damage = damage/5;
     damage = Math.floor(damage);
     this.health -= damage;
 };

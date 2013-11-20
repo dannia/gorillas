@@ -30,7 +30,7 @@ Powerup.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
-    this.velY +=  NOMINAL_GRAVITY;
+    this.velY +=  level.gravity;
 
     this.cx = 0;
     this.cy += this.velY * du;
@@ -54,7 +54,7 @@ Powerup.prototype.update = function (du) {
 };
 
 Powerup.prototype.computeGravity = function () {
-    return g_useGravity ? NOMINAL_GRAVITY : 0;
+    return g_useGravity ? level.gravity : 0;
 };
 
 Powerup.prototype.getRadius = function () {

@@ -46,12 +46,12 @@ Banana.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
-    this.velY +=  NOMINAL_GRAVITY;
+    this.velY +=  level.gravity;
     this.velX +=  turnHandler.windPower/100; //50
 
     this.cx += this.velX * du;
     this.cy += this.velY * du;
-    this.rotation += (2*NOMINAL_GRAVITY) * du;
+    this.rotation += (2*level.gravity) * du;
 
     //Bouncing off the walls
     //Bugged .. sometimes gets stuck !
@@ -82,7 +82,7 @@ Banana.prototype.update = function (du) {
 };
 
 Banana.prototype.computeGravity = function () {
-    return g_useGravity ? NOMINAL_GRAVITY : 0;
+    return g_useGravity ? level.gravity : 0;
 };
 
 Banana.prototype.getRadius = function () {

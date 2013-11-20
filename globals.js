@@ -25,7 +25,6 @@ var SECS_TO_NOMINALS = 1000 / NOMINAL_UPDATE_INTERVAL;
 // Too many globals ...
 
 var NOMINAL_ROTATE_RATE = 0.03;
-var NOMINAL_GRAVITY = 0.12;
 var levelBackground;
 var backgrounds = [];
 

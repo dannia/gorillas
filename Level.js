@@ -13,6 +13,7 @@ var level = {
     levelCount : 4,
     chosenLevel : 1,
     maxWind : 5,
+    gravity : 0.12,
 
     render : function(ctx)
     {
@@ -20,7 +21,7 @@ var level = {
     },
     resetLevel : function ()
     {
-        NOMINAL_GRAVITY = 0.12;
+        this.gravity = 0.12;
         this.maxWind = 5;
     },
 
@@ -48,7 +49,7 @@ var level = {
     {
         levelBackground = g_sprites.level1;
 
-        NOMINAL_GRAVITY = 0.12;
+        this.gravity = 0.12;
         this.maxWind = 5;
 
         entityManager.generateGorilla({
@@ -100,7 +101,7 @@ var level = {
     {
         levelBackground = g_sprites.level2;
 
-        NOMINAL_GRAVITY = 0.12;
+        this.gravity = 0.12;
         this.maxWind = 5;
 
         entityManager.generateGorilla({
@@ -156,7 +157,7 @@ var level = {
     {
         levelBackground = g_sprites.level3;
 
-        NOMINAL_GRAVITY = 0.06;
+        this.gravity = 0.06;
         this.maxWind = 0;
 
         entityManager.generateGorilla({
@@ -218,7 +219,7 @@ var level = {
     {
         levelBackground = g_sprites.level4;
 
-        NOMINAL_GRAVITY = 0.12;
+        this.gravity = 0.12;
         this.maxWind = 3;
 
         entityManager.generateGorilla({
