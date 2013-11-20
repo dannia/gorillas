@@ -70,7 +70,7 @@ Banana.prototype.update = function (du) {
             if (canTakeHit) canTakeHit.call(hitEntity); 
         }
 
-        if(turnHandler.playerTurn !== 6)
+        if(!turnHandler.gameOver)
         {
             turnHandler.playerTurn = 5;
         }

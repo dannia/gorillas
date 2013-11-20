@@ -15,7 +15,6 @@ var turnHandler = {
     //  1 = Player 1 is in control
     //  2 = Player 2 is in control
     //  5 = Inbetween turns
-    //  6 = game is over
      
     originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
@@ -23,6 +22,7 @@ var turnHandler = {
     lastPlayer : util.randomPlayer(),
     windPower : 0,
     winner : 0,
+    gameOver : false,
 
     turnHandler : function ()
     {
@@ -39,10 +39,10 @@ var turnHandler = {
         this.lastPlayer = lastPl;
     },
 
-    gameOver : function (winner)
+    setGameOver : function (winner)
     {
         this.winner = winner; 
-        this.playerTurn = 6;
+        this.gameOver = true;
     },
 
     nextTurn : function ()
@@ -194,7 +194,7 @@ var turnHandler = {
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
 
-        this.playerTurn = 6;
+        this.gameOver = true;
 
     },
 
@@ -232,6 +232,8 @@ var turnHandler = {
 
     startGame : function()
     {
+        this.lastPlayer = util.randomPlayer();
+        this.gameOver = false;
         level.setLevel(level.chosenLevel);
         this.turnTimer = this.originalturnTimer;
         turnHandler.randomWind();
@@ -240,7 +242,6 @@ var turnHandler = {
     backToMenu : function()
     {
         this.winner = 0;
-        this.playerTurn = util.randomPlayer();
         gameState = 3;
     },
 };

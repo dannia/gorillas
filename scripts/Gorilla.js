@@ -95,13 +95,13 @@ Gorilla.prototype.update = function (du) {
 
     if(this.cy > g_canvas.height)
     {   
-        turnHandler.gameOver(this.opponent);
+        turnHandler.setGameOver(this.opponent);
         return entityManager.KILL_ME_NOW;
     }
     else if(this.health <= 0)
     {
         this.sprite = g_sprites.tombstone;
-        turnHandler.gameOver(this.opponent);
+        turnHandler.setameOver(this.opponent);
     }
     else
     {
@@ -248,11 +248,10 @@ Gorilla.prototype.maybeFireBanana = function () {
     {
         turnHandler.nextTurn();
     }
-    else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 6)
+    else if(keys[this.KEY_FIRE] && turnHandler.gameOver)
     {
         turnHandler.backToMenu();
     }
-    
 };
 
 Gorilla.prototype.adjustPower = function () {
@@ -335,7 +334,7 @@ Gorilla.prototype.render = function (ctx) {
     );
     this.sprite.scale = origScale;
 
-    if(turnHandler.playerTurn != 6)
+    if(!turnHandler.gameOver)
     {
         this.renderHealth(ctx);
     }

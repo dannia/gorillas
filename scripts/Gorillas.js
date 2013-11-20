@@ -126,7 +126,7 @@ function renderSimulation(ctx) {
         level.render(ctx);
         entityManager.render(ctx);
 
-        if(turnHandler.playerTurn != 6)
+        if(!turnHandler.gameOver)
         {
             turnHandler.displayTime();      //Temporary
             turnHandler.displayWind();      //Temporary
