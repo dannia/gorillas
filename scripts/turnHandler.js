@@ -176,7 +176,7 @@ var turnHandler = {
         {
             ctx.fillStyle = "blue";
         }
-        else
+        else if(this.winner === 2)
         {
             ctx.fillStyle = "red";
         }

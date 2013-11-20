@@ -87,8 +87,7 @@ Gorilla.prototype.update = function (du) {
     }
 
     // Handle firing
-    //if(this.checkPermission === this.player || 0)
-    if((turnHandler.playerTurn === this.player) || (turnHandler.playerTurn === 0))
+    if((turnHandler.playerTurn === this.player) || (turnHandler.playerTurn === 0) || (turnHandler.gameOver))
     {
         this.adjustPower();
         this.maybeFireBanana();
@@ -102,7 +101,7 @@ Gorilla.prototype.update = function (du) {
     else if(this.health <= 0)
     {
         this.sprite = g_sprites.tombstone;
-        turnHandler.setameOver(this.opponent);
+        turnHandler.setGameOver(this.opponent);
     }
     else
     {

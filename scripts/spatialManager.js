@@ -54,6 +54,7 @@ findEntityInRange: function(posX, posY, radius) {
     }
     return false;
 },
+
 render: function(ctx) {
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";

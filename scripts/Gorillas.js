@@ -41,6 +41,7 @@ function updateSimulation(du) {
         turnHandler.timer();
         entityManager.update(du);
     }
+    // Clears the entities and sets the gameState to 0 , wich is menu State
     if(gameState === 3)
     {
         entityManager.clearEntities(du);
@@ -136,7 +137,7 @@ function renderSimulation(ctx) {
             turnHandler.displayWinner();
         }
 
-        if(turnHandler.playerTurn === 0)
+        if(turnHandler.playerTurn === 0 && !turnHandler.gameOver)
         {
             turnHandler.displayPressSpace();
         }

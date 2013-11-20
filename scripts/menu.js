@@ -20,10 +20,9 @@ render : function() {
 
     util.renderLogo();
 
-    util.renderButton(ctx,200,200,50,'black','white','Play');
-    util.renderButton(ctx,300,200,50,'black','white','Level ' + level.chosenLevel);
-    util.renderButton(ctx,400,200,50,'black','white', 'Information');
-    util.renderButton(ctx,500,200,50,'black','white','Exit');
+    util.renderButton(ctx,250,200,50,'black','white','Play');
+    util.renderButton(ctx,350,200,50,'black','white','Level ' + level.chosenLevel);
+    util.renderButton(ctx,450,200,50,'black','white', 'Information');
 
 },
 
@@ -31,13 +30,14 @@ handleClick : function(x,y){
 
     if((x > g_canvas.width/2 - 100) && (x < g_canvas.width/2 + 100))
     {
-        if(y > 175 && y < 225)
+
+        if(y > 225 && y < 275)
         {
             gameState = 1;
             turnHandler.startGame();
         }
 
-        if(y > 275 && y < 325)
+        if(y > 325 && y < 375)
         {
             level.chosenLevel++;
             if(level.chosenLevel > level.levelCount)
@@ -46,14 +46,12 @@ handleClick : function(x,y){
 
             }
         }
-        if(y > 375 && y < 425)
+
+        if(y > 425 && y < 475)
         {
             gameState = 4;
         }
-        if(y > 475 && y < 525)
-        {
-            //main.gameOver();
-        }
+
     }
 },
 
