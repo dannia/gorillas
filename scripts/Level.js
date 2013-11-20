@@ -15,8 +15,9 @@ var level = {
     maxWind : 5,
     gravity : 0.12,
     powerUp : false,
-    powerUpX : 200,
-    powerUpY : 200,
+    powerUpX : [],
+    powerUpY : [],
+
 
     render : function(ctx)
     {
@@ -56,8 +57,8 @@ var level = {
         this.maxWind = 5;
 
         this.powerUp = true;
-        this.powerUpX = 400;
-        this.powerUpY = 150;
+        this.powerUpX = [400, 300, 500];
+        this.powerUpY = [150, 300, 300];
 
         entityManager.generateGorilla({
             cx : 70,
@@ -112,8 +113,8 @@ var level = {
         this.maxWind = 5;
 
         this.powerUp = true;
-        this.powerUpX = 400;
-        this.powerUpY = 250;
+        this.powerUpX = [400,200,600];
+        this.powerUpY = [250,300,300];
 
         entityManager.generateGorilla({
             cx : 70,
@@ -172,8 +173,8 @@ var level = {
         this.maxWind = 0;
 
         this.powerUp = true;
-        this.powerUpX = 400;
-        this.powerUpY = 400;
+        this.powerUpX = [100,400,700];
+        this.powerUpY = [350,400,350];
 
         entityManager.generateGorilla({
             cx : 70,

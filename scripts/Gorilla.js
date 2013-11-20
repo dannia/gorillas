@@ -32,6 +32,9 @@ Gorilla.prototype.rememberResets = function () {
 
 //Cheaty way of making different controls for each player
 //Since we just have one common file for both players ATM
+//This is a turnbased game so the file would be ALOT smaller
+//and more simple if we were to have one keyset WASD , but on
+//we hastily threw this together :)
 
 Gorilla.prototype.KEY_CLOCKWISE = 'W'.charCodeAt(0);
 Gorilla.prototype.KEY_COUNTER  = 'S'.charCodeAt(0);
@@ -311,6 +314,12 @@ Gorilla.prototype.powerUp = function(power){
     else if(power === 2)
     {
         this.health -= 20;
+        if(this.health <= 0)
+        {
+            this.sprite = g_sprites.tombstone;
+            turnHandler.endTurn();
+            turnHandler.setGameOver(this.opponent);   
+        }
     }
     else if (power === 3)
     {

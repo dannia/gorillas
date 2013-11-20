@@ -39,6 +39,12 @@ Powerup.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
+    if(this.cy > g_canvas.height)
+    {
+        turnHandler.powerUpExists = false;
+        return entityManager.KILL_ME_NOW;
+    }
+
     if(this._isDeadNow)
     {
         return entityManager.KILL_ME_NOW;
