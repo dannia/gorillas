@@ -68,6 +68,7 @@ Gorilla.prototype.opponent = 2;
 Gorilla.prototype.isJumping = false;
 Gorilla.prototype.renderPwr = 0;
 Gorilla.prototype.renderPwrTime = 80/NOMINAL_UPDATE_INTERVAL;
+Gorilla.prototype.doubleDamage = false;
 
 // HACKED-IN AUDIO (no preloading)
 Gorilla.prototype.warpSound = new Audio(
@@ -241,7 +242,10 @@ Gorilla.prototype.maybeFireBanana = function () {
         entityManager.fireBanana(
            this.cx + dX * launchDist, this.cy + dY * launchDist,
            xPower + relVelX, yPower + relVelY,
-           this.rotation);
+           this.rotation, this.doubleDamage);
+
+        this.doubleDamage = 0;
+
 
         turnHandler.endTurn(this.player);       
     }
@@ -302,15 +306,23 @@ Gorilla.prototype.powerUp = function(power){
    
     if(power === 1)
     {
-        this.health += 20;
+        this.health += 30;
     }
     else if(power === 2)
     {
-        this.health -= 10;
+        this.health -= 20;
     }
     else if (power === 3)
     {
         entityManager.smiteGorilla(this.opponent);
+    }
+    else if (power === 4)
+    {
+        this.doubleDamage = true;
+    }
+    else if (power === 5)
+    {
+         entityManager.setGorillaHp(10);
     }
     return true;
 };
@@ -322,6 +334,7 @@ Gorilla.prototype.reset = function () {
 
 Gorilla.prototype.updateRotation = function (du) 
 {
+
     if(this.checkPermission() === 1)
     {
         if (keys[this.KEY_COUNTER]) {
@@ -440,23 +453,32 @@ Gorilla.prototype.renderPower = function (ctx) {
 
         ctx.textAlign="center"; 
 
-        if(this.renderPwr === 1 || this.renderPwr === 3)
+        if(this.renderPwr === 1 || this.renderPwr === 3 || this.renderPwr === 4)
         {
             ctx.fillStyle = 'green';
 
             if(this.renderPwr === 1)
             {
-                powerMessage = "+20 HP";
+                powerMessage = "+30 HP";
             }
             else if(this.renderPwr === 3)
             {
                 powerMessage = "Opponent takes 30 damage";
             }
+            else if(this.renderPwr === 4)
+            {
+                powerMessage = "Double Damage Next Shot";
+            }
         }
         else if(this.renderPwr === 2)
         {
             ctx.fillStyle = 'red';
-            powerMessage = "-10 HP";
+            powerMessage = "-20 HP";
+        }
+        else if(this.renderPwr === 5)
+        {
+            ctx.fillStyle = 'yellow';
+            powerMessage = "EVERYBODY SET TO 10HP"
         }
 
         ctx.fillText(powerMessage,this.cx ,this.cy-120);

@@ -38,6 +38,7 @@ Banana.prototype.cx = 200;
 Banana.prototype.cy = 200;
 Banana.prototype.velX = 1;
 Banana.prototype.velY = 1;
+Banana.prototype.doubleDmg = false;
 
 // Convert times from milliseconds to "nominal" time units.
 Banana.prototype.lifeSpan = 1000 / NOMINAL_UPDATE_INTERVAL;
@@ -66,8 +67,20 @@ Banana.prototype.update = function (du) {
     {
         if(hitEntity)
         {
-            var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
-            if (canTakeHit) canTakeHit.call(hitEntity); 
+            console.log(this.doubleDmg);
+            console.log("HIT");
+            if(this.doubleDmg === true)
+            {
+                console.log("DOUBLE DAMAGE");
+                var canTakeHit = hitEntity.takeBananaHit(1.5 * this.velX, 1.5 * this.velY);
+                if (canTakeHit) canTakeHit.call(hitEntity); 
+            }
+            else
+            {
+                console.log("regular damage");
+                var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
+                if (canTakeHit) canTakeHit.call(hitEntity); 
+            }
         }
 
         if(!turnHandler.gameOver)

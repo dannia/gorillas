@@ -24,7 +24,8 @@ Powerup.prototype = new Entity();
 // 1 = +20 Health
 // 2 = -10 Health
 // 3 = Hit opponent for 30 damage
-// 4 = Double damage
+// 4 = Double Damage next shot
+// 5 = Everybody set to  10 HP
 
 Powerup.prototype.cx = 200;
 Powerup.prototype.cy = 200;

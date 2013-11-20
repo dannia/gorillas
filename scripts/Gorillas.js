@@ -65,6 +65,9 @@ var KEY_SPATIAL = keyCode('X');
 
 var KEY_RESET = keyCode('R');
 
+var KEY_1 = keyCode('1');
+var KEY_2 = keyCode('2');
+
 var KEY_MENU = 27;
 
 //Not needed
@@ -83,7 +86,24 @@ function processDiagnostics() {
 
     if (eatKey(KEY_RESET)) entityManager.resetGorillas();
 
+    if (eatKey(KEY_1)) entityManager.generateGorilla({
+        cx : g_mouseX,
+        cy : g_mouseY,
+        
+        sprite : g_sprites.gorilla});
+
+    if (eatKey(KEY_2)) entityManager.generateGorilla({
+        cx : g_mouseX,
+        cy : g_mouseY,
+        
+        sprite : g_sprites.gorilla2
+        });
+
     if (eatKey(KEY_MENU)) turnHandler.backToMenu();
+
+    //if (eatKey(KEY_K)) entityManager.killNearestGorilla(
+     //   g_mouseX, g_mouseY);
+
 }
 
 // =================
@@ -96,6 +116,7 @@ function processDiagnostics() {
 // the diagnostic toggles (including screen-clearing).
 //
 // It then delegates the game-specific logic to `gameRender`
+
 
 // GAME-SPECIFIC RENDERING
 
@@ -156,7 +177,6 @@ function requestPreloads() {
         level2back :    "levels/level02.png",
         level3back :    "levels/level03.png",
         level4back :    "levels/level04.png",
-        menu : "levels/menu.png",
         logo : "logo/logo.png"
         //http://fallenpixel.net/wp-content/uploads/2012/03/hunting-by-jian-guo.jpg
         //http://www.newgrounds.com/art/view/katatafisch/wda-prehistoric-jungle
@@ -178,7 +198,6 @@ function preloadDone() {
     g_sprites.level3back = new Sprite(g_images.level3back);
     g_sprites.level4back = new Sprite(g_images.level4back);
 
-    g_sprites.menu = new Sprite(g_images.menu);
     g_sprites.logo = new Sprite(g_images.logo);
 
     g_sprites.gorilla  = new Sprite(g_images.gorilla);

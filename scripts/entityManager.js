@@ -71,14 +71,14 @@ deferredSetup : function () {
     this._categories = [this._bricks,this._bananas, this._gorillas, this._powerups];
 },
 
-fireBanana: function(cx, cy, velX, velY, rotation,power) {
+fireBanana: function(cx, cy, velX, velY, rotation,doubleDamage) {
     this._bananas.push(new Banana({
         cx   : cx,
         cy   : cy,
         velX : velX,
         velY : velY,
-
         rotation : rotation,
+        doubleDmg :  doubleDamage,
     }));
 },
 
@@ -157,6 +157,13 @@ smiteGorilla : function(target){
         {
             this._gorillas[c].health -= 30;
         }
+     }
+},
+
+setGorillaHp : function(hp){
+
+     for (var c = 0; c < this._gorillas.length; ++c) {
+            this._gorillas[c].health = hp;
      }
 },
 

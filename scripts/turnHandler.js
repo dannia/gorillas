@@ -66,7 +66,7 @@ var turnHandler = {
 
         if(!this.powerUpExists && level.powerUp && (summonPowerUp >= 0.8))
         {
-            var randomPower = Math.floor((Math.random()*3)+1);
+            var randomPower = Math.floor((Math.random()*5)+1);
             this.powerUpExists = true;
              entityManager.generatePowerup({
                 cx : level.powerUpX,
