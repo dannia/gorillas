@@ -14,8 +14,7 @@ function Brick(descr) {
 }
 
 Brick.prototype = new Entity();
-
-    
+  
 // Initial, inheritable, default values
 Brick.prototype.cx = 200;
 Brick.prototype.cy = 200;

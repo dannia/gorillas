@@ -322,7 +322,6 @@ Gorilla.prototype.reset = function () {
 
 Gorilla.prototype.updateRotation = function (du) 
 {
-
     if(this.checkPermission() === 1)
     {
         if (keys[this.KEY_COUNTER]) {
