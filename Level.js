@@ -219,14 +219,14 @@ var level = {
 
         entityManager.generateGorilla({
             cx : 70,
-            cy : 300,
+            cy : 400,
             player : 1,
             opponent : 2
         });
 
         entityManager.generateGorilla({
             cx : g_canvas.width - 70,
-            cy : 120,
+            cy : 400,
 
             sprite : g_sprites.gorilla2,
             player : 2,
