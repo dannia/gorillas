@@ -66,7 +66,8 @@ Gorilla.prototype.player = 1;
 Gorilla.prototype.power = 1;
 Gorilla.prototype.opponent = 2;
 Gorilla.prototype.isJumping = false;
-
+Gorilla.prototype.renderPwr = 0;
+Gorilla.prototype.renderPwrTime = 80/NOMINAL_UPDATE_INTERVAL;
 
 // HACKED-IN AUDIO (no preloading)
 Gorilla.prototype.warpSound = new Audio(
@@ -296,6 +297,9 @@ Gorilla.prototype.takeBananaHit = function (velX,velY) {
 };
 
 Gorilla.prototype.powerUp = function(power){
+   
+    this.renderPwr = power;
+   
     if(power === 1)
     {
         this.health += 20;
@@ -306,7 +310,7 @@ Gorilla.prototype.powerUp = function(power){
     }
     else if (power === 3)
     {
-        console.log("SMITE THE OTHER ONE");
+        entityManager.smiteGorilla(this.opponent);
     }
     return true;
 };
@@ -359,6 +363,11 @@ Gorilla.prototype.render = function (ctx) {
     {
         this.renderAim(ctx);
     }   
+
+    if(this.renderPwr != 0)
+    {
+        this.renderPower(ctx);
+    }
 };
 
 Gorilla.prototype.renderHealth = function (ctx) {
@@ -415,13 +424,63 @@ Gorilla.prototype.renderAim = function (ctx) {
     ctx.lineWidth = prevLineWidth;
 };
 
-Gorilla.prototype.checkPermission = function () {
+Gorilla.prototype.renderPower = function (ctx) {
 
-    if ((turnHandler.playerTurn === 1) && (1 === this.player)) 
+    if(this.renderPwrTime > 0)
+    {
+        var prevFont = ctx.font;
+        var prevColor = ctx.fillStyle;
+        var prevTextAlign = ctx.textAlign;
+
+        var powerMessage = "";
+
+        // Render the healthbar of the gorilla
+        // Should possibly be a function on its own
+
+        ctx.font="24px Arial Bold";
+
+        ctx.textAlign="center"; 
+
+        if(this.renderPwr === 1 || this.renderPwr === 3)
+        {
+            ctx.fillStyle = 'green';
+
+            if(this.renderPwr === 1)
+            {
+                powerMessage = "+20 HP";
+            }
+            else if(this.renderPwr === 3)
+            {
+                powerMessage = "Opponent takes 30 damage";
+            }
+        }
+        else if(this.renderPwr === 2)
+        {
+            ctx.fillStyle = 'red';
+            powerMessage = "-10 HP";
+        }
+
+        ctx.fillText(powerMessage,this.cx ,this.cy-120);
+
+        this.renderPwrTime -= 1/NOMINAL_UPDATE_INTERVAL;
+
+        ctx.font = prevFont;
+        ctx.fillStyle = prevColor;
+        ctx.textAlign = prevTextAlign;
+    }
+    else
+    {
+        this.renderPwrTime = 48/NOMINAL_UPDATE_INTERVAL;
+        this.renderPwr = 0;
+    }
+};
+
+Gorilla.prototype.checkPermission = function (player) {
+    if((turnHandler.playerTurn === 1) && (this.player === 1)) 
     {
         return 1;
     }
-    else if((turnHandler.playerTurn === 2) && (2 === this.player))  
+    else if((turnHandler.playerTurn === 2) && (this.player === 2)) 
     {
         return 2;
     }

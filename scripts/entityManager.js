@@ -150,6 +150,16 @@ clearEntities : function(du){
     gameState = 0;
 },
 
+smiteGorilla : function(target){
+
+     for (var c = 0; c < this._gorillas.length; ++c) {
+        if(this._gorillas[c].player === target)
+        {
+            this._gorillas[c].health -= 30;
+        }
+     }
+},
+
 update: function(du) {
 
     for (var c = 0; c < this._categories.length; ++c) {
