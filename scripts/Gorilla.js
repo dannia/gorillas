@@ -295,6 +295,18 @@ Gorilla.prototype.takeBananaHit = function (velX,velY) {
     this.health -= damage;
 };
 
+Gorilla.prototype.powerUp = function(power){
+    if(power === 1)
+    {
+        this.health += 20;
+    }
+    else if(power ===2)
+    {
+        this.health -= 20;
+    }
+    return true;
+};
+
 Gorilla.prototype.reset = function () {
     this.setPos(this.reset_cx, this.reset_cy);
     this.rotation = this.reset_rotation;

@@ -18,6 +18,7 @@ var turnHandler = {
      
     originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
+    powerUpExists : false,
     playerTurn : 0,
     lastPlayer : util.randomPlayer(),
     windPower : 0,
@@ -59,6 +60,17 @@ var turnHandler = {
         else if(this.lastPlayer === 2)
         {
             this.playerTurn = 1;
+        }
+
+        var summonPowerUp = Math.random() * 1;
+
+        if(!this.powerUpExists && level.powerUp && (summonPowerUp >= 0.8))
+        {
+            this.powerUpExists = true;
+             entityManager.generatePowerup({
+                cx : level.powerUpX,
+                cy : level.powerUpY,
+            });
         }
 
         this.randomWind();

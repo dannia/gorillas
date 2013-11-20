@@ -41,6 +41,10 @@ Brick.prototype.takeBananaHit = function () {
     
 };
 
+Brick.prototype.powerUp = function (){
+    return false;
+};
+
 Brick.prototype.collidesWithY = function (nextX, nextY, X, Y, r) {
     var brickEdge = this.cy;
 

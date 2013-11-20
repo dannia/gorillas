@@ -74,11 +74,14 @@ Banana.prototype.update = function (du) {
         {
             turnHandler.playerTurn = 0;
         }
-        
         return entityManager.KILL_ME_NOW;
     }
 
     spatialManager.register(this);
+};
+
+Banana.prototype.powerUp = function(power) {
+    return false;
 };
 
 Banana.prototype.computeGravity = function () {

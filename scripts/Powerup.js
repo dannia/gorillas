@@ -12,45 +12,60 @@ function Powerup(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
+
+    this.sprite = this.sprite || g_sprites.powerup;
 }
 
 Powerup.prototype = new Entity();
     
 // Initial, inheritable, default values
-Powerup.prototype.rotation = 0;
+
+// PowerUp powers
+// 1 = +20 Health
+// 2 = -10 Health
+// 3 = Hit opponent for 30 damage
+
 Powerup.prototype.cx = 200;
 Powerup.prototype.cy = 200;
-Powerup.prototype.velX = 1;
-Powerup.prototype.velY = 1;
+Powerup.prototype.velX = 0;
+Powerup.prototype.velY = 0;
+Powerup.prototype.power = 1;
 
-// Convert times from milliseconds to "nominal" time units.
-Powerup.prototype.lifeSpan = 20000 / NOMINAL_UPDATE_INTERVAL;
+
 
 Powerup.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
-    this.velY +=  level.gravity;
-
-    this.cx = 0;
-    this.cy += this.velY * du;
-    this.rotation = 0;
+    if(this._isDeadNow)
+    {
+        return entityManager.KILL_ME_NOW;
+        turnHandler.powerUpExists = false;
+    }
 
     var hitEntity = this.findHitEntity();
 
-    if ((this.lifeSpan < 0) || (this._isDeadNow) || (this.cy > 620) || (hitEntity)) 
+    if(hitEntity)
     {
-        if(hitEntity)
+        var canPowerUp = hitEntity.powerUp(this.power);
+        if(canPowerUp)
         {
-            //Effects?
-            var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
-            if (canTakeHit) canTakeHit.call(hitEntity); 
+            return entityManager.KILL_ME_NOW;
+            turnHandler.powerUpExists = false;
         }
-        
-        return entityManager.KILL_ME_NOW;
+        else
+        {
+            spatialManager.register(this);
+            this.velY = 0;
+        }
     }
+    else
+    {
+        this.velY +=  level.gravity;
 
-    spatialManager.register(this);
+        this.cy += this.velY * du;
+        spatialManager.register(this);
+    }
 };
 
 Powerup.prototype.computeGravity = function () {
@@ -58,11 +73,15 @@ Powerup.prototype.computeGravity = function () {
 };
 
 Powerup.prototype.getRadius = function () {
-    return 10;
+    return (this.sprite.width / 2);
 };
 
-Pow.prototype.render = function (ctx) {
-    g_sprites.banana.drawCentredAt(
+Powerup.prototype.render = function (ctx) {
+    g_sprites.powerup.drawCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
+};
+
+Powerup.prototype.takeBananaHit = function (velX,velY) {
+    this.kill();
 };
