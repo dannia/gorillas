@@ -77,15 +77,6 @@ Gorilla.prototype.update = function (du) {
 
     spatialManager.unregister(this);
 
-    if(this.player == turnHandler.playerTurn)
-    {
-        if(turnHandler.turnTimer <= 0)
-        {
-            turnHandler.endTurn(this.player);
-            turnHandler.nextTurn();
-        }
-    }
-
     // Perform movement substeps
     var steps = this.numSubSteps;
     var dStep = du / steps;

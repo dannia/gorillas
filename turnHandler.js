@@ -19,8 +19,8 @@ var turnHandler = {
      
     originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
-    playerTurn : util.randomPlayer(),
-    lastPlayer : 0,
+    playerTurn : 5,
+    lastPlayer : util.randomPlayer(),
     windPower : 0,
     winner : 0,
 
@@ -73,6 +73,11 @@ var turnHandler = {
         else
         {
             this.turnTimer = 0;
+        }
+        if(turnHandler.turnTimer < 0)
+        {
+            this.lastPlayer = this.playerTurn;
+            turnHandler.playerTurn = 5;
         }
     },
 
@@ -204,9 +209,18 @@ var turnHandler = {
 
         ctx.font="40px Arial Bold";
 
-        ctx.fillStyle = "white";
 
-        var stringToDisplay = "Press Space For Next Turn";
+        if(this.lastPlayer === 1)
+        {
+            ctx.fillStyle = "red";
+            var stringToDisplay = "Player 2 Press Spacebar";
+        }
+        else if(this.lastPlayer === 2)
+        {
+            ctx.fillStyle = "blue";
+            var stringToDisplay = "Player 1 Press Spacebar";
+        }
+        
         var stringX = util.centerText(stringToDisplay);
 
         ctx.fillText(stringToDisplay,stringX,570);
@@ -229,5 +243,4 @@ var turnHandler = {
         this.playerTurn = util.randomPlayer();
         gameState = 3;
     },
-
 };
