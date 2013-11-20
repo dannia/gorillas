@@ -93,11 +93,15 @@ Gorilla.prototype.update = function (du) {
         this.maybeFireBanana();
     }
 
-    if((this.health <= 0) || this.cy > g_canvas.height)
-    {
-     
+    if(this.cy > g_canvas.height)
+    {   
         turnHandler.gameOver(this.opponent);
         return entityManager.KILL_ME_NOW;
+    }
+    else if(this.health <= 0)
+    {
+        this.sprite = g_sprites.tombstone;
+        turnHandler.gameOver(this.opponent);
     }
     else
     {
@@ -331,7 +335,10 @@ Gorilla.prototype.render = function (ctx) {
     );
     this.sprite.scale = origScale;
 
-    this.renderHealth(ctx);
+    if(turnHandler.playerTurn != 6)
+    {
+        this.renderHealth(ctx);
+    }
 
     if(turnHandler.playerTurn === this.player)
     {

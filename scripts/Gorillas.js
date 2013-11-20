@@ -166,6 +166,7 @@ function requestPreloads() {
         gorilla   : "sprites/gorilla-icon.png",
         gorilla2  : "sprites/gorilla-icon2.png",
         banana :    "sprites/Banana.png",
+        tombstone : "sprites/tombstone.png",
         level1 :    "levels/level1.png",
         level2 :    "levels/level2.png",
         level3 :    "levels/level3.png",
@@ -202,6 +203,7 @@ function preloadDone() {
     g_sprites.gorilla  = new Sprite(g_images.gorilla);
     g_sprites.gorilla.scale = 0.0005;
     g_sprites.gorilla2 = new Sprite(g_images.gorilla2);
+    g_sprites.tombstone = new Sprite(g_images.tombstone);
 
     g_sprites.banana = new Sprite(g_images.banana);
     g_sprites.banana.scale = 0.25;
