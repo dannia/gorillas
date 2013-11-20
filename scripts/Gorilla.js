@@ -93,7 +93,7 @@ Gorilla.prototype.update = function (du) {
         this.maybeFireBanana();
     }
 
-    if(this.cy > g_canvas.height)
+    if(this.cy > g_canvas.height || gameState === 3)
     {   
         turnHandler.setGameOver(this.opponent);
         return entityManager.KILL_ME_NOW;
@@ -136,7 +136,7 @@ Gorilla.prototype.computeSubStep = function (du) {
 
     if ((keys[this.KEY_JUMP]) && (turnHandler.playerTurn === this.player) && (!this.isJumping))
     {
-        jumpPwr = 4;
+        jumpPwr = 4.5;
         this.isJumping = true;
     }
 
@@ -300,9 +300,13 @@ Gorilla.prototype.powerUp = function(power){
     {
         this.health += 20;
     }
-    else if(power ===2)
+    else if(power === 2)
     {
-        this.health -= 20;
+        this.health -= 10;
+    }
+    else if (power === 3)
+    {
+        console.log("SMITE THE OTHER ONE");
     }
     return true;
 };

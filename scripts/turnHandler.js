@@ -66,10 +66,12 @@ var turnHandler = {
 
         if(!this.powerUpExists && level.powerUp && (summonPowerUp >= 0.8))
         {
+            var randomPower = Math.floor((Math.random()*3)+1);
             this.powerUpExists = true;
              entityManager.generatePowerup({
                 cx : level.powerUpX,
                 cy : level.powerUpY,
+                power : randomPower,
             });
         }
 
@@ -246,6 +248,7 @@ var turnHandler = {
     {
         this.lastPlayer = util.randomPlayer();
         this.gameOver = false;
+        this.powerUpExists = false;
         level.setLevel(level.chosenLevel);
         this.turnTimer = this.originalturnTimer;
         turnHandler.randomWind();

@@ -50,8 +50,8 @@ Powerup.prototype.update = function (du) {
         var canPowerUp = hitEntity.powerUp(this.power);
         if(canPowerUp)
         {
-            return entityManager.KILL_ME_NOW;
             turnHandler.powerUpExists = false;
+            return entityManager.KILL_ME_NOW;
         }
         else
         {
@@ -83,5 +83,6 @@ Powerup.prototype.render = function (ctx) {
 };
 
 Powerup.prototype.takeBananaHit = function (velX,velY) {
+    turnHandler.powerUpExists = false;
     this.kill();
 };
