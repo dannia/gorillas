@@ -146,82 +146,57 @@ deleteAll : function()
 },
 
 update: function(du) {
-    if(gameState === 1)
-    {
-        turnHandler.timer();
 
-        for (var c = 0; c < this._categories.length; ++c) {
+    for (var c = 0; c < this._categories.length; ++c) {
 
-            var aCategory = this._categories[c];
-            var i = 0;
+        var aCategory = this._categories[c];
+        var i = 0;
 
-            while (i < aCategory.length) {
+        while (i < aCategory.length) {
 
-                var status = aCategory[i].update(du);
+            var status = aCategory[i].update(du);
 
-                if (status === this.KILL_ME_NOW) {
-                    // remove the dead guy, and shuffle the others down to
-                    // prevent a confusing gap from appearing in the array
-                    aCategory.splice(i,1);
-                }
-                else {
-                    ++i;
-                }
+            if (status === this.KILL_ME_NOW) {
+                // remove the dead guy, and shuffle the others down to
+                // prevent a confusing gap from appearing in the array
+                aCategory.splice(i,1);
+            }
+            else {
+                ++i;
             }
         }
     }
-    else if(gameState === 3)
-    {
+},
 
-        for (var c = 0; c < this._categories.length; ++c) {
+clearEntities : function(du){
+
+    for (var c = 0; c < this._categories.length; ++c) {
             
-            var aCategory = this._categories[c];
-            var i = 0;
+        var aCategory = this._categories[c];
+        var i = 0;
 
-            while (i < aCategory.length) {
-                if(gameState === 3)
-                {
-                    aCategory[i].kill();
-                }
+        while (i < aCategory.length) {
+            if(gameState === 3)
+            {
+                aCategory[i].kill();
+            }
 
-                var status = aCategory[i].update(du);
+            var status = aCategory[i].update(du);
 
-                if ((status === this.KILL_ME_NOW) || (status === this._isDeadNow)) {
-                    // remove the dead guy, and shuffle the others down to
-                    // prevent a confusing gap from appearing in the array
-                    aCategory.splice(i,1);
-                }
-                else {
-                    ++i;
-                }
+            if ((status === this.KILL_ME_NOW) || (status === this._isDeadNow)) {
+                // remove the dead guy, and shuffle the others down to
+                // prevent a confusing gap from appearing in the array
+                aCategory.splice(i,1);
+            }
+            else {
+                ++i;
             }
         }
-        gameState = 0;
     }
-    else if(gameState === 0)
-    {
-
-    }
+    gameState = 0;
 },
 
-render: function(ctx) {
-
-    if(gameState === 1)
-    {
-        this.renderGame(ctx);
-    }
-    else if(gameState === 4)
-    {
-        info.render();
-    }
-    
-    else if(gameState === 0)
-    {
-        menu.render();
-    }
-
-},
-renderGame: function(ctx){
+render: function(ctx){
 
     levelBackground.drawCentredAt(ctx,400,300,0);
 

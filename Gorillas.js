@@ -35,9 +35,17 @@ function gatherInputs() {
 function updateSimulation(du) {
     
     processDiagnostics();
-    
-    entityManager.update(du);
 
+    if(gameState === 1)
+    {
+        turnHandler.timer();
+        entityManager.update(du);
+    }
+    if(gameState === 3)
+    {
+        entityManager.clearEntities(du);
+    }
+    
     // Prevent perpetual firing!
     eatKey(Gorilla.prototype.KEY_FIRE);
 }
@@ -113,7 +121,18 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    entityManager.render(ctx);
+    if(gameState === 1)
+    {
+        entityManager.render(ctx);
+    }
+    else if(gameState === 4)
+    {
+        info.render();
+    }
+    else if(gameState === 0)
+    {
+        menu.render();
+    }
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
