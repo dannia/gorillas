@@ -39,10 +39,10 @@ var turnHandler = {
         this.lastPlayer = lastPl;
     },
 
-    gameOver : function ()
+    gameOver : function (winner)
     {
-        // Removes control from both players
-        this.playerTurn = 0;
+        this.winner = winner; 
+        this.playerTurn = 6;
     },
 
     nextTurn : function ()

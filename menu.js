@@ -16,7 +16,7 @@ fillBox: function (ctx, x, y, w, h, style) {
 
 render : function() {
 
-    backgrounds[level.chosenLevel - 1].drawCentredAt(ctx,400,300,0);
+    backgrounds[level.chosenLevel - 1].drawCentredAt(ctx,g_canvas.width/2,g_canvas.height/2,0);
 
     util.renderLogo();
 

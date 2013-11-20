@@ -16,6 +16,9 @@ fillBox: function (ctx, x, y, w, h, style) {
 
 render : function() {
 
+    //Handles drawing all the information on
+    //the info screen
+    
     var prevFont = ctx.font;
     var prevColor = ctx.fillStyle;
 

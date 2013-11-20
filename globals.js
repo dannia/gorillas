@@ -33,5 +33,5 @@ var backgrounds = [];
 //Gamestate 0 = menu
 //Gamestate 4 = info
 //Gamestate 1 = game
-//Gamestate 3 = game over waiting for entity clearing
+//Gamestate 3 = game over waiting for entity clear
 var gameState = 0;

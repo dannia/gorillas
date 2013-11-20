@@ -80,19 +80,23 @@ Gorilla.prototype.update = function (du) {
     // Perform movement substeps
     var steps = this.numSubSteps;
     var dStep = du / steps;
-    for (var i = 0; i < steps; ++i) {
+
+    for (var i = 0; i < steps; ++i) 
+    {
         this.computeSubStep(dStep);
     }
 
     // Handle firing
-    this.adjustPower();
-    this.maybeFireBanana();
+    if(this.checkPermission === this.player || 5)
+    {
+        this.adjustPower();
+        this.maybeFireBanana();
+    }
 
     if((this.health <= 0) || this.cy > g_canvas.height)
     {
-
-        turnHandler.winner = this.opponent;     
-        turnHandler.playerTurn = 6;
+     
+        turnHandler.gameOver(this.opponent);
         return entityManager.KILL_ME_NOW;
     }
     else
@@ -192,7 +196,7 @@ Gorilla.prototype.applyAccel = function (accelX, accelY, du) {
     this.cy += du * intervalVelY;
     this.cx += du * intervalVelX;
 
-    // So the gorilla won't go on forever
+    // So the gorilla won't go on forever and we wont leave the level
 
     if((!this.isJumping) || ((this.cx > g_canvas.width - this.getRadius()) || (this.cx < this.getRadius()))) 
     {
