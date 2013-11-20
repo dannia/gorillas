@@ -123,7 +123,24 @@ function renderSimulation(ctx) {
 
     if(gameState === 1)
     {
+        level.render(ctx);
         entityManager.render(ctx);
+
+        if(turnHandler.playerTurn != 6)
+        {
+            turnHandler.displayTime();      //Temporary
+            turnHandler.displayWind();      //Temporary
+        }
+        else
+        {
+            turnHandler.displayWinner();
+        }
+
+        if(turnHandler.playerTurn === 5)
+        {
+            turnHandler.displayPressSpace();
+        }
+        
     }
     else if(gameState === 4)
     {

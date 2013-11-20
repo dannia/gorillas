@@ -14,6 +14,10 @@ var level = {
     chosenLevel : 1,
     maxWind : 5,
 
+    render : function(ctx)
+    {
+        levelBackground.drawCentredAt(ctx,400,300,0);
+    },
     resetLevel : function ()
     {
         NOMINAL_GRAVITY = 0.12;

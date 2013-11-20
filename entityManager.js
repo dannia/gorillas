@@ -122,52 +122,6 @@ checkBricksX : function(nextX,nextY,X,Y,radius) {
     return collideX;
 },
 
-deleteAll : function()
-{
-    for (var c = 0; c < this._categories.length; ++c) {
-
-    var aCategory = this._categories[c];
-    var i = 0;
-
-    while (i < aCategory.length) {
-
-        aCategory[i].kill();
-
-        if (status === this.KILL_ME_NOW) {
-            // remove the dead guy, and shuffle the others down to
-            // prevent a confusing gap from appearing in the array
-            aCategory.splice(i,1);
-        }
-        else {
-            ++i;
-        }
-    }
-}
-},
-
-update: function(du) {
-
-    for (var c = 0; c < this._categories.length; ++c) {
-
-        var aCategory = this._categories[c];
-        var i = 0;
-
-        while (i < aCategory.length) {
-
-            var status = aCategory[i].update(du);
-
-            if (status === this.KILL_ME_NOW) {
-                // remove the dead guy, and shuffle the others down to
-                // prevent a confusing gap from appearing in the array
-                aCategory.splice(i,1);
-            }
-            else {
-                ++i;
-            }
-        }
-    }
-},
-
 clearEntities : function(du){
 
     for (var c = 0; c < this._categories.length; ++c) {
@@ -196,24 +150,30 @@ clearEntities : function(du){
     gameState = 0;
 },
 
+update: function(du) {
+
+    for (var c = 0; c < this._categories.length; ++c) {
+
+        var aCategory = this._categories[c];
+        var i = 0;
+
+        while (i < aCategory.length) {
+
+            var status = aCategory[i].update(du);
+
+            if (status === this.KILL_ME_NOW) {
+                // remove the dead guy, and shuffle the others down to
+                // prevent a confusing gap from appearing in the array
+                aCategory.splice(i,1);
+            }
+            else {
+                ++i;
+            }
+        }
+    }
+},
+
 render: function(ctx){
-
-    levelBackground.drawCentredAt(ctx,400,300,0);
-
-    if(turnHandler.playerTurn != 6)
-    {
-        turnHandler.displayTime();      //Temporary
-        turnHandler.displayWind();      //Temporary
-    }
-    else
-    {
-        turnHandler.displayWinner();
-    }
-
-    if(turnHandler.playerTurn === 5)
-    {
-        turnHandler.displayPressSpace();
-    }
 
     var debugX = 10, debugY = 100;
 
