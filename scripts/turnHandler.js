@@ -14,11 +14,11 @@ var turnHandler = {
     //  0 = Neither player can move or do anything
     //  1 = Player 1 is in control
     //  2 = Player 2 is in control
-    //  5 = Inbetween turns
+    //  5 = Banana in the air, wait for it to set PlayerTurn to 0
      
     originalturnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
     turnTimer : 166.5/NOMINAL_UPDATE_INTERVAL,
-    playerTurn : 5,
+    playerTurn : 0,
     lastPlayer : util.randomPlayer(),
     windPower : 0,
     winner : 0,
@@ -35,7 +35,7 @@ var turnHandler = {
     {
         // Passes the current player value (1 or 2) to this function
         // and sets control to 0 (no player)
-        this.playerTurn = 0;
+        this.playerTurn = 5;
         this.lastPlayer = lastPl;
     },
 
@@ -77,7 +77,7 @@ var turnHandler = {
         if(turnHandler.turnTimer < 0)
         {
             this.lastPlayer = this.playerTurn;
-            turnHandler.playerTurn = 5;
+            turnHandler.playerTurn = 0;
         }
     },
 

@@ -29,8 +29,9 @@ var levelBackground;
 var backgrounds = [];
 
 
-//Gamestate 0 = menu
-//Gamestate 4 = info
-//Gamestate 1 = game
+//Gamestate 0 = menu screen (Given on startup)
+//Gamestate 1 = game running
 //Gamestate 3 = game over waiting for entity clear
+//Gamestate 4 = info screen
+
 var gameState = 0;

@@ -136,7 +136,7 @@ function renderSimulation(ctx) {
             turnHandler.displayWinner();
         }
 
-        if(turnHandler.playerTurn === 5)
+        if(turnHandler.playerTurn === 0)
         {
             turnHandler.displayPressSpace();
         }

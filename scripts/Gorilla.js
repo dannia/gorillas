@@ -87,7 +87,8 @@ Gorilla.prototype.update = function (du) {
     }
 
     // Handle firing
-    if(this.checkPermission === this.player || 5)
+    //if(this.checkPermission === this.player || 0)
+    if((turnHandler.playerTurn === this.player) || (turnHandler.playerTurn === 0))
     {
         this.adjustPower();
         this.maybeFireBanana();
@@ -244,7 +245,7 @@ Gorilla.prototype.maybeFireBanana = function () {
 
         turnHandler.endTurn(this.player);       
     }
-    else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 5 && turnHandler.turnTimer === 0)
+    else if(keys[this.KEY_FIRE] && turnHandler.playerTurn === 0 && turnHandler.turnTimer === 0)
     {
         turnHandler.nextTurn();
     }
