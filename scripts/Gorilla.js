@@ -69,13 +69,9 @@ Gorilla.prototype.player = 1;
 Gorilla.prototype.power = 1;
 Gorilla.prototype.opponent = 2;
 Gorilla.prototype.isJumping = false;
-Gorilla.prototype.renderPwr = 0;
-Gorilla.prototype.renderPwrTime = 80/NOMINAL_UPDATE_INTERVAL;
+Gorilla.prototype.PowerUp = 0;
+Gorilla.prototype.PowerUpTime = 80/NOMINAL_UPDATE_INTERVAL;
 Gorilla.prototype.doubleDamage = false;
-
-// HACKED-IN AUDIO (no preloading)
-Gorilla.prototype.warpSound = new Audio(
-    "https://notendur.hi.is/~pk/308G/Asteroids_Exercise/sounds/GorillaWarp.ogg");
 
     
 Gorilla.prototype.update = function (du) {
@@ -305,7 +301,7 @@ Gorilla.prototype.takeBananaHit = function (velX,velY) {
 
 Gorilla.prototype.powerUp = function(power){
    
-    this.renderPwr = power;
+    this.PowerUp = power;
    
     if(power === 1)
     {
@@ -379,7 +375,7 @@ Gorilla.prototype.render = function (ctx) {
         this.renderAim(ctx);
     }   
 
-    if(this.renderPwr != 0)
+    if(this.PowerUp != 0)
     {
         this.renderPower(ctx);
     }
@@ -427,8 +423,17 @@ Gorilla.prototype.renderAim = function (ctx) {
     // Render the power and aim bar of the gorilla
     // Should possibly be a function on its own
 
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = 3;
+    if(this.doubleDamage)
+    {
+        ctx.strokeStyle = 'blue'
+        ctx.lineWidth = 4;
+    }
+    else
+    {
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 3;
+    }
+
     ctx.beginPath();
     ctx.moveTo(this.cx  + 40 * Math.sin(this.rotation),this.cy - 40 * Math.cos(this.rotation));
     ctx.lineTo(this.cx  + (45 + 10 * this.power) * Math.sin(this.rotation),
@@ -441,7 +446,7 @@ Gorilla.prototype.renderAim = function (ctx) {
 
 Gorilla.prototype.renderPower = function (ctx) {
 
-    if(this.renderPwrTime > 0)
+    if(this.PowerUpTime > 0)
     {
         var prevFont = ctx.font;
         var prevColor = ctx.fillStyle;
@@ -454,62 +459,48 @@ Gorilla.prototype.renderPower = function (ctx) {
 
         ctx.font="32px Arial Bold";
 
-        ctx.textAlign="center"; 
-
-        if(this.renderPwr === 1 || this.renderPwr === 3 || this.renderPwr === 4)
+        if(this.PowerUp === 1 || this.PowerUp === 3 || this.PowerUp === 4)
         {
             ctx.fillStyle = 'green';
 
-            if(this.renderPwr === 1)
+            if(this.PowerUp === 1)
             {
                 powerMessage = "+30 HP";
             }
-            else if(this.renderPwr === 3)
+            else if(this.PowerUp === 3)
             {
                 powerMessage = "Opponent takes 30 damage";
             }
-            else if(this.renderPwr === 4)
+            else if(this.PowerUp === 4)
             {
                 powerMessage = "Double Damage Next Shot";
             }
         }
-        else if(this.renderPwr === 2)
+        else if(this.PowerUp === 2)
         {
             ctx.fillStyle = 'red';
             powerMessage = "-20 HP";
         }
-        else if(this.renderPwr === 5)
+        else if(this.PowerUp === 5)
         {
             ctx.fillStyle = 'yellow';
             powerMessage = "EVERYBODY SET TO 10HP"
         }
 
-        var textLength = ctx.measureText(powerMessage).width;
-        console.log(textLength);
+        var stringToDisplay = powerMessage;
+        var stringX = util.centerText(stringToDisplay);
 
-        if(textLength/2 > this.cx)
-        {
-            ctx.fillText(powerMessage,this.cx + textLength/2 + 10 ,this.cy-120);
-        }
-        else if(textLength/2 > g_canvas.width - this.cx)
-        {
-            ctx.fillText(powerMessage,this.cx - textLength/2 - 10 ,this.cy-120);
-        }
-        else
-        {
-            ctx.fillText(powerMessage,this.cx,this.cy-120);
-        }
+        ctx.fillText(stringToDisplay,stringX,170);
 
-        this.renderPwrTime -= 1/NOMINAL_UPDATE_INTERVAL;
+        this.PowerUpTime -= 1/NOMINAL_UPDATE_INTERVAL;
 
         ctx.font = prevFont;
         ctx.fillStyle = prevColor;
-        ctx.textAlign = prevTextAlign;
     }
     else
     {
-        this.renderPwrTime = 48/NOMINAL_UPDATE_INTERVAL;
-        this.renderPwr = 0;
+        this.PowerUpTime = 48/NOMINAL_UPDATE_INTERVAL;
+        this.PowerUp = 0;
     }
 };
 
