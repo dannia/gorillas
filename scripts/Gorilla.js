@@ -483,7 +483,7 @@ Gorilla.prototype.renderPower = function (ctx) {
         }
         else if(this.PowerUp === 5)
         {
-            ctx.fillStyle = 'yellow';
+            ctx.fillStyle = 'orange';
             powerMessage = "EVERYBODY SET TO 10HP"
         }
 

@@ -65,7 +65,7 @@ var turnHandler = {
 
         var summonPowerUp = Math.random() * 1;
 
-        if(!this.powerUpExists && level.powerUp && (summonPowerUp >= 0.8))
+        if(!this.powerUpExists && level.powerUp && (summonPowerUp >= 0.85))
         {
             var randomPower = Math.floor((Math.random()*5)+1);
             var powerLocation =  Math.floor((Math.random()* level.powerUpY.length));
