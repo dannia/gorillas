@@ -452,7 +452,7 @@ Gorilla.prototype.renderPower = function (ctx) {
         // Render the healthbar of the gorilla
         // Should possibly be a function on its own
 
-        ctx.font="24px Arial Bold";
+        ctx.font="40px Arial Bold";
 
         ctx.textAlign="center"; 
 
@@ -489,17 +489,14 @@ Gorilla.prototype.renderPower = function (ctx) {
 
         if(textLength/2 > this.cx)
         {
-            console.log("To far to the left");
             ctx.fillText(powerMessage,this.cx + textLength/2 + 10 ,this.cy-120);
         }
         else if(textLength/2 > g_canvas.width - this.cx)
         {
-            console.log("To far to the right");
             ctx.fillText(powerMessage,this.cx - textLength/2 - 10 ,this.cy-120);
         }
         else
         {
-            console.log("Center case");
             ctx.fillText(powerMessage,this.cx,this.cy-120);
         }
 

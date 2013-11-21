@@ -44,6 +44,7 @@ var turnHandler = {
     {
         this.winner = winner; 
         this.gameOver = true;
+        this.playerTurn = 5;
     },
 
     nextTurn : function ()

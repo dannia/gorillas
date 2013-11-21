@@ -58,7 +58,7 @@ var level = {
 
         this.powerUp = true;
         this.powerUpX = [400, 300, 500];
-        this.powerUpY = [150, 300, 300];
+        this.powerUpY = [150, 100, 150];
 
         entityManager.generateGorilla({
             cx : 70,
