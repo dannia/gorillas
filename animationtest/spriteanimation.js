@@ -48,11 +48,11 @@ var g_sprites;
 
 function preloadDone() {
     
-    var celWidth  = 150;
-    var celHeight = 150;
+    var celWidth  = 134;
+    var celHeight = 145;
     var numCols = 4;
     var numRows = 1;
-    var numCels = 30;
+    var numCels = 4;
     
     g_sprites = [];
     var sprite;
@@ -93,14 +93,14 @@ function main() {
     
     // Backwards
     ctx.scale(-1, 1);
-    //cel.drawAt(-50 - cel.width, 250);
+    cel.drawAt(-50 - cel.width, 250);
     ctx.scale(-1, 1);
     
     ++g_cel;
     if (g_cel === g_sprites.length) g_cel = 0;
     
     // A poor man's cross-browser "requestAnimationFrame"
-    setTimeout(main, 50);
+    setTimeout(main, 100);
 }
 
 preload();
