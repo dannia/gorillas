@@ -314,12 +314,6 @@ Gorilla.prototype.powerUp = function(power){
     else if(power === 2)
     {
         this.health -= 20;
-        if(this.health <= 0)
-        {
-            this.sprite = g_sprites.tombstone;
-            turnHandler.endTurn();
-            turnHandler.setGameOver(this.opponent);   
-        }
     }
     else if (power === 3)
     {
@@ -490,7 +484,24 @@ Gorilla.prototype.renderPower = function (ctx) {
             powerMessage = "EVERYBODY SET TO 10HP"
         }
 
-        ctx.fillText(powerMessage,this.cx ,this.cy-120);
+        var textLength = ctx.measureText(powerMessage).width;
+        console.log(textLength);
+
+        if(textLength/2 > this.cx)
+        {
+            console.log("To far to the left");
+            ctx.fillText(powerMessage,this.cx + textLength/2 + 10 ,this.cy-120);
+        }
+        else if(textLength/2 > g_canvas.width - this.cx)
+        {
+            console.log("To far to the right");
+            ctx.fillText(powerMessage,this.cx - textLength/2 - 10 ,this.cy-120);
+        }
+        else
+        {
+            console.log("Center case");
+            ctx.fillText(powerMessage,this.cx,this.cy-120);
+        }
 
         this.renderPwrTime -= 1/NOMINAL_UPDATE_INTERVAL;
 

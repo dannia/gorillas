@@ -67,17 +67,13 @@ Banana.prototype.update = function (du) {
     {
         if(hitEntity)
         {
-            console.log(this.doubleDmg);
-            console.log("HIT");
             if(this.doubleDmg === true)
             {
-                console.log("DOUBLE DAMAGE");
                 var canTakeHit = hitEntity.takeBananaHit(1.5 * this.velX, 1.5 * this.velY);
                 if (canTakeHit) canTakeHit.call(hitEntity); 
             }
             else
             {
-                console.log("regular damage");
                 var canTakeHit = hitEntity.takeBananaHit(this.velX, this.velY);
                 if (canTakeHit) canTakeHit.call(hitEntity); 
             }

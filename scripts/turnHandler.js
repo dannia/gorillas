@@ -253,6 +253,7 @@ var turnHandler = {
         level.setLevel(level.chosenLevel);
         this.turnTimer = this.originalturnTimer;
         turnHandler.randomWind();
+        this.playerTurn = 0;
     },
 
     backToMenu : function()
