@@ -452,7 +452,7 @@ Gorilla.prototype.renderPower = function (ctx) {
         // Render the healthbar of the gorilla
         // Should possibly be a function on its own
 
-        ctx.font="40px Arial Bold";
+        ctx.font="32px Arial Bold";
 
         ctx.textAlign="center"; 
 
