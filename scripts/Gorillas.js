@@ -119,7 +119,6 @@ function renderSimulation(ctx) {
         {
             turnHandler.displayPressSpace();
         }
-        
     }
     else if(gameState === 4)
     {

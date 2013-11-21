@@ -30,29 +30,19 @@ Gorilla.prototype.rememberResets = function () {
     this.reset_rotation = this.rotation;
 };
 
-//Cheaty way of making different controls for each player
-//Since we just have one common file for both players ATM
-//This is a turnbased game so the file would be ALOT smaller
-//and more simple if we were to have one keyset WASD , but on
-//we hastily threw this together :)
+// After discussing the control matter we decided to 
+// Just use the WASD keySet as it would simplify the code 
+// and also it´s more natural for most people :)
 
 Gorilla.prototype.KEY_CLOCKWISE = 'W'.charCodeAt(0);
 Gorilla.prototype.KEY_COUNTER  = 'S'.charCodeAt(0);
 Gorilla.prototype.KEY_LEFT   = 'A'.charCodeAt(0);
 Gorilla.prototype.KEY_RIGHT  = 'D'.charCodeAt(0);
 
-Gorilla.prototype.KEY_CLOCKWISE2 = 'I'.charCodeAt(0);
-Gorilla.prototype.KEY_COUNTER2  = 'K'.charCodeAt(0);
-Gorilla.prototype.KEY_LEFT2   = 'J'.charCodeAt(0);
-Gorilla.prototype.KEY_RIGHT2  = 'L'.charCodeAt(0);
-
 Gorilla.prototype.KEY_JUMP = 16;    //Shift button
 
 Gorilla.prototype.KEY_PWRDWN  = 'Q'.charCodeAt(0);
 Gorilla.prototype.KEY_PWRUP  = 'E'.charCodeAt(0);
-
-Gorilla.prototype.KEY_PWRDWN2  = 'U'.charCodeAt(0);
-Gorilla.prototype.KEY_PWRUP2  = 'O'.charCodeAt(0);
 
 Gorilla.prototype.KEY_FIRE   = ' '.charCodeAt(0);
 
@@ -116,21 +106,12 @@ Gorilla.prototype.computeSubStep = function (du) {
     var accelX = 0;
     var accelY = 0;
 
-    if (this.checkPermission() === 1)
+    if (turnHandler.playerTurn === this.player)
     {
         if ((keys[this.KEY_LEFT]) && (this.cx > this.getRadius())) {
             this.velX = -1;
         }
         if ((keys[this.KEY_RIGHT]) && (this.cx < (g_canvas.width - this.getRadius()))) {
-            this.velX = 1;
-        }
-    }
-    else if (this.checkPermission() === 2)
-    {
-        if ((keys[this.KEY_LEFT2]) && (this.cx > this.getRadius())) {
-            this.velX = -1;
-        }
-        if ((keys[this.KEY_RIGHT2]) && (this.cx < (g_canvas.width - this.getRadius()))) {
             this.velX = 1;
         }
     }
@@ -262,29 +243,14 @@ Gorilla.prototype.adjustPower = function () {
 
     //Adjust the power of the shot for this character
 
-    if (this.checkPermission() === 1) {
-
-        if((keys[this.KEY_PWRUP]) && (this.power <= 5))
-        {
-            this.power += 0.05;
-        }
-        else if((keys[this.KEY_PWRDWN]) && (this.power >= 0))
-        {
-            this.power -= 0.05;
-        }          
+    if((keys[this.KEY_PWRUP]) && (this.power <= 5))
+    {
+        this.power += 0.05;
     }
-    else if (this.checkPermission() === 2) {
-
-        if((keys[this.KEY_PWRUP2]) && (this.power <= 5))
-        {
-            this.power += 0.05;
-        }
-        else if((keys[this.KEY_PWRDWN2]) && (this.power >= 0))
-        {
-            this.power -= 0.05;
-        }          
-    }
-    
+    else if((keys[this.KEY_PWRDWN]) && (this.power >= 0))
+    {
+        this.power -= 0.05;
+    }           
 };
 
 Gorilla.prototype.getRadius = function () {
@@ -311,15 +277,15 @@ Gorilla.prototype.powerUp = function(power){
     {
         this.health -= 20;
     }
-    else if (power === 3)
+    else if(power === 3)
     {
         entityManager.smiteGorilla(this.opponent);
     }
-    else if (power === 4)
+    else if(power === 4)
     {
         this.doubleDamage = true;
     }
-    else if (power === 5)
+    else if(power === 5)
     {
          entityManager.setGorillaHp(10);
     }
@@ -333,23 +299,12 @@ Gorilla.prototype.reset = function () {
 
 Gorilla.prototype.updateRotation = function (du) 
 {
-
-    if(this.checkPermission() === 1)
+    if(turnHandler.playerTurn === this.player)
     {
         if (keys[this.KEY_COUNTER]) {
             this.rotation -= NOMINAL_ROTATE_RATE * du;
         }
         if (keys[this.KEY_CLOCKWISE]) {
-            this.rotation += NOMINAL_ROTATE_RATE * du;
-        }
-    }
-
-    else if(this.checkPermission() === 2)
-    {
-        if (keys[this.KEY_COUNTER2]) {
-            this.rotation -= NOMINAL_ROTATE_RATE * du;
-        }
-        if (keys[this.KEY_CLOCKWISE2]) {
             this.rotation += NOMINAL_ROTATE_RATE * du;
         }
     }
@@ -383,36 +338,25 @@ Gorilla.prototype.render = function (ctx) {
 
 Gorilla.prototype.renderHealth = function (ctx) {
 
-    var prevFont = ctx.font;
-    var prevColor = ctx.fillStyle;
-    var prevTextAlign = ctx.textAlign;
-
+    var fillStyle = "";
 
     // Render the healthbar of the gorilla
-    // Should possibly be a function on its own
-
-    ctx.font="16px Arial Bold";
-
-    ctx.textAlign="center"; 
 
     if(this.health >= 60)
     {
-        ctx.fillStyle = 'green';
+        fillStyle = 'green';
     }
     else if((20 < this.health) && (this.health < 60))
     {
-        ctx.fillStyle = 'orange';
+        fillStyle = 'orange';
     }
     else if(this.health <= 20)
     {
-        ctx.fillStyle = 'red';
+        fillStyle = 'red';
     }
 
-    ctx.fillText(this.health,this.cx ,this.cy-70);
-
-    ctx.font = prevFont;
-    ctx.fillStyle = prevColor;
-    ctx.textAlign = prevTextAlign;
+    util.renderText(ctx,this.health,this.cx,this.cy-70,"16px Arial Bold", fillStyle, "center");
+  
 };
 
 Gorilla.prototype.renderAim = function (ctx) {
@@ -448,20 +392,14 @@ Gorilla.prototype.renderPower = function (ctx) {
 
     if(this.PowerUpTime > 0)
     {
-        var prevFont = ctx.font;
-        var prevColor = ctx.fillStyle;
-        var prevTextAlign = ctx.textAlign;
-
+        var fillStyle = "";
         var powerMessage = "";
 
         // Render the healthbar of the gorilla
-        // Should possibly be a function on its own
-
-        ctx.font="32px Arial Bold";
 
         if(this.PowerUp === 1 || this.PowerUp === 3 || this.PowerUp === 4)
         {
-            ctx.fillStyle = 'green';
+            fillStyle = 'green';
 
             if(this.PowerUp === 1)
             {
@@ -478,24 +416,20 @@ Gorilla.prototype.renderPower = function (ctx) {
         }
         else if(this.PowerUp === 2)
         {
-            ctx.fillStyle = 'red';
+            fillStyle = 'red';
             powerMessage = "-20 HP";
         }
         else if(this.PowerUp === 5)
         {
-            ctx.fillStyle = 'orange';
+            fillStyle = 'orange';
             powerMessage = "EVERYBODY SET TO 10HP"
         }
 
         var stringToDisplay = powerMessage;
-        var stringX = util.centerText(stringToDisplay);
 
-        ctx.fillText(stringToDisplay,stringX,170);
+        util.renderText(ctx,stringToDisplay,g_canvas.width/2,170,"32px Arial Bold",fillStyle,"center");
 
         this.PowerUpTime -= 1/NOMINAL_UPDATE_INTERVAL;
-
-        ctx.font = prevFont;
-        ctx.fillStyle = prevColor;
     }
     else
     {

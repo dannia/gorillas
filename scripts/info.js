@@ -30,62 +30,42 @@ render : function() {
     util.renderLogo();
 
 
-    // Player 1 text
+    // Controls Text
 
-    ctx.font="30px Arial Bold";
-    ctx.fillStyle = "blue";
-
-    var stringToDisplay = "Player 1 Controls";
-    var stringX = util.centerText(stringToDisplay);
-
-    ctx.fillText(stringToDisplay,stringX,160);
-
-    ctx.font="20px Arial Bold";
+    ctx.font="40px Arial Bold";
     ctx.fillStyle = "white";
 
-    stringToDisplay = "A and D to move around - W and S to aim - Q and E to control Power";
+    var stringToDisplay = "Controls";
+    var stringX = util.centerText(stringToDisplay);
+
+    ctx.fillText(stringToDisplay,stringX,180);
+
+    ctx.font="24px Arial Bold";
+
+    var stringToDisplay = '"A" and "D" to move left and right';
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,210);
+    ctx.fillText(stringToDisplay,stringX,230);
 
-    stringToDisplay = "Shift to jump - Spacebar to shoot";
+    stringToDisplay = '"W" and "S" to aim';
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,240);
+    ctx.fillText(stringToDisplay,stringX,270);
 
-    ctx.font="30px Arial Bold";
-    ctx.fillStyle = "red";
-
-
-    //Player 2 text
-
-    stringToDisplay = "Player 2 Controls";
+    stringToDisplay = '"Q" to reduce power "E" to increase power';
     stringX = util.centerText(stringToDisplay);
 
     ctx.fillText(stringToDisplay,stringX,310);
 
-    ctx.font="20px Arial Bold";
-    ctx.fillStyle = "white";
-
-    stringToDisplay = "J and L to move around - I and K to aim - U and O to control Power";
+    stringToDisplay = '"Shift" to jump';
     stringX = util.centerText(stringToDisplay);
 
-    ctx.fillText(stringToDisplay,stringX,360);
+    ctx.fillText(stringToDisplay,stringX,350);
 
-    stringToDisplay = "Shift to jump - Spacebar to shoot";
+    stringToDisplay = '"Spacebar" to shoot';
     stringX = util.centerText(stringToDisplay);
 
     ctx.fillText(stringToDisplay,stringX,390);
-
-    ctx.font="25px Arial Bold";
-    ctx.fillStyle = "white";
-
-    stringToDisplay = "Escape returns you to Main Menu";
-    stringX = util.centerText(stringToDisplay);
-
-    ctx.fillText(stringToDisplay,stringX,450);
-
-
 
     util.renderButton(ctx,550,200,50,'black','white','Back');
 

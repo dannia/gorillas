@@ -82,6 +82,23 @@ centerText: function (string){
     return ((ctx.canvas.width / 2) - (stringLength.width / 2));
 },
 
+renderText : function (ctx,text,xCoord,yCoord,font,style,textAlign){
+
+        var prevFont = ctx.font;
+        var prevStyle = ctx.fillStyle;
+        var prevTextAlign = ctx.textAlign;
+
+        ctx.font = font;
+        ctx.fillStyle = style;
+        ctx.textAlign = textAlign;
+
+        ctx.fillText(text,xCoord,yCoord);
+
+        ctx.font = prevFont;
+        ctx.fillStyle = prevStyle;
+        ctx.textAlign = prevTextAlign;
+},
+
 renderButton: function(ctx,y,w,h,color,borderColor,text){
 
         var oldStyle = ctx.fillStyle;

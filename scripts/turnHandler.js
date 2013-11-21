@@ -99,29 +99,21 @@ var turnHandler = {
 
     displayTime : function ()
     {
-        // A render function for turn Timer
-        // Possibly not the best place to have this function
-
         var timeToShow = this.turnTimer.toFixed(2);
-        var prevFont = ctx.font;
-        var prevColor = ctx.fillStyle;
-        ctx.font="28px Arial Bold";
+        var fillStyle = "";
+
         if(timeToShow >= 5)
         {
-            ctx.fillStyle = 'white';
+            fillStyle = 'white';
         }
         else
         {
-            ctx.fillStyle = 'red';
+            fillStyle = 'red';
         }
 
-
         var stringToDisplay = "Time : " + timeToShow;
-        var stringX = util.centerText(stringToDisplay);
 
-        ctx.fillText(stringToDisplay,stringX,45);
-        ctx.font = prevFont;
-        ctx.fillStyle = prevColor;
+        util.renderText(ctx,stringToDisplay,g_canvas.width/2,45,"28px Arial Bold",fillStyle,"center");
     },
 
     randomWind : function ()
@@ -140,75 +132,49 @@ var turnHandler = {
 
     displayWind : function ()
     {
-        // A render function for wind power
-        // Possibly not the best place to have this function
-
         var windDisplay = "";
-        var prevFont = ctx.font;
-        var prevColor = ctx.fillStyle;
+        var fillStyle = "";
         var negPowerArray = ["<","<<","<<<","<<<<","<<<<<"];
         var posPowerArray = [">",">>",">>>",">>>>",">>>>>"];
         var colorArray = ["green","yellow","yellow","orange","orange","red"];
 
-        ctx.font="24px Arial Bold";
-
         if(this.windPower > 0)
         {
             windDisplay = posPowerArray[this.windPower - 1];
-            ctx.fillStyle = colorArray[this.windPower];
+            fillStyle = colorArray[this.windPower];
         }
         else if(this.windPower < 0)
         {
              windDisplay = negPowerArray[Math.abs(this.windPower) - 1];
-             ctx.fillStyle = colorArray[Math.abs(this.windPower)];
+             fillStyle = colorArray[Math.abs(this.windPower)];
         }
         else
         {
             windDisplay = "0"
-            ctx.fillStyle = colorArray[0];
+            fillStyle = colorArray[0];
         }
 
         var stringToDisplay = "Wind : " + windDisplay;
-        var stringX = util.centerText(stringToDisplay);
 
-        ctx.fillText(stringToDisplay,stringX,75);
-
-        ctx.font = prevFont;
-        ctx.fillStyle = prevColor;
+        util.renderText(ctx,stringToDisplay,g_canvas.width/2,75,"24px Arial Bold",fillStyle,"center");
     },
 
     displayWinner : function ()
     {
-        // A render function for wind power
-        // Possibly not the best place to have this function
-
-        var prevFont = ctx.font;
-        var prevColor = ctx.fillStyle;
-
-
-        ctx.font="50px Arial Bold";
+        var fillStyle = "";
 
         if(this.winner === 1)
         {
-            ctx.fillStyle = "blue";
+            fillStyle = "blue";
         }
         else if(this.winner === 2)
         {
-            ctx.fillStyle = "red";
+            fillStyle = "red";
         }
 
-        var stringToDisplay = "Player " + this.winner + " wins !";
-        var stringX = util.centerText(stringToDisplay);
+        util.renderText(ctx,"Player " + this.winner + " wins !",g_canvas.width/2,g_canvas.height/3,"50px Arial Bold",fillStyle,"center");
 
-        ctx.fillText(stringToDisplay,stringX,200);
-
-        ctx.font="30px Arial Bold";
-        stringToDisplay = "Press Spacebar";
-        stringX = util.centerText(stringToDisplay);
-
-        ctx.fillText(stringToDisplay,stringX,300);
-        ctx.font = prevFont;
-        ctx.fillStyle = prevColor;
+        util.renderText(ctx,"Press Spacebar",g_canvas.width/2,g_canvas.height/2,"30px Arial Bold",fillStyle,"center");
 
         this.gameOver = true;
 
@@ -216,34 +182,21 @@ var turnHandler = {
 
     displayPressSpace : function ()
     {
-        // A render function for wind power
-        // Possibly not the best place to have this function
-
-        var prevFont = ctx.font;
-        var prevColor = ctx.fillStyle;
-
-
-        ctx.font="40px Arial Bold";
-
+        var fillStyle = "";
+        var stringToDisplay = "";
 
         if(this.lastPlayer === 1)
         {
-            ctx.fillStyle = "red";
-            var stringToDisplay = "Player 2 Press Spacebar";
+            fillStyle = "red";
+            stringToDisplay = "Player 2 Press Spacebar";
         }
         else if(this.lastPlayer === 2)
         {
-            ctx.fillStyle = "blue";
-            var stringToDisplay = "Player 1 Press Spacebar";
+            fillStyle = "blue";
+            stringToDisplay = "Player 1 Press Spacebar";
+
         }
-        
-        var stringX = util.centerText(stringToDisplay);
-
-        ctx.fillText(stringToDisplay,stringX,570);
-
-
-        ctx.font = prevFont;
-        ctx.fillStyle = prevColor;
+        util.renderText(ctx,stringToDisplay,g_canvas.width/2,g_canvas.height - 30,"40px Arial Bold",fillStyle,"center");
     },
 
     startGame : function()
